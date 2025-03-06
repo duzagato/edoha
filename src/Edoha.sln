@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35707.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Edoha.API", "Edoha\Edoha.API.csproj", "{2E3E8AF0-3A72-445B-AE7D-9F3245C47871}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Edoha.Application", "Edoha.Application\Edoha.Application.csproj", "{F6C7161F-51A8-4C02-9998-6BEDF08E7130}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Edoha.Domain", "Edoha.Domain\Edoha.Domain.csproj", "{0D8ECBD2-5325-42DB-B97A-4626329BECE3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Edoha.Infraestructure", "Edoha.Infraestructure\Edoha.Infraestructure.csproj", "{16C64E76-ACA8-4491-8FD2-5FD2996A0A28}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2E3E8AF0-3A72-445B-AE7D-9F3245C47871}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E3E8AF0-3A72-445B-AE7D-9F3245C47871}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E3E8AF0-3A72-445B-AE7D-9F3245C47871}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E3E8AF0-3A72-445B-AE7D-9F3245C47871}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6C7161F-51A8-4C02-9998-6BEDF08E7130}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6C7161F-51A8-4C02-9998-6BEDF08E7130}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6C7161F-51A8-4C02-9998-6BEDF08E7130}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6C7161F-51A8-4C02-9998-6BEDF08E7130}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D8ECBD2-5325-42DB-B97A-4626329BECE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D8ECBD2-5325-42DB-B97A-4626329BECE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D8ECBD2-5325-42DB-B97A-4626329BECE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D8ECBD2-5325-42DB-B97A-4626329BECE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16C64E76-ACA8-4491-8FD2-5FD2996A0A28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16C64E76-ACA8-4491-8FD2-5FD2996A0A28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16C64E76-ACA8-4491-8FD2-5FD2996A0A28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16C64E76-ACA8-4491-8FD2-5FD2996A0A28}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
