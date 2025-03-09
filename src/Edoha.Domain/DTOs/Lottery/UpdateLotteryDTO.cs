@@ -8,8 +8,11 @@ using System.Threading.Tasks;
 
 namespace Edoha.Domain.DTOs.Lottery
 {
-    public class CreateLotteryDTO
+    public class UpdateLotteryDTO
     {
+        [Required]
+        public int IdLottery { get; set; }
+
         [Required]
         public string NameLottery { get; set; }
 

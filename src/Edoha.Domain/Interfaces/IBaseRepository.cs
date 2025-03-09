@@ -10,5 +10,8 @@ namespace Edoha.Domain.Interfaces
         Task Insert(T entity);
         Task Update(T entity);
         Task DeleteById(int id);
+
+        Task<int> SelectCountById(int id);
+        Task<T> ValidateId(int id);
     }
 }

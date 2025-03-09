@@ -6,6 +6,16 @@
   },
   "paths": {
     "/Lottery": {
+      "get": {
+        "tags": [
+          "Lottery"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
       "post": {
         "tags": [
           "Lottery"
@@ -29,6 +39,79 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Lottery"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateLotteryDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateLotteryDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateLotteryDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Lottery/{id}": {
+      "get": {
+        "tags": [
+          "Lottery"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Lottery"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -77,55 +160,23 @@
           }
         }
       }
-    },
-    "/WeatherForecast": {
-      "get": {
-        "tags": [
-          "WeatherForecast"
-        ],
-        "operationId": "GetWeatherForecast",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
     }
   },
   "components": {
     "schemas": {
       "CreateLotteryDTO": {
+        "required": [
+          "doubleChanceLottery",
+          "nameLottery",
+          "numTicketbooksLottery",
+          "numTicketsTicketbookLottery",
+          "priceTicketLottery"
+        ],
         "type": "object",
         "properties": {
           "nameLottery": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "numTicketsTicketbookLottery": {
             "type": "integer",
@@ -145,25 +196,39 @@
         },
         "additionalProperties": false
       },
-      "WeatherForecast": {
+      "UpdateLotteryDTO": {
+        "required": [
+          "doubleChanceLottery",
+          "idLottery",
+          "nameLottery",
+          "numTicketbooksLottery",
+          "numTicketsTicketbookLottery",
+          "priceTicketLottery"
+        ],
         "type": "object",
         "properties": {
-          "date": {
-            "type": "string",
-            "format": "date"
-          },
-          "temperatureC": {
+          "idLottery": {
             "type": "integer",
             "format": "int32"
           },
-          "temperatureF": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true
+          "nameLottery": {
+            "minLength": 1,
+            "type": "string"
           },
-          "summary": {
-            "type": "string",
-            "nullable": true
+          "numTicketsTicketbookLottery": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "numTicketbooksLottery": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "priceTicketLottery": {
+            "type": "number",
+            "format": "double"
+          },
+          "doubleChanceLottery": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false

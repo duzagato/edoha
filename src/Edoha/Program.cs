@@ -15,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("Default");
 Console.WriteLine(connectionString);
 builder.Services.AddSingleton<IDbConnection>(sp => new SqlConnection(connectionString));
-
+ 
 // Registro de Repositórios
 builder.Services.AddScoped<ILotteryRepository, LotteryRepository>();
 
