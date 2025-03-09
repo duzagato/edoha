@@ -1,0 +1,238 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Edoha.API",
+    "version": "1.0"
+  },
+  "paths": {
+    "/Lottery": {
+      "get": {
+        "tags": [
+          "Lottery"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Lottery"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateLotteryDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateLotteryDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateLotteryDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Lottery"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateLotteryDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateLotteryDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateLotteryDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Lottery/{id}": {
+      "get": {
+        "tags": [
+          "Lottery"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Lottery"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/User": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "GetAllRifas",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CreateLotteryDTO": {
+        "required": [
+          "doubleChanceLottery",
+          "nameLottery",
+          "numTicketbooksLottery",
+          "numTicketsTicketbookLottery",
+          "priceTicketLottery"
+        ],
+        "type": "object",
+        "properties": {
+          "nameLottery": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "numTicketsTicketbookLottery": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "numTicketbooksLottery": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "priceTicketLottery": {
+            "type": "number",
+            "format": "double"
+          },
+          "doubleChanceLottery": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateLotteryDTO": {
+        "required": [
+          "doubleChanceLottery",
+          "idLottery",
+          "nameLottery",
+          "numTicketbooksLottery",
+          "numTicketsTicketbookLottery",
+          "priceTicketLottery"
+        ],
+        "type": "object",
+        "properties": {
+          "idLottery": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nameLottery": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "numTicketsTicketbookLottery": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "numTicketbooksLottery": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "priceTicketLottery": {
+            "type": "number",
+            "format": "double"
+          },
+          "doubleChanceLottery": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

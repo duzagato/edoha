@@ -1,0 +1,6 @@
+@Edoha_HostAddress = http://localhost:5249
+
+GET {{Edoha_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
