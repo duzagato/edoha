@@ -1,0 +1,48 @@
+using Edoha.Infrastructure;
+using Edoha.Infraestructure.Repositories;
+using Edoha.Infrastructure.Data.Context;
+using System.Data;
+using Microsoft.Data.SqlClient;
+using Edoha.Domain.Interfaces;
+using Edoha.Application.Services;
+
+
+var builder = WebApplication.CreateBuilder(args);
+
+
+// Conexão com o Banco de Dados
+var connectionString = builder.Configuration.GetConnectionString("Default");
+Console.WriteLine(connectionString);
+builder.Services.AddSingleton<IDbConnection>(sp => new SqlConnection(connectionString));
+ 
+// Registro de Repositórios
+builder.Services.AddScoped<ILotteryRepository, LotteryRepository>();
+builder.Services.AddScoped<ITicketRepository, TicketRepository>();
+builder.Services.AddScoped<ITicketbookRepository, TicketbookRepository>();
+builder.Services.AddScoped<IStatusTicketbookRepository, StatusTicketbookRepository>();
+
+// Registro de serviços
+builder.Services.AddScoped<LotteryService>();
+builder.Services.AddScoped<TicketService>();
+builder.Services.AddScoped<TicketbookService>();
+
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+
+var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();

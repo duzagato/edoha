@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "Edoha.Domain/1.0.0": {
+        "runtime": {
+          "Edoha.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Edoha.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

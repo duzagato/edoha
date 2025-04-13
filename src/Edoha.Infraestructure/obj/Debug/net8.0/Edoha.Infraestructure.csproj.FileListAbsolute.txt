@@ -1,0 +1,15 @@
+C:\Users\Eduardo\source\repos\Edoha\Edoha.Infraestructure\bin\Debug\net8.0\Edoha.Infraestructure.deps.json
+C:\Users\Eduardo\source\repos\Edoha\Edoha.Infraestructure\bin\Debug\net8.0\Edoha.Infraestructure.dll
+C:\Users\Eduardo\source\repos\Edoha\Edoha.Infraestructure\bin\Debug\net8.0\Edoha.Infraestructure.pdb
+C:\Users\Eduardo\source\repos\Edoha\Edoha.Infraestructure\bin\Debug\net8.0\Edoha.Domain.dll
+C:\Users\Eduardo\source\repos\Edoha\Edoha.Infraestructure\bin\Debug\net8.0\Edoha.Domain.pdb
+C:\Users\Eduardo\source\repos\Edoha\Edoha.Infraestructure\obj\Debug\net8.0\Edoha.Infraestructure.csproj.AssemblyReference.cache
+C:\Users\Eduardo\source\repos\Edoha\Edoha.Infraestructure\obj\Debug\net8.0\Edoha.Infraestructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Eduardo\source\repos\Edoha\Edoha.Infraestructure\obj\Debug\net8.0\Edoha.Infraestructure.AssemblyInfoInputs.cache
+C:\Users\Eduardo\source\repos\Edoha\Edoha.Infraestructure\obj\Debug\net8.0\Edoha.Infraestructure.AssemblyInfo.cs
+C:\Users\Eduardo\source\repos\Edoha\Edoha.Infraestructure\obj\Debug\net8.0\Edoha.Infraestructure.csproj.CoreCompileInputs.cache
+C:\Users\Eduardo\source\repos\Edoha\Edoha.Infraestructure\obj\Debug\net8.0\Edoha.In.EC720BE4.Up2Date
+C:\Users\Eduardo\source\repos\Edoha\Edoha.Infraestructure\obj\Debug\net8.0\Edoha.Infraestructure.dll
+C:\Users\Eduardo\source\repos\Edoha\Edoha.Infraestructure\obj\Debug\net8.0\refint\Edoha.Infraestructure.dll
+C:\Users\Eduardo\source\repos\Edoha\Edoha.Infraestructure\obj\Debug\net8.0\Edoha.Infraestructure.pdb
+C:\Users\Eduardo\source\repos\Edoha\Edoha.Infraestructure\obj\Debug\net8.0\ref\Edoha.Infraestructure.dll

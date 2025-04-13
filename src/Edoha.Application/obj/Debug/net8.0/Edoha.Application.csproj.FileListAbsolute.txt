@@ -1,0 +1,15 @@
+C:\Users\Eduardo\source\repos\Edoha\Edoha.Application\bin\Debug\net8.0\Edoha.Application.deps.json
+C:\Users\Eduardo\source\repos\Edoha\Edoha.Application\bin\Debug\net8.0\Edoha.Application.dll
+C:\Users\Eduardo\source\repos\Edoha\Edoha.Application\bin\Debug\net8.0\Edoha.Application.pdb
+C:\Users\Eduardo\source\repos\Edoha\Edoha.Application\bin\Debug\net8.0\Edoha.Domain.dll
+C:\Users\Eduardo\source\repos\Edoha\Edoha.Application\bin\Debug\net8.0\Edoha.Domain.pdb
+C:\Users\Eduardo\source\repos\Edoha\Edoha.Application\obj\Debug\net8.0\Edoha.Application.csproj.AssemblyReference.cache
+C:\Users\Eduardo\source\repos\Edoha\Edoha.Application\obj\Debug\net8.0\Edoha.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Eduardo\source\repos\Edoha\Edoha.Application\obj\Debug\net8.0\Edoha.Application.AssemblyInfoInputs.cache
+C:\Users\Eduardo\source\repos\Edoha\Edoha.Application\obj\Debug\net8.0\Edoha.Application.AssemblyInfo.cs
+C:\Users\Eduardo\source\repos\Edoha\Edoha.Application\obj\Debug\net8.0\Edoha.Application.csproj.CoreCompileInputs.cache
+C:\Users\Eduardo\source\repos\Edoha\Edoha.Application\obj\Debug\net8.0\Edoha.Ap.6DBA43B5.Up2Date
+C:\Users\Eduardo\source\repos\Edoha\Edoha.Application\obj\Debug\net8.0\Edoha.Application.dll
+C:\Users\Eduardo\source\repos\Edoha\Edoha.Application\obj\Debug\net8.0\refint\Edoha.Application.dll
+C:\Users\Eduardo\source\repos\Edoha\Edoha.Application\obj\Debug\net8.0\Edoha.Application.pdb
+C:\Users\Eduardo\source\repos\Edoha\Edoha.Application\obj\Debug\net8.0\ref\Edoha.Application.dll
