@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ValueObjects\" />
+    <ProjectReference Include="..\Edoha.Shared\Edoha.Shared.csproj" />
   </ItemGroup>
 
 </Project>

@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Edoha.Domain\Edoha.Domain.csproj" />
+    <ProjectReference Include="..\Edoha.Shared\Edoha.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>

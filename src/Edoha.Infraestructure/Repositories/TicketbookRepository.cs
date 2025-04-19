@@ -1,5 +1,4 @@
 ﻿using Edoha.Domain.Entities;
-using Edoha.Domain.Interfaces;
 using Edoha.Infraestructure.Helpers;
 using Edoha.Infrastructure.Repositories;
 using System;
@@ -9,6 +8,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Edoha.Domain.Interfaces.Repositories;
 
 namespace Edoha.Infraestructure.Repositories
 {

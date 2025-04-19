@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Edoha.Infraestructure.Util;
 
 namespace Edoha.Domain.Entities
 {
@@ -16,10 +15,5 @@ namespace Edoha.Domain.Entities
         public byte[] PasswordUser { get; set; } // password_user (varbinary)
         public int IdUserType { get; set; } // id_user_type
         public DateTime InsertionUser { get; set; } 
-
-        public void CryptoPass()
-        {
-            Crypto crypto = new Crypto();
-        }
     }
 }

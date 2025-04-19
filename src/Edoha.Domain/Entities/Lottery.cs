@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Edoha.Domain.Annotations.Numerical;
+using Edoha.Shared.Annotations.Numerical;
 
 namespace Edoha.Domain.Entities
 {

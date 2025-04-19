@@ -1317,11 +1317,24 @@
       "Edoha.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "Edoha.Shared": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/Edoha.Domain.dll": {}
         },
         "runtime": {
           "bin/placeholder/Edoha.Domain.dll": {}
+        }
+      },
+      "Edoha.Shared/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/Edoha.Shared.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Edoha.Shared.dll": {}
         }
       }
     }
@@ -3205,12 +3218,18 @@
       "type": "project",
       "path": "../Edoha.Domain/Edoha.Domain.csproj",
       "msbuildProject": "../Edoha.Domain/Edoha.Domain.csproj"
+    },
+    "Edoha.Shared/1.0.0": {
+      "type": "project",
+      "path": "../Edoha.Shared/Edoha.Shared.csproj",
+      "msbuildProject": "../Edoha.Shared/Edoha.Shared.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
       "Dapper >= 2.1.66",
       "Edoha.Domain >= 1.0.0",
+      "Edoha.Shared >= 1.0.0",
       "Humanizer >= 2.14.1",
       "Microsoft.Data.SqlClient >= 6.0.1",
       "System.Data.SqlClient >= 4.9.0"
@@ -3251,6 +3270,9 @@
           "projectReferences": {
             "C:\\Users\\Eduardo\\source\\repos\\Edoha\\Edoha.Domain\\Edoha.Domain.csproj": {
               "projectPath": "C:\\Users\\Eduardo\\source\\repos\\Edoha\\Edoha.Domain\\Edoha.Domain.csproj"
+            },
+            "C:\\Users\\Eduardo\\source\\repos\\Edoha\\Edoha.Shared\\Edoha.Shared.csproj": {
+              "projectPath": "C:\\Users\\Eduardo\\source\\repos\\Edoha\\Edoha.Shared\\Edoha.Shared.csproj"
             }
           }
         }

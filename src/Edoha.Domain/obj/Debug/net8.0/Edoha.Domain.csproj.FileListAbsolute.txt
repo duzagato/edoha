@@ -9,3 +9,7 @@ C:\Users\Eduardo\source\repos\Edoha\Edoha.Domain\obj\Debug\net8.0\Edoha.Domain.d
 C:\Users\Eduardo\source\repos\Edoha\Edoha.Domain\obj\Debug\net8.0\refint\Edoha.Domain.dll
 C:\Users\Eduardo\source\repos\Edoha\Edoha.Domain\obj\Debug\net8.0\Edoha.Domain.pdb
 C:\Users\Eduardo\source\repos\Edoha\Edoha.Domain\obj\Debug\net8.0\ref\Edoha.Domain.dll
+C:\Users\Eduardo\source\repos\Edoha\Edoha.Domain\obj\Debug\net8.0\Edoha.Domain.csproj.AssemblyReference.cache
+C:\Users\Eduardo\source\repos\Edoha\Edoha.Domain\bin\Debug\net8.0\Edoha.Shared.dll
+C:\Users\Eduardo\source\repos\Edoha\Edoha.Domain\bin\Debug\net8.0\Edoha.Shared.pdb
+C:\Users\Eduardo\source\repos\Edoha\Edoha.Domain\obj\Debug\net8.0\Edoha.Do.41BA1604.Up2Date

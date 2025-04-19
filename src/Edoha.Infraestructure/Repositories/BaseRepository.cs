@@ -3,19 +3,17 @@ using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 using Dapper;
-using Humanizer;
-using Edoha.Infrastructure.Data.Context;
-using Edoha.Infraestructure.Helpers;
-using Edoha.Domain.Interfaces;
-using static Dapper.SqlMapper;
 using System.Reflection;
-using Edoha.Infraestructure.Repositories;
 using System.Net.Http.Headers;
-using Edoha.Domain.DTOs;
+using Edoha.Domain.Interfaces;
+using Edoha.Domain.Models.Requests;
+using Edoha.Infrastructure.Data.Context;
+using Edoha.Shared.Helpers;
+using Edoha.Domain.Interfaces.Repositories;
 
 namespace Edoha.Infrastructure.Repositories
 {
-    public abstract class BaseRepository<T> where T : class
+    public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
     {
         protected readonly IDbConnection _connection;
         protected readonly string _tableName;
@@ -49,11 +47,12 @@ namespace Edoha.Infrastructure.Repositories
             }
         }
 
-        public async Task<T> SelectById(int id)
+        public async Task<T?> SelectById(int id)
         {
             Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true; 
             this.CheckConnection();
             var query = $"SELECT * FROM {_schema}.{_tableName} WHERE {_idColumnSnakeCase} = @Id";
+
             return await _connection.QueryFirstOrDefaultAsync<T>(query, new { Id = id });
         }
 
@@ -62,11 +61,11 @@ namespace Edoha.Infrastructure.Repositories
             Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
             this.CheckConnection();
             var query = $"SELECT * FROM {_schema}.{_tableName}";
-            Console.WriteLine(query);
+
             return await _connection.QueryAsync<T>(query);
         }
 
-        public async Task Update(DTO dto)
+        public async Task Update(Request dto)
         {
             this.CheckConnection();
             var properties = dto.GetProperties(_idColumnPascalCase);
@@ -83,7 +82,7 @@ namespace Edoha.Infrastructure.Repositories
             
         }
 
-        public async Task Insert(DTO dto)
+        public async Task Insert(Request dto)
         {
             try
             {
@@ -105,7 +104,7 @@ namespace Edoha.Infrastructure.Repositories
         {
             this.CheckConnection();
             var query = $"DELETE FROM {_schema}.{_tableName} WHERE {_idColumnSnakeCase} = @Id";
-            Console.WriteLine(query);
+
             await _connection.ExecuteAsync(query, new { Id = id });
         }
 
