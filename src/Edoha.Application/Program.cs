@@ -23,9 +23,10 @@ builder.Services.AddScoped<ITicketbookRepository, TicketbookRepository>();
 builder.Services.AddScoped<IStatusTicketbookRepository, StatusTicketbookRepository>();
 
 // Registro de serviços
-builder.Services.AddScoped<LotteryService>();
-builder.Services.AddScoped<TicketService>();
-builder.Services.AddScoped<TicketbookService>();
+builder.Services.AddScoped<ILotteryService, LotteryService>();
+builder.Services.AddScoped<ITicketService, TicketService>();
+builder.Services.AddScoped<ITicketbookService, TicketbookService>();
+
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
