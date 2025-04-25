@@ -1,6 +1,4 @@
-using Edoha.Infraestructure;
 using Edoha.Infraestructure.Repositories;
-using Edoha.Infrastructure.Data.Context;
 using System.Data;
 using Microsoft.Data.SqlClient;
 using Edoha.Domain.Services;
@@ -11,18 +9,18 @@ using Edoha.Domain.Interfaces.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 
-// Conex„o com o Banco de Dados
+// Conex√£o com o Banco de Dados
 var connectionString = builder.Configuration.GetConnectionString("Default");
 Console.WriteLine(connectionString);
 builder.Services.AddSingleton<IDbConnection>(sp => new SqlConnection(connectionString));
  
-// Registro de RepositÛrios
+// Registro de Reposit√≥rios
 builder.Services.AddScoped<ILotteryRepository, LotteryRepository>();
 builder.Services.AddScoped<ITicketRepository, TicketRepository>();
 builder.Services.AddScoped<ITicketbookRepository, TicketbookRepository>();
 builder.Services.AddScoped<IStatusTicketbookRepository, StatusTicketbookRepository>();
 
-// Registro de serviÁos
+// Registro de servi√ßos
 builder.Services.AddScoped<ILotteryService, LotteryService>();
 builder.Services.AddScoped<ITicketService, TicketService>();
 builder.Services.AddScoped<ITicketbookService, TicketbookService>();

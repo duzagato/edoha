@@ -1,23 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Edoha.Domain.Entities
 {
     [Table("Ticketbook", Schema = "RIFAS")]
-    public class Ticketbook
+    public class Ticketbook: Entity
     {
-        public int IdTicketbook { get; set; }
         public int IdLottery { get; set; }
         public int? IdOwner { get; set; }
         public int? IdHolder { get; set; }
-        public int IdStatusTicketbook { get; set; }
-        public int NumberTicketbook { get; set; }
-        public DateTime InsertionDateTicketbook { get; set; }
-        public DateTime? WithdrawnDateTicketbook { get; set; }
-        public DateTime? DevolutionDateTicketbook { get; set; }
+        public int IdStatus{ get; set; }
+        public int Number { get; set; }
+        public DateTime? WithdrawnDate { get; set; }
+        public DateTime? DevolutionDate { get; set; }
     }
 }
+// IdOwner e IdHolder vem User
