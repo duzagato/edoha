@@ -9,11 +9,11 @@ namespace Edoha.Domain.Entities
     public  class User
     {
         public int IdUser { get; set; }
-        public string NameUser { get; set; } // name_user
-        public string PhoneUser { get; set; } // phone_user
-        public string NicknameUser { get; set; } // nickname_user
-        public byte[] PasswordUser { get; set; } // password_user (varbinary)
-        public int IdUserType { get; set; } // id_user_type
+        public string NameUser { get; set; }
+        public string PhoneUser { get; set; }
+        public string NicknameUser { get; set; }
+        public byte[] PasswordUser { get; set; }
+        public int IdUserType { get; set; }
         public DateTime InsertionUser { get; set; } 
     }
 }

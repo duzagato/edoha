@@ -10,6 +10,7 @@ namespace Edoha.Domain.Models.Requests.UserType
 {
     public class CreateUserTypeRequest : Request
     {
-
+        [Required]
+        public string? NameUserType { get; set; }
     }
 }

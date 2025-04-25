@@ -13,11 +13,11 @@ namespace Edoha.Infraestructure.Util
         private const int SaltSize = 16;
         private const int HashSize = 32;
         private const int Iterations = 100000;
-        private readonly string _unhashedValue;
+        private string UnhashedValue;
 
-        public Crypto(string unhashedValue)
+        public void SetUnhashedValue(string unhashedValue)
         {
-            _unhashedValue = unhashedValue;
+            this.UnhashedValue = unhashedValue;
         }
 
         public byte[] GetPBKDF2()
@@ -27,7 +27,7 @@ namespace Edoha.Infraestructure.Util
                 byte[] salt = new byte[SaltSize];
                 rng.GetBytes(salt); 
 
-                using (var pbkdf2 = new Rfc2898DeriveBytes(_unhashedValue, salt, Iterations, HashAlgorithmName.SHA256))
+                using (var pbkdf2 = new Rfc2898DeriveBytes(UnhashedValue, salt, Iterations, HashAlgorithmName.SHA256))
                 {
                     byte[] hash = pbkdf2.GetBytes(HashSize);
 

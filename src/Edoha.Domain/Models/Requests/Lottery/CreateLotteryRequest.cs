@@ -12,7 +12,7 @@ namespace Edoha.Domain.Models.Requests.Lottery
     public class CreateLotteryRequest : Request
     {
         [Required]
-        public string NameLottery { get; set; }
+        public string? NameLottery { get; set; }
 
         [Required]
         [Min(1)]

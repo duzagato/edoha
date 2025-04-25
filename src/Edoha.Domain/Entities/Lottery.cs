@@ -13,7 +13,7 @@ namespace Edoha.Domain.Entities
     public class Lottery
     {
         public int IdLottery { get; set; }
-        public string NameLottery { get; set; }
+        public string? NameLottery { get; set; }
         public int NumTicketsTicketbookLottery { get; set; }
         public int NumTicketbooksLottery { get; set; }
         public decimal PriceTicketLottery { get; set; }

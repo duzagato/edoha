@@ -8,6 +8,7 @@ namespace Edoha.Domain.Interfaces.Util
 {
     public interface ICrypto
     {
-        public Byte[] GetPBKDF2();
+        public void SetUnhashedValue(string password);
+        public byte[] GetPBKDF2();
     }
 }

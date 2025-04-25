@@ -418,8 +418,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "request",
-        "Type": "Edoha.Domain.Models.Requests.User.CreateUserRequest",
+        "Name": "model",
+        "Type": "Edoha.Domain.Models.InputModels.User.CreateUserInputModel",
         "IsRequired": true
       }
     ],

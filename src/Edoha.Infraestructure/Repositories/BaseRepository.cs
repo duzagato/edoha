@@ -28,7 +28,8 @@ namespace Edoha.Infrastructure.Repositories
 
             _connection = connection;
             _schema = RepositoryHelper.GetSchema<T>();
-            _tableName = tableName.ToLower();
+            _tableName = StringHelper.PascalToSnakeCase(tableName);
+            Console.WriteLine(_tableName);
             _idColumnPascalCase = RepositoryHelper.GetIdColumnName(tableName);
             _idColumnSnakeCase = StringHelper.PascalToSnakeCase(_idColumnPascalCase);
             _properties = RepositoryHelper.GetProperties<T>(_idColumnPascalCase);
@@ -82,21 +83,22 @@ namespace Edoha.Infrastructure.Repositories
             
         }
 
-        public async Task Insert(Request dto)
+        public async Task Insert(Request request)
         {
             try
             {
                 this.CheckConnection();
-                var properties = dto.GetProperties(_idColumnPascalCase);
+                var properties = request.GetProperties(_idColumnPascalCase);
                 var columns = string.Join(", ", properties.Select(p => StringHelper.PascalToSnakeCase(p.Name)));
                 var values = string.Join(", ", properties.Select(p => $"@{p.Name}"));
 
-                var query = $"INSERT INTO {_schema}.{_tableName} ({columns}) VALUES ({values})";
-                await _connection.ExecuteAsync(query, dto);
+                var query = $"INSERT INTO [{_schema}].[{_tableName}] ({columns}) VALUES ({values})";
+                Console.WriteLine(query);
+                await _connection.ExecuteAsync(query, request);
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex);
             }
         }
 
@@ -129,6 +131,24 @@ namespace Edoha.Infrastructure.Repositories
                     return entity;
                 }
                 else
+                {
+                    throw new KeyNotFoundException("Rifa não encontrada");
+                }
+            }
+            else
+            {
+                throw new ArgumentException("O ID enviado está inválido");
+            }
+        }
+
+        public async Task VerifyIdExist(int? id)
+        {
+            Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
+
+            if (id != null && id > 0)
+            {
+                var entity = await this.SelectById((int)id);
+                if (entity == null)
                 {
                     throw new KeyNotFoundException("Rifa não encontrada");
                 }

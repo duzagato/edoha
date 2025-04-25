@@ -3,6 +3,8 @@ using Edoha.Domain.Interfaces.Services;
 using Edoha.Domain.Entities;
 using System.Net.Sockets;
 using Edoha.Domain.Models.Requests.User;
+using Edoha.Domain.Models.InputModels;
+using Edoha.Domain.Models.InputModels.User;
 
 namespace Edoha.Controllers
 {
@@ -69,13 +71,13 @@ namespace Edoha.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateUserRequest request)
+        public async Task<IActionResult> Create([FromBody] CreateUserInputModel model)
         {
-            if(request != null)
+            if(model != null)
             {
                 try
                 {
-                    await _userService.InsertUser(request);
+                    await _userService.InsertUser(model);
                     return Ok();
                 }
                 catch (Exception ex)

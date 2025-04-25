@@ -10,6 +10,10 @@ namespace Edoha.Domain.Models.Requests.User
 {
     public class CreateUserRequest : Request
     {
-
+        public string NameUser { get; set; }
+        public string PhoneUser { get; set; }
+        public string NicknameUser { get; set; }
+        public byte[] PasswordUser { get; set; }
+        public int IdUserType { get; set; }
     }
 }

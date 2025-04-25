@@ -594,17 +594,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateUserRequest"
+                "$ref": "#/components/schemas/CreateUserInputModel"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateUserRequest"
+                "$ref": "#/components/schemas/CreateUserInputModel"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateUserRequest"
+                "$ref": "#/components/schemas/CreateUserInputModel"
               }
             }
           }
@@ -1031,16 +1031,47 @@
         },
         "additionalProperties": false
       },
+      "CreateUserInputModel": {
+        "type": "object",
+        "properties": {
+          "nameUser": {
+            "type": "string",
+            "nullable": true
+          },
+          "phoneUser": {
+            "type": "string",
+            "nullable": true
+          },
+          "nicknameUser": {
+            "type": "string",
+            "nullable": true
+          },
+          "unhashedPassword": {
+            "type": "string",
+            "nullable": true
+          },
+          "idUserType": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
       "CreateUserInstitutionRequest": {
         "type": "object",
         "additionalProperties": false
       },
-      "CreateUserRequest": {
-        "type": "object",
-        "additionalProperties": false
-      },
       "CreateUserTypeRequest": {
+        "required": [
+          "nameUserType"
+        ],
         "type": "object",
+        "properties": {
+          "nameUserType": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
         "additionalProperties": false
       },
       "UpdateInstitutionRequest": {
@@ -1150,7 +1181,16 @@
         "additionalProperties": false
       },
       "UpdateUserTypeRequest": {
+        "required": [
+          "nameUserType"
+        ],
         "type": "object",
+        "properties": {
+          "nameUserType": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
         "additionalProperties": false
       }
     }
