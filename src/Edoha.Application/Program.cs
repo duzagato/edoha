@@ -4,6 +4,8 @@ using Microsoft.Data.SqlClient;
 using Edoha.Domain.Services;
 using Edoha.Domain.Interfaces.Repositories;
 using Edoha.Domain.Interfaces.Services;
+using Edoha.Infraestructure.Data.Context;
+using Microsoft.EntityFrameworkCore;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +15,13 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("Default");
 Console.WriteLine(connectionString);
 builder.Services.AddSingleton<IDbConnection>(sp => new SqlConnection(connectionString));
- 
+
+// Adiciona configuração do drive psql
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("Default"))
+); 
+
+
 // Registro de Repositórios
 builder.Services.AddScoped<ILotteryRepository, LotteryRepository>();
 builder.Services.AddScoped<ITicketRepository, TicketRepository>();
