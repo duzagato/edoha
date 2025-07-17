@@ -1,0 +1,25 @@
+name: PR para develop
+
+on:
+  push:
+    branches:
+      - 'feature/*'
+      - 'fix/*'
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checar repositório
+        uses: actions/checkout@v4
+
+      - name: Criar PR para develop
+        run: |
+          gh pr create \
+            --title "Merge $(basename $GITHUB_REF) into develop" \
+            --body "Auto PR gerada pelo push" \
+            --base develop \
+            --head ${GITHUB_REF#refs/heads/} \
+            --label "auto-pr" \
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

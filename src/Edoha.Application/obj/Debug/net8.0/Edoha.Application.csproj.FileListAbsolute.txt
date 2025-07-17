@@ -284,3 +284,4 @@ C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Application\obj\Debug
 C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Application\obj\Debug\net8.0\Edoha.Application.pdb
 C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Application\obj\Debug\net8.0\Edoha.Application.genruntimeconfig.cache
 C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Application\obj\Debug\net8.0\ref\Edoha.Application.dll
+C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Application\obj\Debug\net8.0\Edoha.Application.MvcApplicationPartsAssemblyInfo.cs

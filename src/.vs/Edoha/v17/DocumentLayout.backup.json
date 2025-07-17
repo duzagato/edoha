@@ -42,8 +42,7 @@
               "RelativeToolTip": "Edoha.Application\\DependencyInjection\\ServiceInjection.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-17T05:03:20.613Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-17T05:03:20.613Z"
             },
             {
               "$type": "Document",
@@ -55,8 +54,7 @@
               "RelativeToolTip": "Edoha.Domain\\Services\\LotteryService.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAAABUAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-17T05:01:14.298Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-17T05:01:14.298Z"
             },
             {
               "$type": "Document",
@@ -68,8 +66,7 @@
               "RelativeToolTip": "Edoha.Domain\\Interfaces\\Services\\ILotteryService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-17T05:01:01.692Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-17T05:01:01.692Z"
             },
             {
               "$type": "Document",
@@ -94,8 +91,7 @@
               "RelativeToolTip": "Edoha.Application\\ServiceCollection.cs",
               "ViewState": "AgIAAA8AAAAAAAAAAAAYwBYAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-17T04:58:44.353Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-17T04:58:44.353Z"
             }
           ]
         }
