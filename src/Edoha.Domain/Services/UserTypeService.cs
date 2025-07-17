@@ -1,8 +1,9 @@
-﻿using Edoha.Shared.Helpers;
-using Edoha.Domain.Entities;
+﻿using Edoha.Domain.Entities;
+using Edoha.Domain.Interfaces.Context;
 using Edoha.Domain.Interfaces.Repositories;
 using Edoha.Domain.Interfaces.Services;
-using Edoha.Domain.Models.Requests.UserType;
+using Edoha.Domain.Models.DTOs.UserType;
+using Edoha.Shared.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,14 +16,16 @@ namespace Edoha.Domain.Services
     public class UserTypeService : Service<UserType>, IUserTypeService
     {
 
-        public UserTypeService(IUserTypeRepository repository) : base(repository) { }
+        public UserTypeService(IUserTypeRepository repository,
+            IRequestValidationContext requestValidationContext
+            ) : base(repository, requestValidationContext) { }
 
-        public async Task InsertUserType(CreateUserTypeRequest request)
+        public async Task InsertUserType(CreateUserTypeDTO dto)
         {
-            await this.Insert(request);
+            await this.Insert(dto);
         }
 
-        public async Task<UserType> SelectUserTypeById(int id)
+        public async Task<UserType> SelectUserTypeById(Guid id)
         {
             return await _repository.SelectById(id);
         }
@@ -32,12 +35,12 @@ namespace Edoha.Domain.Services
             return await _repository.SelectAll();
         }
 
-        public async Task UpdateUserTypeById(UpdateUserTypeRequest request)
+        public async Task UpdateUserTypeById(UpdateUserTypeDTO dto)
         {
-            await this.Update(request);
+            await this.Update(dto);
         }
 
-        public async Task DeleteUserTypeById(int id)
+        public async Task DeleteUserTypeById(Guid id)
         {
             await this.DeleteById(id);
         }

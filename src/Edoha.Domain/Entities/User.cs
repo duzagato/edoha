@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 
 namespace Edoha.Domain.Entities
 {
-    public  class User
+    public  class User : Entity
     {
-        public int IdUser { get; set; }
-        public string NameUser { get; set; }
-        public string PhoneUser { get; set; }
-        public string NicknameUser { get; set; }
-        public byte[] PasswordUser { get; set; }
-        public int IdUserType { get; set; }
-        public DateTime InsertionUser { get; set; } 
+        public string Name { get; set; }
+        public string? Phone { get; set; }
+        public string? Nickname { get; set; }
+        public byte[]? PasswordUser { get; set; }
+        public Guid IdUserType { get; set; }
     }
 }

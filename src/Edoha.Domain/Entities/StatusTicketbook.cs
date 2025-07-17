@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Edoha.Domain.Entities
 {
-    public class StatusTicketbook
+    public class StatusTicketbook : Entity
     {
-        public int IdStatusTicketbook { get; set; }
-        public string NameStatusTicketbook { get; set; }
-        public DateTime InsertionStatusTicketbook { get; set; }
+        [Required]
+        public string Name { get; set; }
     }
 }

@@ -1,0 +1,42 @@
+# Ignore bin and obj folders
+bin/
+obj/
+
+# Ignore build results
+*.exe
+*.dll
+*.pdb
+
+# Ignore user-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Ignore Visual Studio cache
+.vs/
+
+# Ignore temporary files
+*.log
+*.tmp
+
+# Ignore Rider IDE configs
+.idea/
+
+# Ignore local configuration files
+*.env
+*.local.json
+
+# Ignore Test results
+TestResults/
+*.coverage
+*.coveragexml
+
+# Ignore ReSharper files
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+# Ignore NuGet packages
+*.nupkg
+*.snupkg
+packages/

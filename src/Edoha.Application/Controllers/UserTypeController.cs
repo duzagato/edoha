@@ -2,7 +2,7 @@
 using Edoha.Domain.Interfaces.Services;
 using Edoha.Domain.Entities;
 using System.Net.Sockets;
-using Edoha.Domain.Models.Requests.UserType;
+using Edoha.Domain.Models.DTOs.UserType;
 
 namespace Edoha.Controllers
 {
@@ -42,7 +42,7 @@ namespace Edoha.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetById(Guid id)
         {
             try
             {
@@ -69,7 +69,7 @@ namespace Edoha.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateUserTypeRequest request)
+        public async Task<IActionResult> Create([FromBody] CreateUserTypeDTO request)
         {
             if(request != null)
             {
@@ -95,7 +95,7 @@ namespace Edoha.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] UpdateUserTypeRequest request)
+        public async Task<IActionResult> Update([FromBody] UpdateUserTypeDTO request)
         {
             if (request != null)
             {
@@ -121,7 +121,7 @@ namespace Edoha.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task DeleteById(int id)
+        public async Task DeleteById(Guid id)
         {
             await _userTypeService.DeleteUserTypeById(id);
         }

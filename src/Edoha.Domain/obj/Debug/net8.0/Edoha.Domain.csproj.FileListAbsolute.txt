@@ -13,3 +13,19 @@ C:\Users\Eduardo\source\repos\Edoha\Edoha.Domain\obj\Debug\net8.0\Edoha.Domain.c
 C:\Users\Eduardo\source\repos\Edoha\Edoha.Domain\bin\Debug\net8.0\Edoha.Shared.dll
 C:\Users\Eduardo\source\repos\Edoha\Edoha.Domain\bin\Debug\net8.0\Edoha.Shared.pdb
 C:\Users\Eduardo\source\repos\Edoha\Edoha.Domain\obj\Debug\net8.0\Edoha.Do.41BA1604.Up2Date
+C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Domain\obj\Debug\net8.0\Edoha.Domain.csproj.AssemblyReference.cache
+C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Domain\obj\Debug\net8.0\Edoha.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Domain\obj\Debug\net8.0\Edoha.Domain.AssemblyInfoInputs.cache
+C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Domain\obj\Debug\net8.0\Edoha.Domain.AssemblyInfo.cs
+C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Domain\obj\Debug\net8.0\Edoha.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Domain\obj\Debug\net8.0\Edoha.Domain.sourcelink.json
+C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Domain\bin\Debug\net8.0\Edoha.Domain.deps.json
+C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Domain\bin\Debug\net8.0\Edoha.Domain.dll
+C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Domain\bin\Debug\net8.0\Edoha.Domain.pdb
+C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Domain\bin\Debug\net8.0\Edoha.Shared.dll
+C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Domain\bin\Debug\net8.0\Edoha.Shared.pdb
+C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Domain\obj\Debug\net8.0\Edoha.Do.41BA1604.Up2Date
+C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Domain\obj\Debug\net8.0\Edoha.Domain.dll
+C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Domain\obj\Debug\net8.0\refint\Edoha.Domain.dll
+C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Domain\obj\Debug\net8.0\Edoha.Domain.pdb
+C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Domain\obj\Debug\net8.0\ref\Edoha.Domain.dll

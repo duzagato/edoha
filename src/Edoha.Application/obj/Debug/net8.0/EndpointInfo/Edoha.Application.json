@@ -24,17 +24,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateInstitutionRequest"
+                "$ref": "#/components/schemas/CreateInstitutionDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateInstitutionRequest"
+                "$ref": "#/components/schemas/CreateInstitutionDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateInstitutionRequest"
+                "$ref": "#/components/schemas/CreateInstitutionDTO"
               }
             }
           }
@@ -53,17 +53,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateInstitutionRequest"
+                "$ref": "#/components/schemas/UpdateInstitutionDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateInstitutionRequest"
+                "$ref": "#/components/schemas/UpdateInstitutionDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateInstitutionRequest"
+                "$ref": "#/components/schemas/UpdateInstitutionDTO"
               }
             }
           }
@@ -86,8 +86,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -107,8 +107,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -138,17 +138,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateLotteryRequest"
+                "$ref": "#/components/schemas/CreateLotteryDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateLotteryRequest"
+                "$ref": "#/components/schemas/CreateLotteryDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateLotteryRequest"
+                "$ref": "#/components/schemas/CreateLotteryDTO"
               }
             }
           }
@@ -167,17 +167,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateLotteryRequest"
+                "$ref": "#/components/schemas/UpdateLotteryDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateLotteryRequest"
+                "$ref": "#/components/schemas/UpdateLotteryDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateLotteryRequest"
+                "$ref": "#/components/schemas/UpdateLotteryDTO"
               }
             }
           }
@@ -200,8 +200,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -221,8 +221,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -252,17 +252,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateStatusTicketbookRequest"
+                "$ref": "#/components/schemas/CreateStatusTicketbookDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateStatusTicketbookRequest"
+                "$ref": "#/components/schemas/CreateStatusTicketbookDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateStatusTicketbookRequest"
+                "$ref": "#/components/schemas/CreateStatusTicketbookDTO"
               }
             }
           }
@@ -281,17 +281,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateStatusTicketbookRequest"
+                "$ref": "#/components/schemas/UpdateStatusTicketbookDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateStatusTicketbookRequest"
+                "$ref": "#/components/schemas/UpdateStatusTicketbookDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateStatusTicketbookRequest"
+                "$ref": "#/components/schemas/UpdateStatusTicketbookDTO"
               }
             }
           }
@@ -314,8 +314,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -335,8 +335,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -366,17 +366,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateTicketRequest"
+                "$ref": "#/components/schemas/CreateTicketDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateTicketRequest"
+                "$ref": "#/components/schemas/CreateTicketDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateTicketRequest"
+                "$ref": "#/components/schemas/CreateTicketDTO"
               }
             }
           }
@@ -395,17 +395,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateTicketRequest"
+                "$ref": "#/components/schemas/UpdateTicketDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateTicketRequest"
+                "$ref": "#/components/schemas/UpdateTicketDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateTicketRequest"
+                "$ref": "#/components/schemas/UpdateTicketDTO"
               }
             }
           }
@@ -428,8 +428,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -449,8 +449,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -480,17 +480,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateTicketbookRequest"
+                "$ref": "#/components/schemas/CreateTicketbookDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateTicketbookRequest"
+                "$ref": "#/components/schemas/CreateTicketbookDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateTicketbookRequest"
+                "$ref": "#/components/schemas/CreateTicketbookDTO"
               }
             }
           }
@@ -509,17 +509,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateTicketbookRequest"
+                "$ref": "#/components/schemas/UpdateTicketbookDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateTicketbookRequest"
+                "$ref": "#/components/schemas/UpdateTicketbookDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateTicketbookRequest"
+                "$ref": "#/components/schemas/UpdateTicketbookDTO"
               }
             }
           }
@@ -542,8 +542,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -563,8 +563,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -623,17 +623,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateUserRequest"
+                "$ref": "#/components/schemas/UpdateUserDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateUserRequest"
+                "$ref": "#/components/schemas/UpdateUserDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateUserRequest"
+                "$ref": "#/components/schemas/UpdateUserDTO"
               }
             }
           }
@@ -656,8 +656,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -677,8 +677,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -708,17 +708,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateUserInstitutionRequest"
+                "$ref": "#/components/schemas/CreateUserInstitutionDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateUserInstitutionRequest"
+                "$ref": "#/components/schemas/CreateUserInstitutionDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateUserInstitutionRequest"
+                "$ref": "#/components/schemas/CreateUserInstitutionDTO"
               }
             }
           }
@@ -737,17 +737,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateUserInstitutionRequest"
+                "$ref": "#/components/schemas/UpdateUserInstitutionDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateUserInstitutionRequest"
+                "$ref": "#/components/schemas/UpdateUserInstitutionDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateUserInstitutionRequest"
+                "$ref": "#/components/schemas/UpdateUserInstitutionDTO"
               }
             }
           }
@@ -770,8 +770,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -791,8 +791,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -822,17 +822,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateUserTypeRequest"
+                "$ref": "#/components/schemas/CreateUserTypeDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateUserTypeRequest"
+                "$ref": "#/components/schemas/CreateUserTypeDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateUserTypeRequest"
+                "$ref": "#/components/schemas/CreateUserTypeDTO"
               }
             }
           }
@@ -851,17 +851,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateUserTypeRequest"
+                "$ref": "#/components/schemas/UpdateUserTypeDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateUserTypeRequest"
+                "$ref": "#/components/schemas/UpdateUserTypeDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateUserTypeRequest"
+                "$ref": "#/components/schemas/UpdateUserTypeDTO"
               }
             }
           }
@@ -884,8 +884,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -905,8 +905,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -920,67 +920,67 @@
   },
   "components": {
     "schemas": {
-      "CreateInstitutionRequest": {
+      "CreateInstitutionDTO": {
         "type": "object",
         "additionalProperties": false
       },
-      "CreateLotteryRequest": {
+      "CreateLotteryDTO": {
         "required": [
-          "doubleChanceLottery",
-          "nameLottery",
-          "numTicketbooksLottery",
-          "numTicketsTicketbookLottery",
-          "priceTicketLottery"
+          "doubleChance",
+          "name",
+          "numTicketbooks",
+          "numTicketsTicketbook",
+          "priceTicket"
         ],
         "type": "object",
         "properties": {
-          "nameLottery": {
+          "name": {
             "minLength": 1,
             "type": "string"
           },
-          "numTicketsTicketbookLottery": {
+          "numTicketsTicketbook": {
             "type": "integer",
             "format": "int32"
           },
-          "numTicketbooksLottery": {
+          "numTicketbooks": {
             "type": "integer",
             "format": "int32"
           },
-          "priceTicketLottery": {
+          "priceTicket": {
             "type": "number",
             "format": "double"
           },
-          "doubleChanceLottery": {
+          "doubleChance": {
             "type": "boolean"
           }
         },
         "additionalProperties": false
       },
-      "CreateStatusTicketbookRequest": {
+      "CreateStatusTicketbookDTO": {
         "type": "object",
         "additionalProperties": false
       },
-      "CreateTicketRequest": {
+      "CreateTicketDTO": {
         "required": [
           "idTicketbook",
-          "numberTicket"
+          "number"
         ],
         "type": "object",
         "properties": {
           "idTicketbook": {
-            "type": "integer",
-            "format": "int32"
+            "type": "string",
+            "format": "uuid"
           },
           "idDonater": {
-            "type": "integer",
-            "format": "int32",
+            "type": "string",
+            "format": "uuid",
             "nullable": true
           },
-          "numberTicket": {
+          "number": {
             "type": "integer",
             "format": "int32"
           },
-          "soldDateTicket": {
+          "soldDate": {
             "type": "string",
             "format": "date-time",
             "nullable": true
@@ -988,42 +988,42 @@
         },
         "additionalProperties": false
       },
-      "CreateTicketbookRequest": {
+      "CreateTicketbookDTO": {
         "required": [
           "idLottery",
           "idStatusTicketbook",
-          "numberTicketbook"
+          "number"
         ],
         "type": "object",
         "properties": {
           "idLottery": {
-            "type": "integer",
-            "format": "int32"
+            "type": "string",
+            "format": "uuid"
           },
           "idOwner": {
-            "type": "integer",
-            "format": "int32",
+            "type": "string",
+            "format": "uuid",
             "nullable": true
           },
           "idHolder": {
-            "type": "integer",
-            "format": "int32",
+            "type": "string",
+            "format": "uuid",
             "nullable": true
           },
           "idStatusTicketbook": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "number": {
             "type": "integer",
             "format": "int32"
           },
-          "numberTicketbook": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "withdrawnDateTicketbook": {
+          "withdrawnDate": {
             "type": "string",
             "format": "date-time",
             "nullable": true
           },
-          "devolutionDateTicketbook": {
+          "devolutionDate": {
             "type": "string",
             "format": "date-time",
             "nullable": true
@@ -1034,15 +1034,15 @@
       "CreateUserInputModel": {
         "type": "object",
         "properties": {
-          "nameUser": {
+          "name": {
             "type": "string",
             "nullable": true
           },
-          "phoneUser": {
+          "phone": {
             "type": "string",
             "nullable": true
           },
-          "nicknameUser": {
+          "nickname": {
             "type": "string",
             "nullable": true
           },
@@ -1051,17 +1051,17 @@
             "nullable": true
           },
           "idUserType": {
-            "type": "integer",
-            "format": "int32"
+            "type": "string",
+            "format": "uuid"
           }
         },
         "additionalProperties": false
       },
-      "CreateUserInstitutionRequest": {
+      "CreateUserInstitutionDTO": {
         "type": "object",
         "additionalProperties": false
       },
-      "CreateUserTypeRequest": {
+      "CreateUserTypeDTO": {
         "required": [
           "nameUserType"
         ],
@@ -1074,67 +1074,67 @@
         },
         "additionalProperties": false
       },
-      "UpdateInstitutionRequest": {
+      "UpdateInstitutionDTO": {
         "type": "object",
         "additionalProperties": false
       },
-      "UpdateLotteryRequest": {
+      "UpdateLotteryDTO": {
         "required": [
-          "doubleChanceLottery",
-          "idLottery",
-          "nameLottery",
-          "numTicketbooksLottery",
-          "numTicketsTicketbookLottery",
-          "priceTicketLottery"
+          "doubleChance",
+          "id",
+          "name",
+          "numTicketbooks",
+          "numTicketsTicketbook",
+          "priceTicket"
         ],
         "type": "object",
         "properties": {
-          "idLottery": {
-            "type": "integer",
-            "format": "int32"
+          "id": {
+            "type": "string",
+            "format": "uuid"
           },
-          "nameLottery": {
+          "name": {
             "minLength": 1,
             "type": "string"
           },
-          "numTicketsTicketbookLottery": {
+          "numTicketsTicketbook": {
             "type": "integer",
             "format": "int32"
           },
-          "numTicketbooksLottery": {
+          "numTicketbooks": {
             "type": "integer",
             "format": "int32"
           },
-          "priceTicketLottery": {
+          "priceTicket": {
             "type": "number",
             "format": "double"
           },
-          "doubleChanceLottery": {
+          "doubleChance": {
             "type": "boolean"
           }
         },
         "additionalProperties": false
       },
-      "UpdateStatusTicketbookRequest": {
+      "UpdateStatusTicketbookDTO": {
         "type": "object",
         "additionalProperties": false
       },
-      "UpdateTicketRequest": {
+      "UpdateTicketDTO": {
         "required": [
-          "idTicket"
+          "id"
         ],
         "type": "object",
         "properties": {
-          "idTicket": {
-            "type": "integer",
-            "format": "int32"
+          "id": {
+            "type": "string",
+            "format": "uuid"
           },
           "idDonater": {
-            "type": "integer",
-            "format": "int32",
+            "type": "string",
+            "format": "uuid",
             "nullable": true
           },
-          "soldDateTicket": {
+          "soldDate": {
             "type": "string",
             "format": "date-time",
             "nullable": true
@@ -1142,29 +1142,29 @@
         },
         "additionalProperties": false
       },
-      "UpdateTicketbookRequest": {
+      "UpdateTicketbookDTO": {
         "type": "object",
         "properties": {
           "idOwner": {
-            "type": "integer",
-            "format": "int32",
+            "type": "string",
+            "format": "uuid",
             "nullable": true
           },
           "idHolder": {
-            "type": "integer",
-            "format": "int32",
+            "type": "string",
+            "format": "uuid",
             "nullable": true
           },
           "idStatusTicketbook": {
-            "type": "integer",
-            "format": "int32"
+            "type": "string",
+            "format": "uuid"
           },
-          "withdrawnDateTicketbook": {
+          "withdrawnDate": {
             "type": "string",
             "format": "date-time",
             "nullable": true
           },
-          "devolutionDateTicketbook": {
+          "devolutionDate": {
             "type": "string",
             "format": "date-time",
             "nullable": true
@@ -1172,15 +1172,15 @@
         },
         "additionalProperties": false
       },
-      "UpdateUserInstitutionRequest": {
+      "UpdateUserDTO": {
         "type": "object",
         "additionalProperties": false
       },
-      "UpdateUserRequest": {
+      "UpdateUserInstitutionDTO": {
         "type": "object",
         "additionalProperties": false
       },
-      "UpdateUserTypeRequest": {
+      "UpdateUserTypeDTO": {
         "required": [
           "nameUserType"
         ],

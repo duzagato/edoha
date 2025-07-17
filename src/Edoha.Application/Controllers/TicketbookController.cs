@@ -2,7 +2,7 @@
 using Edoha.Domain.Interfaces.Services;
 using Edoha.Domain.Entities;
 using System.Net.Sockets;
-using Edoha.Domain.Models.Requests.Ticketbook;
+using Edoha.Domain.Models.DTOs.Ticketbook;
 
 namespace Edoha.Controllers
 {
@@ -43,7 +43,7 @@ namespace Edoha.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetById(Guid id)
         {
             try
             {
@@ -70,7 +70,7 @@ namespace Edoha.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateTicketbookRequest request)
+        public async Task<IActionResult> Create([FromBody] CreateTicketbookDTO request)
         {
             if (request != null)
             {
@@ -96,7 +96,7 @@ namespace Edoha.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] UpdateTicketbookRequest request)
+        public async Task<IActionResult> Update([FromBody] UpdateTicketbookDTO request)
         {
             if (request != null)
             {
@@ -122,7 +122,7 @@ namespace Edoha.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task DeleteById(int id)
+        public async Task DeleteById(Guid id)
         {
             await _ticketbookService.DeleteTicketbookById(id);
         }

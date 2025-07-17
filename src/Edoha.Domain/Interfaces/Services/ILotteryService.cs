@@ -4,20 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Edoha.Domain.Entities;
-using Edoha.Domain.Models.Requests.Lottery;
+using Edoha.Domain.Models.DTOs.Lottery;
 
 namespace Edoha.Domain.Interfaces.Services
 {
     public interface ILotteryService : IService<Lottery>
     {
-        public Task InsertLottery(CreateLotteryRequest request);
+        public Task InsertLottery(CreateLotteryDTO dto);
 
-        public Task<Lottery> SelectLotteryById(int id);
+        public Task<Lottery> SelectLotteryById(Guid id);
 
         public Task<IEnumerable<Lottery>> SelectAllLotteries();
 
-        public Task UpdateLotteryById(UpdateLotteryRequest request);
+        public Task UpdateLotteryById(UpdateLotteryDTO dto);
 
-        public Task DeleteLotteryById(int id);
+        public Task DeleteLotteryById(Guid id);
     }
 }

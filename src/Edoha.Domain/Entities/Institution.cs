@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Edoha.Domain.Entities
 {
-    public class Institution
+    public class Institution : Entity
     {
-        public int IdInstitution { get; set; } // id_institution
-        public string NameInstitution { get; set; } // name_institution
-        public DateTime InsertionInstitution { get; set; } // insertion_institution
+        [Required]
+        public string Name { get; set; }
     }
 }

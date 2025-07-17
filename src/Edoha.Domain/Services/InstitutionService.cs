@@ -1,8 +1,9 @@
-﻿using Edoha.Shared.Helpers;
-using Edoha.Domain.Entities;
+﻿using Edoha.Domain.Entities;
+using Edoha.Domain.Interfaces.Context;
 using Edoha.Domain.Interfaces.Repositories;
 using Edoha.Domain.Interfaces.Services;
-using Edoha.Domain.Models.Requests.Institution;
+using Edoha.Domain.Models.DTOs.Institution;
+using Edoha.Shared.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,14 +16,16 @@ namespace Edoha.Domain.Services
     public class InstitutionService : Service<Institution>, IInstitutionService
     {
 
-        public InstitutionService(IInstitutionRepository repository) : base(repository) { }
+        public InstitutionService(IInstitutionRepository repository, 
+            IRequestValidationContext requestValidationContext
+            ) : base(repository, requestValidationContext) { }
 
-        public async Task InsertInstitution(CreateInstitutionRequest request)
+        public async Task InsertInstitution(CreateInstitutionDTO dto)
         {
-            await this.Insert(request);
+            await Insert(dto);
         }
 
-        public async Task<Institution> SelectInstitutionById(int id)
+        public async Task<Institution> SelectInstitutionById(Guid id)
         {
             return await _repository.SelectById(id);
         }
@@ -32,14 +35,14 @@ namespace Edoha.Domain.Services
             return await _repository.SelectAll();
         }
 
-        public async Task UpdateInstitutionById(UpdateInstitutionRequest request)
+        public async Task UpdateInstitutionById(UpdateInstitutionDTO dto)
         {
-            await this.Update(request);
+            await Update(dto);
         }
 
-        public async Task DeleteInstitutionById(int id)
+        public async Task DeleteInstitutionById(Guid id)
         {
-            await this.DeleteById(id);
+            await DeleteById(id);
         }
     }
 }

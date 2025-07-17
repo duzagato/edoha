@@ -7,17 +7,15 @@ using System.Threading.Tasks;
 
 namespace Edoha.Domain.Entities
 {
-    [Table("Ticketbook", Schema = "RIFAS")]
-    public class Ticketbook
+    [Table("ticketbook", Schema = "lottery")]
+    public class Ticketbook : Entity
     {
-        public int IdTicketbook { get; set; }
-        public int IdLottery { get; set; }
-        public int? IdOwner { get; set; }
-        public int? IdHolder { get; set; }
-        public int IdStatusTicketbook { get; set; }
-        public int NumberTicketbook { get; set; }
-        public DateTime InsertionDateTicketbook { get; set; }
-        public DateTime? WithdrawnDateTicketbook { get; set; }
-        public DateTime? DevolutionDateTicketbook { get; set; }
+        public Guid IdLottery { get; set; }
+        public Guid? IdOwner { get; set; }
+        public Guid? IdHolder { get; set; }
+        public Guid IdStatusTicketbook { get; set; }
+        public int Number { get; set; }
+        public DateTime? WithdrawnDate { get; set; }
+        public DateTime? DevolutionDate { get; set; }
     }
 }

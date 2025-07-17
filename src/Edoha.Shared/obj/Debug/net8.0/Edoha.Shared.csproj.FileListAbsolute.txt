@@ -9,3 +9,15 @@ C:\Users\Eduardo\source\repos\Edoha\Edoha.Shared\obj\Debug\net8.0\Edoha.Shared.d
 C:\Users\Eduardo\source\repos\Edoha\Edoha.Shared\obj\Debug\net8.0\refint\Edoha.Shared.dll
 C:\Users\Eduardo\source\repos\Edoha\Edoha.Shared\obj\Debug\net8.0\Edoha.Shared.pdb
 C:\Users\Eduardo\source\repos\Edoha\Edoha.Shared\obj\Debug\net8.0\ref\Edoha.Shared.dll
+C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Shared\bin\Debug\net8.0\Edoha.Shared.deps.json
+C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Shared\bin\Debug\net8.0\Edoha.Shared.dll
+C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Shared\bin\Debug\net8.0\Edoha.Shared.pdb
+C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Shared\obj\Debug\net8.0\Edoha.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Shared\obj\Debug\net8.0\Edoha.Shared.AssemblyInfoInputs.cache
+C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Shared\obj\Debug\net8.0\Edoha.Shared.AssemblyInfo.cs
+C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Shared\obj\Debug\net8.0\Edoha.Shared.csproj.CoreCompileInputs.cache
+C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Shared\obj\Debug\net8.0\Edoha.Shared.sourcelink.json
+C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Shared\obj\Debug\net8.0\Edoha.Shared.dll
+C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Shared\obj\Debug\net8.0\refint\Edoha.Shared.dll
+C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Shared\obj\Debug\net8.0\Edoha.Shared.pdb
+C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Shared\obj\Debug\net8.0\ref\Edoha.Shared.dll

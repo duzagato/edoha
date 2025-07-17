@@ -9,15 +9,22 @@ using Edoha.Shared.Annotations.Numerical;
 
 namespace Edoha.Domain.Entities
 {
-    [Table("Lottery", Schema = "RIFAS")]
-    public class Lottery
+    [Table("lottery", Schema = "lottery")]
+    public class Lottery : Entity
     {
-        public int IdLottery { get; set; }
-        public string? NameLottery { get; set; }
-        public int NumTicketsTicketbookLottery { get; set; }
-        public int NumTicketbooksLottery { get; set; }
-        public decimal PriceTicketLottery { get; set; }
-        public bool DoubleChanceLottery { get; set; }
-        public DateTime InsertionDateLottery { get; set; }
+        [Required]
+        public string Name { get; set; }
+
+        [Required]
+        public int NumTicketsTicketbook { get; set; }
+
+        [Required]
+        public int NumTicketbooks { get; set; }
+
+        [Required]
+        public decimal PriceTicket { get; set; }
+
+        [Required]
+        public bool DoubleChance { get; set; }
     }
 }

@@ -4,20 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Edoha.Domain.Entities;
-using Edoha.Domain.Models.Requests.Institution;
+using Edoha.Domain.Models.DTOs.Institution;
 
 namespace Edoha.Domain.Interfaces.Services
 {
     public interface IInstitutionService : IService<Institution>
     {
-        public Task InsertInstitution(CreateInstitutionRequest request);
+        public Task InsertInstitution(CreateInstitutionDTO dto);
 
-        public Task<Institution> SelectInstitutionById(int id);
+        public Task<Institution> SelectInstitutionById(Guid id);
 
         public Task<IEnumerable<Institution>> SelectAllInstitutions();
 
-        public Task UpdateInstitutionById(UpdateInstitutionRequest request);
+        public Task UpdateInstitutionById(UpdateInstitutionDTO dto);
 
-        public Task DeleteInstitutionById(int id);
+        public Task DeleteInstitutionById(Guid id);
     }
 }

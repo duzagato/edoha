@@ -1,8 +1,9 @@
-﻿using Edoha.Shared.Helpers;
-using Edoha.Domain.Entities;
+﻿using Edoha.Domain.Entities;
+using Edoha.Domain.Interfaces.Context;
 using Edoha.Domain.Interfaces.Repositories;
 using Edoha.Domain.Interfaces.Services;
-using Edoha.Domain.Models.Requests.StatusTicketbook;
+using Edoha.Domain.Models.DTOs.StatusTicketbook;
+using Edoha.Shared.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,14 +16,16 @@ namespace Edoha.Domain.Services
     public class StatusTicketbookService : Service<StatusTicketbook>, IStatusTicketbookService
     {
 
-        public StatusTicketbookService(IStatusTicketbookRepository repository) : base(repository) { }
+        public StatusTicketbookService(IStatusTicketbookRepository repository,
+            IRequestValidationContext requestValidationContext
+            ) : base(repository, requestValidationContext) { }
 
-        public async Task InsertStatusTicketbook(CreateStatusTicketbookRequest request)
+        public async Task InsertStatusTicketbook(CreateStatusTicketbookDTO dto)
         {
-            await this.Insert(request);
+            await this.Insert(dto);
         }
 
-        public async Task<StatusTicketbook> SelectStatusTicketbookById(int id)
+        public async Task<StatusTicketbook> SelectStatusTicketbookById(Guid id)
         {
             return await _repository.SelectById(id);
         }
@@ -32,12 +35,12 @@ namespace Edoha.Domain.Services
             return await _repository.SelectAll();
         }
 
-        public async Task UpdateStatusTicketbookById(UpdateStatusTicketbookRequest request)
+        public async Task UpdateStatusTicketbookById(UpdateStatusTicketbookDTO dto)
         {
-            await this.Update(request);
+            await this.Update(dto);
         }
 
-        public async Task DeleteStatusTicketbookById(int id)
+        public async Task DeleteStatusTicketbookById(Guid id)
         {
             await this.DeleteById(id);
         }

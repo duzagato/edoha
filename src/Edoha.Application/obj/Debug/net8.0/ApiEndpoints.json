@@ -19,7 +19,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "Edoha.Domain.Models.Requests.Institution.CreateInstitutionRequest",
+        "Type": "Edoha.Domain.Models.DTOs.Institution.CreateInstitutionDTO",
         "IsRequired": true
       }
     ],
@@ -35,7 +35,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "Edoha.Domain.Models.Requests.Institution.UpdateInstitutionRequest",
+        "Type": "Edoha.Domain.Models.DTOs.Institution.UpdateInstitutionDTO",
         "IsRequired": true
       }
     ],
@@ -51,7 +51,7 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Int32",
+        "Type": "System.Guid",
         "IsRequired": true
       }
     ],
@@ -67,7 +67,7 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Int32",
+        "Type": "System.Guid",
         "IsRequired": true
       }
     ],
@@ -99,7 +99,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "Edoha.Domain.Models.Requests.Lottery.CreateLotteryRequest",
+        "Type": "Edoha.Domain.Models.DTOs.Lottery.CreateLotteryDTO",
         "IsRequired": true
       }
     ],
@@ -115,7 +115,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "Edoha.Domain.Models.Requests.Lottery.UpdateLotteryRequest",
+        "Type": "Edoha.Domain.Models.DTOs.Lottery.UpdateLotteryDTO",
         "IsRequired": true
       }
     ],
@@ -131,7 +131,7 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Int32",
+        "Type": "System.Guid",
         "IsRequired": true
       }
     ],
@@ -147,7 +147,7 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Int32",
+        "Type": "System.Guid",
         "IsRequired": true
       }
     ],
@@ -179,7 +179,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "Edoha.Domain.Models.Requests.StatusTicketbook.CreateStatusTicketbookRequest",
+        "Type": "Edoha.Domain.Models.DTOs.StatusTicketbook.CreateStatusTicketbookDTO",
         "IsRequired": true
       }
     ],
@@ -195,7 +195,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "Edoha.Domain.Models.Requests.StatusTicketbook.UpdateStatusTicketbookRequest",
+        "Type": "Edoha.Domain.Models.DTOs.StatusTicketbook.UpdateStatusTicketbookDTO",
         "IsRequired": true
       }
     ],
@@ -211,7 +211,7 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Int32",
+        "Type": "System.Guid",
         "IsRequired": true
       }
     ],
@@ -227,7 +227,7 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Int32",
+        "Type": "System.Guid",
         "IsRequired": true
       }
     ],
@@ -259,7 +259,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "Edoha.Domain.Models.Requests.Ticket.CreateTicketRequest",
+        "Type": "Edoha.Domain.Models.DTOs.Ticket.CreateTicketDTO",
         "IsRequired": true
       }
     ],
@@ -275,7 +275,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "Edoha.Domain.Models.Requests.Ticket.UpdateTicketRequest",
+        "Type": "Edoha.Domain.Models.DTOs.Ticket.UpdateTicketDTO",
         "IsRequired": true
       }
     ],
@@ -291,7 +291,7 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Int32",
+        "Type": "System.Guid",
         "IsRequired": true
       }
     ],
@@ -307,7 +307,7 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Int32",
+        "Type": "System.Guid",
         "IsRequired": true
       }
     ],
@@ -339,7 +339,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "Edoha.Domain.Models.Requests.Ticketbook.CreateTicketbookRequest",
+        "Type": "Edoha.Domain.Models.DTOs.Ticketbook.CreateTicketbookDTO",
         "IsRequired": true
       }
     ],
@@ -355,7 +355,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "Edoha.Domain.Models.Requests.Ticketbook.UpdateTicketbookRequest",
+        "Type": "Edoha.Domain.Models.DTOs.Ticketbook.UpdateTicketbookDTO",
         "IsRequired": true
       }
     ],
@@ -371,7 +371,7 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Int32",
+        "Type": "System.Guid",
         "IsRequired": true
       }
     ],
@@ -387,7 +387,7 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Int32",
+        "Type": "System.Guid",
         "IsRequired": true
       }
     ],
@@ -435,7 +435,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "Edoha.Domain.Models.Requests.User.UpdateUserRequest",
+        "Type": "Edoha.Domain.Models.DTOs.User.UpdateUserDTO",
         "IsRequired": true
       }
     ],
@@ -451,7 +451,7 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Int32",
+        "Type": "System.Guid",
         "IsRequired": true
       }
     ],
@@ -467,7 +467,7 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Int32",
+        "Type": "System.Guid",
         "IsRequired": true
       }
     ],
@@ -499,7 +499,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "Edoha.Domain.Models.Requests.UserInstitution.CreateUserInstitutionRequest",
+        "Type": "Edoha.Domain.Models.DTOs.UserInstitution.CreateUserInstitutionDTO",
         "IsRequired": true
       }
     ],
@@ -515,7 +515,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "Edoha.Domain.Models.Requests.UserInstitution.UpdateUserInstitutionRequest",
+        "Type": "Edoha.Domain.Models.DTOs.UserInstitution.UpdateUserInstitutionDTO",
         "IsRequired": true
       }
     ],
@@ -531,7 +531,7 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Int32",
+        "Type": "System.Guid",
         "IsRequired": true
       }
     ],
@@ -547,7 +547,7 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Int32",
+        "Type": "System.Guid",
         "IsRequired": true
       }
     ],
@@ -579,7 +579,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "Edoha.Domain.Models.Requests.UserType.CreateUserTypeRequest",
+        "Type": "Edoha.Domain.Models.DTOs.UserType.CreateUserTypeDTO",
         "IsRequired": true
       }
     ],
@@ -595,7 +595,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "Edoha.Domain.Models.Requests.UserType.UpdateUserTypeRequest",
+        "Type": "Edoha.Domain.Models.DTOs.UserType.UpdateUserTypeDTO",
         "IsRequired": true
       }
     ],
@@ -611,7 +611,7 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Int32",
+        "Type": "System.Guid",
         "IsRequired": true
       }
     ],
@@ -627,7 +627,7 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Int32",
+        "Type": "System.Guid",
         "IsRequired": true
       }
     ],

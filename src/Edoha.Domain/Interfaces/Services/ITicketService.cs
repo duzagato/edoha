@@ -5,20 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using Edoha.Domain.Entities;
 using Edoha.Domain.Interfaces.Repositories;
-using Edoha.Domain.Models.Requests.Ticket;
+using Edoha.Domain.Models.DTOs.Ticket;
 
 namespace Edoha.Domain.Interfaces.Services
 {
     public interface ITicketService : IService<Ticket>
     {
-        public Task InsertTicket(CreateTicketRequest request);
+        public Task InsertTicket(CreateTicketDTO dto);
 
-        public Task<Ticket> SelectTicketById(int id);
+        public Task<Ticket> SelectTicketById(Guid id);
 
         public Task<IEnumerable<Ticket>> SelectAllTickets();
 
-        public Task UpdateTicketById(UpdateTicketRequest request);
+        public Task UpdateTicketById(UpdateTicketDTO dto);
 
-        public Task DeleteTicketById(int id);
+        public Task DeleteTicketById(Guid id);
     }
 }

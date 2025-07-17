@@ -6,8 +6,8 @@ using Dapper;
 using System.Reflection;
 using System.Net.Http.Headers;
 using Edoha.Domain.Interfaces;
-using Edoha.Domain.Models.Requests;
-using Edoha.Infrastructure.Data.Context;
+using Edoha.Domain.Models.DTOs;
+using Edoha.Infraestructure.Factory;
 using Edoha.Shared.Helpers;
 using Edoha.Domain.Interfaces.Repositories;
 
@@ -22,25 +22,19 @@ namespace Edoha.Infrastructure.Repositories
         protected readonly string _idColumnSnakeCase;
         protected readonly IEnumerable<PropertyInfo> _properties;
 
-        public BaseRepository(IDbConnection connection)
+        protected BaseRepository(IDbConnection connection)
         {
-            string tableName = RepositoryHelper.GetTableName<T>();
-
             _connection = connection;
+
+            var tableName = RepositoryHelper.GetTableName<T>();
             _schema = RepositoryHelper.GetSchema<T>();
             _tableName = StringHelper.PascalToSnakeCase(tableName);
-            Console.WriteLine(_tableName);
             _idColumnPascalCase = RepositoryHelper.GetIdColumnName(tableName);
             _idColumnSnakeCase = StringHelper.PascalToSnakeCase(_idColumnPascalCase);
             _properties = RepositoryHelper.GetProperties<T>(_idColumnPascalCase);
         }
 
-        public IDbConnection GetConnection()
-        {
-            return _connection;
-        }
-
-        public void CheckConnection()
+        protected void CheckConnection()
         {
             if (_connection.State != ConnectionState.Open)
             {
@@ -48,115 +42,96 @@ namespace Edoha.Infrastructure.Repositories
             }
         }
 
-        public async Task<T?> SelectById(int id)
+        public async Task<T> SelectById(Guid? id)
         {
-            Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true; 
-            this.CheckConnection();
-            var query = $"SELECT * FROM {_schema}.{_tableName} WHERE {_idColumnSnakeCase} = @Id";
+            Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
+            CheckConnection();
 
-            return await _connection.QueryFirstOrDefaultAsync<T>(query, new { Id = id });
+            if (id == null || id == Guid.Empty)
+                throw new ArgumentException("O ID enviado está inválido");
+
+
+            var query = $@"
+                SELECT * FROM ""{_schema}"".""{_tableName}""
+                WHERE ""{_idColumnSnakeCase}"" = @Id";
+
+            var entity = await _connection.QueryFirstOrDefaultAsync<T>(query, new { Id = id });
+
+            return entity ?? throw new KeyNotFoundException("Entidade não encontrada");
         }
 
         public async Task<IEnumerable<T>> SelectAll()
         {
             Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
-            this.CheckConnection();
-            var query = $"SELECT * FROM {_schema}.{_tableName}";
+            CheckConnection();
+
+            var query = $@"SELECT * FROM ""{_schema}"".""{_tableName}""";
 
             return await _connection.QueryAsync<T>(query);
         }
 
-        public async Task Update(Request dto)
+        public async Task Insert(DTO dto)
         {
-            this.CheckConnection();
-            var properties = dto.GetProperties(_idColumnPascalCase);
-            var setClause = string.Join(", ", properties.Select(p => $"{StringHelper.PascalToSnakeCase(p.Name)} = @{p.Name}"));
-            var query = $"UPDATE {_schema}.{_tableName.ToLower()} SET {setClause} WHERE {_idColumnSnakeCase} = @{_idColumnPascalCase}";
+            CheckConnection();
 
-            try
-            {
-                await _connection.ExecuteAsync(query, dto);
-            }catch(Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            
+            var props = dto.GetProperties(_idColumnPascalCase);
+            var columns = string.Join(", ", props.Select(p => $@"""{StringHelper.PascalToSnakeCase(p.Name)}"""));
+            var values = string.Join(", ", props.Select(p => $"@{p.Name}"));
+
+            var query = $@"
+                INSERT INTO ""{_schema}"".""{_tableName}"" ({columns})
+                VALUES ({values})";
+
+            await _connection.ExecuteAsync(query, dto);
         }
 
-        public async Task Insert(Request request)
+        public async Task Update(DTO dto)
         {
-            try
-            {
-                this.CheckConnection();
-                var properties = request.GetProperties(_idColumnPascalCase);
-                var columns = string.Join(", ", properties.Select(p => StringHelper.PascalToSnakeCase(p.Name)));
-                var values = string.Join(", ", properties.Select(p => $"@{p.Name}"));
+            CheckConnection();
 
-                var query = $"INSERT INTO [{_schema}].[{_tableName}] ({columns}) VALUES ({values})";
-                Console.WriteLine(query);
-                await _connection.ExecuteAsync(query, request);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
+            var props = dto.GetProperties(_idColumnPascalCase);
+            var setClause = string.Join(", ", props.Select(p =>
+                $@"""{StringHelper.PascalToSnakeCase(p.Name)}"" = @{p.Name}"
+            ));
+
+            var query = $@"
+                UPDATE ""{_schema}"".""{_tableName}""
+                SET {setClause}
+                WHERE ""{_idColumnSnakeCase}"" = @{_idColumnPascalCase}";
+
+            await _connection.ExecuteAsync(query, dto);
         }
 
-        public async Task DeleteById(int id)
+        public async Task DeleteById(Guid id)
         {
-            this.CheckConnection();
-            var query = $"DELETE FROM {_schema}.{_tableName} WHERE {_idColumnSnakeCase} = @Id";
+            CheckConnection();
+
+            var query = $@"
+                DELETE FROM ""{_schema}"".""{_tableName}""
+                WHERE ""{_idColumnSnakeCase}"" = @Id";
 
             await _connection.ExecuteAsync(query, new { Id = id });
         }
 
-        public async Task<int> SelectCountById(int id)
+        public async Task<int> SelectCountById(Guid id)
         {
-            this.CheckConnection();
-            var query = $"SELECT COUNT(*) FROM {_schema}.{_tableName} WHERE {_idColumnSnakeCase} = @Id";
-            var count = await _connection.ExecuteScalarAsync<int>(query, new { Id = id });
+            CheckConnection();
 
-            return count;
+            var query = $@"
+                SELECT COUNT(*) FROM ""{_schema}"".""{_tableName}""
+                WHERE ""{_idColumnSnakeCase}"" = @Id";
+
+            return await _connection.ExecuteScalarAsync<int>(query, new { Id = id });
         }
 
-        public async Task<T> ValidateId(int? id)
+        public async Task IdExists(Guid? id)
         {
-            Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
-
-            if (id != null && id > 0)
-            {
-                var entity = await this.SelectById((int) id);
-                if (entity != null)
-                {
-                    return entity;
-                }
-                else
-                {
-                    throw new KeyNotFoundException("Rifa não encontrada");
-                }
-            }
-            else
-            {
+            if (id == null || id == Guid.Empty)
                 throw new ArgumentException("O ID enviado está inválido");
-            }
-        }
 
-        public async Task VerifyIdExist(int? id)
-        {
-            Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
-
-            if (id != null && id > 0)
-            {
-                var entity = await this.SelectById((int)id);
-                if (entity == null)
-                {
-                    throw new KeyNotFoundException("Rifa não encontrada");
-                }
-            }
-            else
-            {
-                throw new ArgumentException("O ID enviado está inválido");
-            }
+            var entity = await SelectById(id.Value);
+            if (entity == null)
+                throw new KeyNotFoundException("Entidade não encontrada");
         }
     }
 }

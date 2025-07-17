@@ -1,6 +1,5 @@
 ﻿using System.Data;
-using System.Data.Common;
-using Microsoft.Data.SqlClient;
+using Npgsql;
 
 namespace Edoha.Infrastructure.Data.Context;
 
@@ -15,8 +14,9 @@ public class DbConnectionFactory
 
     public IDbConnection CreateConnection()
     {
-        var connection = new SqlConnection(_connectionString);
-        connection.Open(); // Abre a conexão automaticamente
+        var connection = new NpgsqlConnection(_connectionString);
+        connection.Open();
+
         return connection;
     }
 }
