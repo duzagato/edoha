@@ -1,6 +1,6 @@
 # Ignore bin and obj folders
-bin/
-obj/
+*/bin/
+*/obj/
 
 # Ignore build results
 *.exe
@@ -14,7 +14,7 @@ obj/
 *.sln.docstates
 
 # Ignore Visual Studio cache
-.vs/
+*/.vs/
 
 # Ignore temporary files
 *.log
