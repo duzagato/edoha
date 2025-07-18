@@ -38,10 +38,10 @@ jobs:
           echo "RELEASE_VERSION=$next" >> $GITHUB_ENV
 
       - name: Criar branch release a partir da develop
-        run: |
-          git fetch origin develop
-          git checkout -b release/${{ env.RELEASE_VERSION }} origin/develop
-          git push origin release/${{ env.RELEASE_VERSION }}
+      run: |
+        git fetch origin develop
+        git checkout -b release/${{ env.RELEASE_VERSION }} origin/develop
+        git push https://x-access-token:${{ secrets.GH_PAT }}@github.com/${{ github.repository }} release/${{ env.RELEASE_VERSION }}
 
       - name: Criar PR develop → release
         id: create_pr
