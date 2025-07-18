@@ -1,67 +1,53 @@
-name: PR release → main
+name: Criar release/N+1 a partir da develop
 
 on:
   push:
     branches:
-      - 'release/*'
+      - develop
 
 jobs:
-  release-to-main:
+  create-release-branch:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checar repositório
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # necessário para pegar todas as branches remotas
 
       - name: Configurar Git
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@users.noreply.github.com"
 
-      - name: Criar PR da release para main
-        id: create_pr
+      - name: Obter próximo número da release
+        id: next_release
         run: |
-          CURRENT_BRANCH=${GITHUB_REF#refs/heads/}
+          git fetch origin
+
+          # Filtrar apenas branches release/N
+          RELEASE_BRANCHES=$(git ls-remote --heads origin "release/*" | awk -F'/' '{print $3}')
           
-          PR_URL=$(gh pr create \
-            --title "Release para main: $CURRENT_BRANCH" \
-            --body "Preparando deploy da release para main" \
-            --base main \
-            --head $CURRENT_BRANCH \
-            --label "to-main" \
-            --json url --jq .url)
+          # Extrair apenas os números das releases
+          NUMEROS=$(echo "$RELEASE_BRANCHES" | grep -Eo '[0-9]+' | sort -n)
 
-          echo "PR_URL=$PR_URL" >> $GITHUB_ENV
-        env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}
-
-      - name: Aguardar aprovação da PR
-        run: |
-          echo "Aguardando aprovação da PR: $PR_URL"
-          PR_NUMBER=$(gh pr view "$PR_URL" --json number --jq .number)
-
-          APPROVED=false
-          for i in {1..30}; do
-            echo "Verificando aprovação... tentativa $i"
-            APPROVED=$(gh pr review --list --json state,author --jq '[.[] | select(.state == "APPROVED")][0]')
-            if [ "$APPROVED" != "" ]; then
-              echo "PR aprovada!"
-              break
-            fi
-            sleep 20
-          done
-
-          if [ "$APPROVED" = "" ]; then
-            echo "PR não foi aprovada no tempo limite."
-            exit 1
+          # Pegar o maior número existente
+          if [ -z "$NUMEROS" ]; then
+            NEXT=1
+          else
+            NEXT=$(echo "$NUMEROS" | tail -n 1)
+            NEXT=$((NEXT + 1))
           fi
-        env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}
 
-      - name: Fazer merge automático da release na main
+          echo "PRÓXIMA RELEASE: release/$NEXT"
+          echo "RELEASE_BRANCH=release/$NEXT" >> $GITHUB_ENV
+
+      - name: Criar e fazer push da nova release
         run: |
-          gh pr merge "$PR_URL" --merge --delete-branch
+          git checkout develop
+          git pull origin develop
+          
+          git checkout -b $RELEASE_BRANCH
+          git push origin $RELEASE_BRANCH
         env:
-          GH
-
-
+          RELEASE_BRANCH: ${{ env.RELEASE_BRANCH }}
