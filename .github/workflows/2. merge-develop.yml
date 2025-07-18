@@ -38,10 +38,10 @@ jobs:
           echo "RELEASE_VERSION=$next" >> $GITHUB_ENV
 
       - name: Criar branch release a partir da develop
-      run: |
-        git fetch origin develop
-        git checkout -b release/${{ env.RELEASE_VERSION }} origin/develop
-        git push https://x-access-token:${{ secrets.GH_PAT }}@github.com/${{ github.repository }} release/${{ env.RELEASE_VERSION }}
+        run: |
+          git fetch origin develop
+          git checkout -b release/${{ env.RELEASE_VERSION }} origin/develop
+          git push https://x-access-token:${{ secrets.GH_PAT }}@github.com/${{ github.repository }} release/${{ env.RELEASE_VERSION }}
 
       - name: Criar PR develop → release
         id: create_pr
@@ -51,7 +51,6 @@ jobs:
             --body "PR da develop para release" \
             --base release/${{ env.RELEASE_VERSION }} \
             --head develop \
-            --label "release" \
             --json url --jq .url)
 
           echo "PR_URL=$PR_URL" >> $GITHUB_ENV
@@ -62,3 +61,4 @@ jobs:
         run: |
           echo "Aguardando aprovação da PR: $PR_URL"
           PR_NUMBER=$(gh pr view "$PR_URL" --json number --jq .number)
+          echo "Número da PR: $PR_NUMBER"
