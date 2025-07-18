@@ -1,0 +1,47 @@
+name: Criar branch release e PR develop → release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Versão da release (ex: 1.0.0)'
+        required: true
+
+jobs:
+  create-release-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checar repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Git
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@users.noreply.github.com"
+
+      - name: Criar branch release a partir da develop
+        run: |
+          git fetch origin develop
+          git checkout -b release/${{ github.event.inputs.version }} origin/develop
+          git push origin release/${{ github.event.inputs.version }}
+
+      - name: Criar PR develop → release
+        id: create_pr
+        run: |
+          PR_URL=$(gh pr create \
+            --title "Release ${{ github.event.inputs.version }}" \
+            --body "PR da develop para release" \
+            --base release/${{ github.event.inputs.version }} \
+            --head develop \
+            --label "release" \
+            --reviewer SEU_USUARIO_AQUI \
+            --json url --jq .url)
+
+          echo "PR_URL=$PR_URL" >> $GITHUB_ENV
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Aguardar aprovação da PR
+        run: |
+          echo "Aguardando aprovação da PR: $PR_URL"
+          PR_NUMBER=$(gh pr view "$PR_URL" --json number --jq .number)

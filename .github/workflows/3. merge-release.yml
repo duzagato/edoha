@@ -1,0 +1,66 @@
+name: PR release → main
+
+on:
+  push:
+    branches:
+      - 'release/*'
+
+jobs:
+  release-to-main:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checar repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Git
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@users.noreply.github.com"
+
+      - name: Criar PR da release para main
+        id: create_pr
+        run: |
+          CURRENT_BRANCH=${GITHUB_REF#refs/heads/}
+          
+          PR_URL=$(gh pr create \
+            --title "Release para main: $CURRENT_BRANCH" \
+            --body "Preparando deploy da release para main" \
+            --base main \
+            --head $CURRENT_BRANCH \
+            --label "to-main" \
+            --reviewer SEU_USUARIO_AQUI \
+            --json url --jq .url)
+
+          echo "PR_URL=$PR_URL" >> $GITHUB_ENV
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Aguardar aprovação da PR
+        run: |
+          echo "Aguardando aprovação da PR: $PR_URL"
+          PR_NUMBER=$(gh pr view "$PR_URL" --json number --jq .number)
+
+          APPROVED=false
+          for i in {1..30}; do
+            echo "Verificando aprovação... tentativa $i"
+            APPROVED=$(gh pr review --list --json state,author --jq '[.[] | select(.state == "APPROVED")][0]')
+            if [ "$APPROVED" != "" ]; then
+              echo "PR aprovada!"
+              break
+            fi
+            sleep 20
+          done
+
+          if [ "$APPROVED" = "" ]; then
+            echo "PR não foi aprovada no tempo limite."
+            exit 1
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Fazer merge automático da release na main
+        run: |
+          gh pr merge "$PR_URL" --merge --delete-branch
+        env:
+          GH
