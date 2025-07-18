@@ -1,7 +1,9 @@
 name: Criar branch release e PR develop → release
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - develop
 
 jobs:
   create-release-branch:
