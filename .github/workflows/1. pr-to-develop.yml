@@ -19,7 +19,6 @@ jobs:
             --title "Merge $(basename $GITHUB_REF) into develop" \
             --body "Auto PR gerada pelo push" \
             --base develop \
-            --head ${GITHUB_REF#refs/heads/} \
-            --label "auto-pr" \
+            --head ${GITHUB_REF#refs/heads/}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
