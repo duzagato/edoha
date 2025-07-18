@@ -10,6 +10,7 @@ namespace Edoha.Controllers
     public class InstitutionController : ControllerBase
     {
         private readonly IInstitutionService _institutionService;
+        
 
         public InstitutionController(IInstitutionService institutionService)
         {
