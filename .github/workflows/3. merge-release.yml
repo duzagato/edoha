@@ -29,7 +29,6 @@ jobs:
             --base main \
             --head $CURRENT_BRANCH \
             --label "to-main" \
-            --reviewer SEU_USUARIO_AQUI \
             --json url --jq .url)
 
           echo "PR_URL=$PR_URL" >> $GITHUB_ENV
