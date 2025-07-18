@@ -1,11 +1,8 @@
 name: Criar branch release e PR develop → release
 
 on:
-  workflow_dispatch:
-    inputs:
-      version:
-        description: 'Versão da release (ex: 1.0.0)'
-        required: true
+  push:
+    branches:
 
 jobs:
   create-release-branch:
