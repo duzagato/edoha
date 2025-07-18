@@ -3,7 +3,7 @@ name: Criar release/N+1 a partir da develop
 on:
   push:
     branches:
-      - develop
+      - release/*
 
 jobs:
   create-release-branch:
