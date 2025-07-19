@@ -30,16 +30,21 @@ jobs:
         id: calculate_version
         run: |
           git fetch origin 'refs/heads/release/*:refs/remotes/origin/release/*'
-          
-          # Buscar as versões existentes e extrair o maior valor
-          versions=$(git branch -r | grep 'origin/release/' | sed 's|origin/release/||' | sort -V)
-          latest_version=$(echo "$versions" | tail -n1)
 
-          echo "Última versão encontrada: $latest_version"
+          # Buscar versões
+          versions=$(git branch -r | grep 'origin/release/' | sed 's|origin/release/||' | sort -V || true)
+
+          if [ -z "$versions" ]; then
+            latest_version="0.0.0"
+            echo "Nenhuma release encontrada. Usando versão inicial: $latest_version"
+          else
+            latest_version=$(echo "$versions" | tail -n1)
+            echo "Última versão encontrada: $latest_version"
+          fi
 
           IFS='.' read -r major minor patch <<< "$latest_version"
 
-          # Detectar tipo de PR (feature/ ou fix/)
+          # Detectar tipo de PR
           SOURCE_BRANCH="${{ github.event.pull_request.head.ref }}"
 
           if [[ "$SOURCE_BRANCH" == feature/* ]]; then
@@ -48,13 +53,14 @@ jobs:
           elif [[ "$SOURCE_BRANCH" == fix/* ]]; then
             patch=$((patch + 1))
           else
-            echo "Tipo de branch desconhecido. Esperado 'feature/' ou 'fix/'."
+            echo "Tipo de branch desconhecido: $SOURCE_BRANCH. Esperado 'feature/*' ou 'fix/*'."
             exit 1
           fi
 
           new_version="$major.$minor.$patch"
           echo "RELEASE_VERSION=$new_version" >> $GITHUB_ENV
           echo "Versão calculada: $new_version"
+
 
       - name: Criar branch release a partir da main
         run: |
