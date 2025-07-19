@@ -43,7 +43,7 @@ jobs:
       - name: Criar PR release → main
         run: |
           gh pr create \
-            --title "Release $RELEASE_BRANCH → main" \
+            --title "$RELEASE_BRANCH-> main" \
             --body "PR automática para promover a release `${RELEASE_BRANCH}` para a branch main.\n\nRevisar com atenção antes de aprovar." \
             --base main \
             --head $RELEASE_BRANCH

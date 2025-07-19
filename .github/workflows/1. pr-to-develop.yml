@@ -17,7 +17,7 @@ jobs:
       - name: Criar PR para develop
         run: |
           gh pr create \
-            --title "Merge $(basename $GITHUB_REF) into develop" \
+            --title "PR Gerada Automaticamente - $(basename $GITHUB_REF) -> develop" \
             --body "Auto PR gerada pelo push" \
             --base develop \
             --head ${GITHUB_REF#refs/heads/}
