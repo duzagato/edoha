@@ -35,20 +35,19 @@ jobs:
           echo "RELEASE_VERSION=$next_version" >> $GITHUB_ENV
           echo "Versão calculada: $next_version"
 
-      - name: Criar branch release
+      - name: Criar branch release a partir da main
         run: |
-          git checkout develop
-          git pull origin develop
-          git checkout -b release/${{ env.RELEASE_VERSION }}
+          git fetch origin
+          git checkout -b release/${{ env.RELEASE_VERSION }} origin/main
           git push origin release/${{ env.RELEASE_VERSION }}
           echo "Branch release/${{ env.RELEASE_VERSION }} criada com sucesso"
 
       - name: Criar PR develop → release
         run: |
           gh pr create \
-            --title "Release ${RELEASE_VERSION} - Desenvolvimento → Release" \
-            --body "PR automática contendo as alterações da develop para release/${RELEASE_VERSION}\n\n**Atenção:** Não fazer merge desta PR, apenas revisar as alterações." \
-            --base release/${RELEASE_VERSION} \
+            --title "Release ${{ env.RELEASE_VERSION }} - Desenvolvimento → Release" \
+            --body "PR automática contendo as alterações da develop para release/${{ env.RELEASE_VERSION }}\n\n**Atenção:** Não fazer merge desta PR, apenas revisar as alterações." \
+            --base release/${{ env.RELEASE_VERSION }} \
             --head develop
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
