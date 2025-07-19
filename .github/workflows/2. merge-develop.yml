@@ -13,7 +13,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
-
+      
     steps:
       - name: Checar repositório
         uses: actions/checkout@v4
@@ -36,12 +36,26 @@ jobs:
           echo "próxima versão: $next"
           echo "RELEASE_VERSION=$next" >> $GITHUB_ENV
 
-      - name: Criar branch release a partir da develop
+      - name: Criar branch release
         run: |
           git checkout develop
           git pull origin develop
           git checkout -b release/${{ env.RELEASE_VERSION }}
           git push origin release/${{ env.RELEASE_VERSION }}
+
+  create-release-pr:
+    needs: create-release-branch
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      
+    steps:
+      - name: Checar repositório
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: develop
 
       - name: Instalar GitHub CLI
         run: |
@@ -52,15 +66,15 @@ jobs:
           && sudo apt update \
           && sudo apt install gh -y
 
-      - name: Autenticar GitHub CLI
+      - name: Criar PR usando API REST
         run: |
-          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
-          gh auth status
-
-      - name: Criar PR develop → release
-        run: |
-          gh pr create \
-            --title "Release ${{ env.RELEASE_VERSION }} (Automática)" \
-            --body "PR automática da develop para release/${{ env.RELEASE_VERSION }}" \
-            --base release/${{ env.RELEASE_VERSION }} \
-            --head develop
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${{ github.repository }}/pulls \
+            -d '{
+              "title": "Release ${{ needs.create-release-branch.outputs.RELEASE_VERSION }} (Automática)",
+              "body": "PR automática da develop para release/${{ needs.create-release-branch.outputs.RELEASE_VERSION }}",
+              "head": "develop",
+              "base": "release/${{ needs.create-release-branch.outputs.RELEASE_VERSION }}"
+            }'
