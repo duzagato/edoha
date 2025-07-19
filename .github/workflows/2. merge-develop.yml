@@ -26,6 +26,11 @@ jobs:
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@users.noreply.github.com"
 
+      - name: Buscar branches remotas
+        run: |
+          git fetch --all --prune
+
+
       - name: Calcular versão da release
         id: calculate_version
         run: |
