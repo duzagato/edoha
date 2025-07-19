@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Edoha.API.props" />
+</Project>
