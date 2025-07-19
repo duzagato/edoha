@@ -32,7 +32,6 @@ jobs:
       - name: Calcular versão da release
         id: calculate_version
         run: |
-          # Buscar todas as branches remotas que contenham release/ e extrair a versão após a última /
           release_branches=$(git ls-remote --heads origin "*/release/*" | awk -F'/' '{print $NF}' | sort -V || true)
 
           if [ -z "$release_branches" ]; then
@@ -43,11 +42,9 @@ jobs:
             echo "Última versão encontrada: $latest_version"
           fi
 
-          # Separar a versão em major, minor e patch
           IFS='.' read -r major minor patch <<< "$latest_version"
           echo "Versão detalhada: Major=$major, Minor=$minor, Patch=$patch"
 
-          # Detectar tipo de branch de origem
           SOURCE_BRANCH="${{ github.event.pull_request.head.ref }}"
 
           if [[ "$SOURCE_BRANCH" == feature/* ]]; then
@@ -78,7 +75,7 @@ jobs:
       - name: Criar PR develop → release
         run: |
           gh pr create \
-            --title "Release ${{ env.RELEASE_VERSION }} - Desenvolvimento → Release" \
+            --title "PR Gerada Automaticamente - develop -> release/${{ env.RELEASE_VERSION }}" \
             --body "PR automática contendo as alterações da develop para ${{ env.RELEASE_BRANCH }}\n\n**Atenção:** Não fazer merge desta PR, apenas revisar as alterações." \
             --base "${{ env.RELEASE_BRANCH }}" \
             --head develop
