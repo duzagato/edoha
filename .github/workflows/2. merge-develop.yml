@@ -27,13 +27,35 @@ jobs:
           git config --global user.email "github-actions@users.noreply.github.com"
 
       - name: Calcular versão da release
-        id: calculate_version
-        run: |
-          git fetch origin 'refs/heads/release/*:refs/remotes/origin/release/*'
-          count=$(git branch -r | grep -c 'origin/release/') || true
-          next_version=$((count + 1))
-          echo "RELEASE_VERSION=$next_version" >> $GITHUB_ENV
-          echo "Versão calculada: $next_version"
+      id: calculate_version
+      run: |
+        git fetch origin 'refs/heads/release/*:refs/remotes/origin/release/*'
+        
+        # Buscar as versões existentes e extrair o maior valor
+        versions=$(git branch -r | grep 'origin/release/' | sed 's|origin/release/||' | sort -V)
+        latest_version=$(echo "$versions" | tail -n1)
+
+        echo "Última versão encontrada: $latest_version"
+
+        IFS='.' read -r major minor patch <<< "$latest_version"
+
+        # Detectar tipo de PR (feature/ ou fix/)
+        SOURCE_BRANCH="${{ github.event.pull_request.head.ref }}"
+
+        if [[ "$SOURCE_BRANCH" == feature/* ]]; then
+          minor=$((minor + 1))
+          patch=0
+        elif [[ "$SOURCE_BRANCH" == fix/* ]]; then
+          patch=$((patch + 1))
+        else
+          echo "Tipo de branch desconhecido. Esperado 'feature/' ou 'fix/'."
+          exit 1
+        fi
+
+        new_version="$major.$minor.$patch"
+        echo "RELEASE_VERSION=$new_version" >> $GITHUB_ENV
+        echo "Versão calculada: $new_version"
+
 
       - name: Criar branch release a partir da main
         run: |
