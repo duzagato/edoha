@@ -1,53 +1,51 @@
-name: Criar release/N+1 a partir da develop
+name: PR release → main após merge com develop
 
 on:
-  push:
+  pull_request:
     branches:
-      - release/*
+      - 'release/*'
+    types: [closed]
 
 jobs:
-  create-release-branch:
+  merge-develop-into-release-and-create-main-pr:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
 
     steps:
       - name: Checar repositório
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # necessário para pegar todas as branches remotas
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Configurar Git
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@users.noreply.github.com"
 
-      - name: Obter próximo número da release
-        id: next_release
+      - name: Descobrir nome da branch release
+        id: vars
+        run: |
+          RELEASE_BRANCH="${{ github.event.pull_request.base.ref }}"
+          echo "RELEASE_BRANCH=$RELEASE_BRANCH" >> $GITHUB_ENV
+          echo "Release branch detectada: $RELEASE_BRANCH"
+
+      - name: Merge develop → release/{version}
         run: |
           git fetch origin
-
-          # Filtrar apenas branches release/N
-          RELEASE_BRANCHES=$(git ls-remote --heads origin "release/*" | awk -F'/' '{print $3}')
-          
-          # Extrair apenas os números das releases
-          NUMEROS=$(echo "$RELEASE_BRANCHES" | grep -Eo '[0-9]+' | sort -n)
-
-          # Pegar o maior número existente
-          if [ -z "$NUMEROS" ]; then
-            NEXT=1
-          else
-            NEXT=$(echo "$NUMEROS" | tail -n 1)
-            NEXT=$((NEXT + 1))
-          fi
-
-          echo "PRÓXIMA RELEASE: release/$NEXT"
-          echo "RELEASE_BRANCH=release/$NEXT" >> $GITHUB_ENV
-
-      - name: Criar e fazer push da nova release
-        run: |
-          git checkout develop
-          git pull origin develop
-          
-          git checkout -b $RELEASE_BRANCH
+          git checkout $RELEASE_BRANCH
+          git merge origin/develop --no-ff -m "Merge develop into $RELEASE_BRANCH"
           git push origin $RELEASE_BRANCH
+
+      - name: Criar PR release → main
+        run: |
+          gh pr create \
+            --title "Release $RELEASE_BRANCH → main" \
+            --body "PR automática para promover a release `${RELEASE_BRANCH}` para a branch main.\n\nRevisar com atenção antes de aprovar." \
+            --base main \
+            --head $RELEASE_BRANCH
         env:
-          RELEASE_BRANCH: ${{ env.RELEASE_BRANCH }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
