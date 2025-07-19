@@ -14,13 +14,12 @@ jobs:
         uses: actions/checkout@v4
 
 
-      - name: Criar PR para develop
+  - name: Criar PR develop → release
         run: |
           gh pr create \
-            --title "Merge $(basename $GITHUB_REF) into develop" \
-            --body "Auto PR gerada pelo push" \
-            --base develop \
-            --head ${GITHUB_REF#refs/heads/}
+            --title "Release ${RELEASE_VERSION} - Desenvolvimento → Release" \
+            --body "PR automática contendo as alterações da develop para release/${RELEASE_VERSION}\n\n**Atenção:** Não fazer merge desta PR, apenas revisar as alterações." \
+            --base release/${RELEASE_VERSION} \
+            --head develop
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
-
