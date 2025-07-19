@@ -26,28 +26,61 @@ jobs:
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@users.noreply.github.com"
 
+      - name: Buscar branches remotas
+        run: git fetch --all --prune
+
       - name: Calcular versão da release
         id: calculate_version
         run: |
-          git fetch origin 'refs/heads/release/*:refs/remotes/origin/release/*'
-          count=$(git branch -r | grep -c 'origin/release/') || true
-          next_version=$((count + 1))
-          echo "RELEASE_VERSION=$next_version" >> $GITHUB_ENV
-          echo "Versão calculada: $next_version"
+          # Buscar todas as branches remotas que contenham release/ e extrair a versão após a última /
+          release_branches=$(git ls-remote --heads origin "*/release/*" | awk -F'/' '{print $NF}' | sort -V || true)
+
+          if [ -z "$release_branches" ]; then
+            latest_version="0.0.0"
+            echo "Nenhuma release encontrada. Usando versão inicial: $latest_version"
+          else
+            latest_version=$(echo "$release_branches" | tail -n1)
+            echo "Última versão encontrada: $latest_version"
+          fi
+
+          # Separar a versão em major, minor e patch
+          IFS='.' read -r major minor patch <<< "$latest_version"
+          echo "Versão detalhada: Major=$major, Minor=$minor, Patch=$patch"
+
+          # Detectar tipo de branch de origem
+          SOURCE_BRANCH="${{ github.event.pull_request.head.ref }}"
+
+          if [[ "$SOURCE_BRANCH" == feature/* ]]; then
+            minor=$((minor + 1))
+            patch=0
+          elif [[ "$SOURCE_BRANCH" == fix/* ]]; then
+            patch=$((patch + 1))
+          else
+            echo "Tipo de branch desconhecido: $SOURCE_BRANCH. Esperado 'feature/*' ou 'fix/*'."
+            exit 1
+          fi
+
+          new_version="$major.$minor.$patch"
+          release_branch="release/$new_version"
+
+          echo "RELEASE_VERSION=$new_version" >> $GITHUB_ENV
+          echo "RELEASE_BRANCH=$release_branch" >> $GITHUB_ENV
+          echo "Versão calculada: $new_version"
+          echo "Branch gerada: $release_branch"
 
       - name: Criar branch release a partir da main
         run: |
           git fetch origin
-          git checkout -b release/${{ env.RELEASE_VERSION }} origin/main
-          git push origin release/${{ env.RELEASE_VERSION }}
-          echo "Branch release/${{ env.RELEASE_VERSION }} criada com sucesso"
+          git checkout -b "${{ env.RELEASE_BRANCH }}" origin/main
+          git push origin "${{ env.RELEASE_BRANCH }}"
+          echo "Branch ${{ env.RELEASE_BRANCH }} criada com sucesso"
 
       - name: Criar PR develop → release
         run: |
           gh pr create \
             --title "Release ${{ env.RELEASE_VERSION }} - Desenvolvimento → Release" \
-            --body "PR automática contendo as alterações da develop para release/${{ env.RELEASE_VERSION }}\n\n**Atenção:** Não fazer merge desta PR, apenas revisar as alterações." \
-            --base release/${{ env.RELEASE_VERSION }} \
+            --body "PR automática contendo as alterações da develop para ${{ env.RELEASE_BRANCH }}\n\n**Atenção:** Não fazer merge desta PR, apenas revisar as alterações." \
+            --base "${{ env.RELEASE_BRANCH }}" \
             --head develop
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
