@@ -1,62 +1,55 @@
-name: PR release → main
+name: PR release → main após merge com develop
 
 on:
-  push:
+  pull_request:
     branches:
       - 'release/*'
+    types: [closed]
 
 jobs:
-  release-to-main:
+  merge-develop-into-release-and-create-main-pr:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
 
     steps:
       - name: Checar repositório
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Configurar Git
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@users.noreply.github.com"
 
-      - name: Criar PR da release para main
-        id: create_pr
+      - name: Descobrir nome da branch release
+        id: vars
         run: |
-          CURRENT_BRANCH=${GITHUB_REF#refs/heads/}
-          
-          PR_URL=$(gh pr create \
-            --title "Release para main: $CURRENT_BRANCH" \
-            --body "Preparando deploy da release para main" \
+          RELEASE_BRANCH="${{ github.event.pull_request.base.ref }}"
+          echo "RELEASE_BRANCH=$RELEASE_BRANCH" >> $GITHUB_ENV
+          echo "Release branch detectada: $RELEASE_BRANCH"
+
+      - name: Merge develop → release/{version}
+        run: |
+          git fetch origin
+          git checkout $RELEASE_BRANCH
+          git merge origin/develop --no-ff -m "Merge develop into $RELEASE_BRANCH"
+          git push origin $RELEASE_BRANCH
+
+      - name: Criar PR release → main
+        run: |
+          gh pr create \
+            --title "PR Gerada Automaticamente - $RELEASE_BRANCH -> main" \
+            --body "PR automática para promover a release `${RELEASE_BRANCH}` para a branch main.\n\nRevisar com atenção antes de aprovar." \
             --base main \
-            --head $CURRENT_BRANCH \
-            --label "to-main" \
-            --json url --jq .url)
-
-          echo "PR_URL=$PR_URL" >> $GITHUB_ENV
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Aguardar aprovação da PR
-        run: |
-          echo "Aguardando aprovação da PR: $PR_URL"
-          PR_NUMBER=$(gh pr view "$PR_URL" --json number --jq .number)
-
-          APPROVED=false
-          for i in {1..30}; do
-            echo "Verificando aprovação... tentativa $i"
-            APPROVED=$(gh pr review --list --json state,author --jq '[.[] | select(.state == "APPROVED")][0]')
-            if [ "$APPROVED" != "" ]; then
-              echo "PR aprovada!"
-              break
-            fi
-            sleep 20
-          done
-
-          if [ "$APPROVED" = "" ]; then
-            echo "PR não foi aprovada no tempo limite."
-            exit 1
-          fi
+            --head $RELEASE_BRANCH
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
+<<<<<<< HEAD
 
       - name: Fazer merge automático da release na main
         run: |
@@ -64,3 +57,5 @@ jobs:
         env:
           GH
 
+=======
+>>>>>>> 8cc1db33f72817871d4db382bdcaab0670de8819
