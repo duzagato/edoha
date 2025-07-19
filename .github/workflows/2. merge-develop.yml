@@ -7,7 +7,7 @@ on:
     types: [closed]
 
 jobs:
-  create-release:
+  create-release-and-pr:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     permissions:
@@ -29,15 +29,11 @@ jobs:
       - name: Calcular versão da release
         id: calculate_version
         run: |
-          # Busca todas as branches release remotas
           git fetch origin 'refs/heads/release/*:refs/remotes/origin/release/*'
-          
-          # Conta as branches release existentes
           count=$(git branch -r | grep -c 'origin/release/') || true
           next_version=$((count + 1))
-          
-          echo "Versão calculada: $next_version"
           echo "RELEASE_VERSION=$next_version" >> $GITHUB_ENV
+          echo "Versão calculada: $next_version"
 
       - name: Criar branch release
         run: |
@@ -48,17 +44,10 @@ jobs:
           echo "Branch release/${{ env.RELEASE_VERSION }} criada com sucesso"
 
       - name: Criar PR develop → release
-        run: |
-          # Usando a API REST do GitHub diretamente para maior confiabilidade
-          curl -X POST \
-            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/${{ github.repository }}/pulls \
-            -d '{
-              "title": "Release ${{ env.RELEASE_VERSION }} - Desenvolvimento → Release",
-              "body": "PR automática contendo as alterações da develop para release/${{ env.RELEASE_VERSION }}\n\nNão fazer merge desta PR, apenas revisar as alterações.",
-              "head": "develop",
-              "base": "release/${{ env.RELEASE_VERSION }}",
-              "draft": false
-            }'
-          echo "PR criada com sucesso"
+        uses: repo-sync/pull-request@v2
+        with:
+          source_branch: "develop"
+          destination_branch: "release/${{ env.RELEASE_VERSION }}"
+          pr_title: "Release ${{ env.RELEASE_VERSION }} - Desenvolvimento → Release"
+          pr_body: "PR automática contendo as alterações da develop para release/${{ env.RELEASE_VERSION }}\n\n**Atenção:** Não fazer merge desta PR, apenas revisar as alterações."
+          github_token: ${{ secrets.GITHUB_TOKEN }}
