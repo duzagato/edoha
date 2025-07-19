@@ -30,19 +30,17 @@ jobs:
         run: |
           git fetch --all --prune
 
-
       - name: Calcular versão da release
         id: calculate_version
         run: |
-          git fetch origin 'refs/heads/release/*:refs/remotes/origin/release/*'
+          # Buscar nomes das branches release/*
+          release_branches=$(git ls-remote --heads origin "release/*" | awk -F/ '{print $3}' || true)
 
-          # Buscar versões
-          versions=$(git branch -r | grep 'origin/release/' | sed 's|origin/release/||' | sort -V || true)
-
-          if [ -z "$versions" ]; then
+          if [ -z "$release_branches" ]; then
             latest_version="0.0.0"
             echo "Nenhuma release encontrada. Usando versão inicial: $latest_version"
           else
+            versions=$(echo "$release_branches" | sort -V)
             latest_version=$(echo "$versions" | tail -n1)
             echo "Última versão encontrada: $latest_version"
           fi
@@ -65,7 +63,6 @@ jobs:
           new_version="$major.$minor.$patch"
           echo "RELEASE_VERSION=$new_version" >> $GITHUB_ENV
           echo "Versão calculada: $new_version"
-
 
       - name: Criar branch release a partir da main
         run: |
