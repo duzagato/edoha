@@ -45,12 +45,16 @@ jobs:
 
       - name: Instalar GitHub CLI
         run: |
-          sudo apt-get update
-          sudo apt-get install -y gh
+          type -p curl >/dev/null || sudo apt install curl -y
+          curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+          && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+          && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+          && sudo apt update \
+          && sudo apt install gh -y
 
-      - name: Configurar GitHub CLI
+      - name: Autenticar GitHub CLI
         run: |
-          gh auth setup-git
+          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
           gh auth status
 
       - name: Criar PR develop → release
@@ -60,5 +64,3 @@ jobs:
             --body "PR automática da develop para release/${{ env.RELEASE_VERSION }}" \
             --base release/${{ env.RELEASE_VERSION }} \
             --head develop
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
