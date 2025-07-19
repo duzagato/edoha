@@ -49,3 +49,13 @@ jobs:
             --head $RELEASE_BRANCH
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
+<<<<<<< HEAD
+
+      - name: Fazer merge automático da release na main
+        run: |
+          gh pr merge "$PR_URL" --merge --delete-branch
+        env:
+          GH
+
+=======
+>>>>>>> 8cc1db33f72817871d4db382bdcaab0670de8819
