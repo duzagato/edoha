@@ -49,5 +49,8 @@ jobs:
           source_branch: "develop"
           destination_branch: "release/${{ env.RELEASE_VERSION }}"
           pr_title: "Release ${{ env.RELEASE_VERSION }} - Desenvolvimento → Release"
-          pr_body: "PR automática contendo as alterações da develop para release/${{ env.RELEASE_VERSION }}\n\n**Atenção:** Não fazer merge desta PR, apenas revisar as alterações."
+          pr_body: |
+            PR automática contendo as alterações da develop para release/${{ env.RELEASE_VERSION }}
+
+            **Atenção:** Não fazer merge desta PR, apenas revisar as alterações.
           github_token: ${{ secrets.GITHUB_TOKEN }}
