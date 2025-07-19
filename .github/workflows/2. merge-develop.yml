@@ -44,13 +44,11 @@ jobs:
           echo "Branch release/${{ env.RELEASE_VERSION }} criada com sucesso"
 
       - name: Criar PR develop → release
-        uses: repo-sync/pull-request@v2
-        with:
-          source_branch: "develop"
-          destination_branch: "release/${{ env.RELEASE_VERSION }}"
-          pr_title: "Release ${{ env.RELEASE_VERSION }} - Desenvolvimento → Release"
-          pr_body: |
-            PR automática contendo as alterações da develop para release/${{ env.RELEASE_VERSION }}
-
-            **Atenção:** Não fazer merge desta PR, apenas revisar as alterações.
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr create \
+            --title "Release ${RELEASE_VERSION} - Desenvolvimento → Release" \
+            --body "PR automática contendo as alterações da develop para release/${RELEASE_VERSION}\n\n**Atenção:** Não fazer merge desta PR, apenas revisar as alterações." \
+            --base release/${RELEASE_VERSION} \
+            --head develop
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
