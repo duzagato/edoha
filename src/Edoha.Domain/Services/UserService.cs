@@ -1,17 +1,19 @@
-﻿using Edoha.Shared.Helpers;
-using Edoha.Domain.Entities;
+﻿using Edoha.Domain.Entities;
+using Edoha.Domain.Interfaces.Context;
 using Edoha.Domain.Interfaces.Repositories;
 using Edoha.Domain.Interfaces.Services;
+using Edoha.Domain.Interfaces.Util;
 using Edoha.Domain.Models.DTOs.User;
 using Edoha.Domain.Models.InputModels.User;
+using Edoha.Shared.Constants.Alerts;
+using Edoha.Shared.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Edoha.Domain.Interfaces.Util;
-using Edoha.Domain.Interfaces.Context;
 
 namespace Edoha.Domain.Services
 {
@@ -35,40 +37,38 @@ namespace Edoha.Domain.Services
             await _userTypeRepository.IdExists(model.IdUserType);
 
             byte[]? hashedPassword = null;
-            string? username = model.Nickname;
-            string? unhashedPassword = model.UnhashedPassword;
+            bool usernameSended = IsUsernameSended(model.Nickname);
+            bool passwordSended = IsPasswordSended(model.UnhashedPassword);
 
-            if (this.ValidateUserCredentials(username, unhashedPassword))
+            if (usernameSended && passwordSended)
             {
-                if(unhashedPassword?.Length >= 8 && unhashedPassword.Length <= 30)
-                {
-                    _crypto.SetUnhashedValue(unhashedPassword);
-                    hashedPassword = _crypto.GetPBKDF2();
-                }
-                else
-                {
-                    throw new ArgumentException();
-                }
+                hashedPassword = HashPassword(model.UnhashedPassword!);
+            }
+            else
+            {
+                SetValidationMessages(usernameSended, passwordSended);
             }
 
-            CreateUserDTO dto = new CreateUserDTO
-            {
-                Name = model.Name,
-                Phone = model.Phone,
-                Nickname = username,
-                Password = hashedPassword,
-                IdUserType = model.IdUserType
-            };
 
-            await this.Insert(dto);
+
+                CreateUserDTO dto = new CreateUserDTO
+                {
+                    Name = model.Name!,
+                    Phone = model.Phone!,
+                    Nickname = model.Nickname,
+                    Password = hashedPassword,
+                    IdUserType = model.IdUserType
+                };
+
+            await Insert(dto);
         }
 
-        public async void InsertUserInformation()
+        public void InsertUserInformation()
         {
 
         }
 
-        public async void InsertUserCredentials()
+        public void InsertUserCredentials()
         {
 
         }
@@ -85,27 +85,62 @@ namespace Edoha.Domain.Services
 
         public async Task UpdateUserById(UpdateUserDTO dto)
         {
-            await this.Update(dto);
+            await Update(dto);
         }
 
         public async Task DeleteUserById(Guid id)
         {
-            await this.DeleteById(id);
+            await DeleteById(id);
         }
 
-        private bool ValidateUserCredentials(string? username, string? password)
+        private bool IsUsernameSended(string? username)
         {
-            if ((username != null && password != null) && (username.Length > 0 && password.Length > 0))
+            if (!String.IsNullOrWhiteSpace(username))
             {
                 return true;
             }
-            else if ((username == null && password == null) || (username == "" && password == ""))
+            else
             {
                 return false;
             }
+        }
+
+        private bool IsPasswordSended(string? password)
+        {
+            if (!String.IsNullOrWhiteSpace(password))
+            {
+                return true;
+            }
             else
             {
-                throw new ArgumentException();
+                return false;
+            }
+        }
+
+        private byte[]? HashPassword(string unhashedPassword)
+        {
+            if (unhashedPassword.Length >= 8 && unhashedPassword.Length <= 30)
+            {
+                _crypto.SetUnhashedValue(unhashedPassword);
+                return _crypto.GetPBKDF2();
+            }
+            else
+            {
+                _requestValidationContext.AddError("UnhashedPassword", UserAlerts.InvalidPasswordLength);
+                return null;
+            }
+        }
+
+        private void SetValidationMessages(bool usernameSended, bool passwordSended)
+        {
+            if (!usernameSended)
+            {
+                _requestValidationContext.AddError("Nickname", UserAlerts.EmptyUsername);
+            }
+
+            if (!passwordSended)
+            {
+                _requestValidationContext.AddError("UnhashedPassword", UserAlerts.EmptyPassword);
             }
         }
     }

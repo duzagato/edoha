@@ -10,10 +10,13 @@ namespace Edoha.Domain.Models.DTOs.User
 {
     public class CreateUserDTO : DTO
     {
+        [Required]
         public string Name { get; set; }
+
+        [Required]
         public string Phone { get; set; }
-        public string Nickname { get; set; }
-        public byte[] Password { get; set; }
+        public string? Nickname { get; set; }
+        public byte[]? Password { get; set; }
         public Guid IdUserType { get; set; }
     }
 }

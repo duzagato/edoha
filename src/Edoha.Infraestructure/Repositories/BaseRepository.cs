@@ -29,8 +29,8 @@ namespace Edoha.Infrastructure.Repositories
             var tableName = RepositoryHelper.GetTableName<T>();
             _schema = RepositoryHelper.GetSchema<T>();
             _tableName = StringHelper.PascalToSnakeCase(tableName);
-            _idColumnPascalCase = RepositoryHelper.GetIdColumnName(tableName);
-            _idColumnSnakeCase = StringHelper.PascalToSnakeCase(_idColumnPascalCase);
+            _idColumnPascalCase = "Id";
+            _idColumnSnakeCase = "id";
             _properties = RepositoryHelper.GetProperties<T>(_idColumnPascalCase);
         }
 
