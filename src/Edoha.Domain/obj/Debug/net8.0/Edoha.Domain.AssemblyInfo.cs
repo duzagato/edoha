@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Edoha.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e0af66189a3254c4b3588e956be9f577d2d5936b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c02afeee715bc6fc2b6531d1d8de9c277192d3cc")]
 [assembly: System.Reflection.AssemblyProductAttribute("Edoha.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Edoha.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

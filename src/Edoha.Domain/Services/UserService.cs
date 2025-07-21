@@ -49,16 +49,14 @@ namespace Edoha.Domain.Services
                 SetValidationMessages(usernameSended, passwordSended);
             }
 
-
-
-                CreateUserDTO dto = new CreateUserDTO
-                {
-                    Name = model.Name!,
-                    Phone = model.Phone!,
-                    Nickname = model.Nickname,
-                    Password = hashedPassword,
-                    IdUserType = model.IdUserType
-                };
+            CreateUserDTO dto = new CreateUserDTO
+            {
+                Name = model.Name!,
+                Phone = model.Phone!,
+                Nickname = model.Nickname,
+                Password = hashedPassword,
+                IdUserType = model.IdUserType
+            };
 
             await Insert(dto);
         }
