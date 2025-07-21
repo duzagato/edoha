@@ -14,7 +14,7 @@ namespace Edoha.Infraestructure.Context
     public class RequestValidationContext : IRequestValidationContext
     {
         private Dictionary<string, string> Errors { get; set; }
-        public bool IsValid => Errors.Count <= 1;
+        public bool IsValid => Errors.Count == 0;
 
         public RequestValidationContext()
         {
@@ -39,7 +39,10 @@ namespace Edoha.Infraestructure.Context
             var context = new ValidationContext(this, serviceProvider: null, items: null);
             var results = new List<ValidationResult>();
 
-            bool isValid = Validator.TryValidateObject(this, context, results, validateAllProperties: true);
+            bool isValid = !IsValid
+            ? false
+            : Validator.TryValidateObject(this, context, results, validateAllProperties: true);
+
 
             if (!isValid)
             {
