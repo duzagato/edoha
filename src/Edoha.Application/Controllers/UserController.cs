@@ -75,20 +75,8 @@ namespace Edoha.Controllers
         {
             if(model != null)
             {
-                try
-                {
-                    await _userService.InsertUser(model);
-                    return Ok();
-                }
-                catch (Exception ex)
-                {
-                    return StatusCode(500, new
-                    {
-                        Message = ex.Message,
-                        StackTrace = ex.StackTrace,
-                        InnerException = ex.InnerException?.Message
-                    });
-                }
+                await _userService.InsertUser(model);
+                return Ok();
             }
             else
             {
