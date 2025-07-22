@@ -1,6 +1,7 @@
 ﻿using Edoha.Application.DependencyInjection;
 using Npgsql;
 using System.Data;
+using YourApp.Application.DependencyInjection;
 
 namespace Edoha.Application;
 
@@ -25,5 +26,10 @@ public static class ServoceCollection
     public static IServiceCollection AddUtils(this IServiceCollection services)
     {
         return UtilsInjection.Register(services);
+    }
+
+    public static IServiceCollection AddJwt(this IServiceCollection services, IConfiguration configuration)
+    {
+        return JwtInjection.AddJwt(services, configuration);
     }
 }

@@ -18,6 +18,8 @@ Log.Logger = new LoggerConfiguration()
 // Substitui o logger padrão do ASP.NET Core por Serilog
 builder.Host.UseSerilog();
 
+builder.Services.AddJwt(builder.Configuration);
+
 // Serviços
 builder.Services.AddDatabase(builder.Configuration);
 builder.Services.AddRepositories();

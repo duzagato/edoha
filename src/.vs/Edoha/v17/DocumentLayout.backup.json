@@ -3,20 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2E3E8AF0-3A72-445B-AE7D-9F3245C47871}|Edoha.Application\\Edoha.Application.csproj|c:\\users\\eduardo zagato junio\\source\\repos\\edoha\\src\\edoha.application\\middlewares\\validationmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2E3E8AF0-3A72-445B-AE7D-9F3245C47871}|Edoha.Application\\Edoha.Application.csproj|solutionrelative:edoha.application\\middlewares\\validationmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2E3E8AF0-3A72-445B-AE7D-9F3245C47871}|Edoha.Application\\Edoha.Application.csproj|c:\\users\\eduardo zagato junio\\source\\repos\\edoha\\src\\edoha.application\\dependencyinjection\\jwtinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2E3E8AF0-3A72-445B-AE7D-9F3245C47871}|Edoha.Application\\Edoha.Application.csproj|solutionrelative:edoha.application\\dependencyinjection\\jwtinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2E3E8AF0-3A72-445B-AE7D-9F3245C47871}|Edoha.Application\\Edoha.Application.csproj|c:\\users\\eduardo zagato junio\\source\\repos\\edoha\\src\\edoha.application\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2E3E8AF0-3A72-445B-AE7D-9F3245C47871}|Edoha.Application\\Edoha.Application.csproj|solutionrelative:edoha.application\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{16C64E76-ACA8-4491-8FD2-5FD2996A0A28}|Edoha.Infraestructure\\Edoha.Infraestructure.csproj|c:\\users\\eduardo zagato junio\\source\\repos\\edoha\\src\\edoha.infraestructure\\context\\requestvalidationcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{16C64E76-ACA8-4491-8FD2-5FD2996A0A28}|Edoha.Infraestructure\\Edoha.Infraestructure.csproj|solutionrelative:edoha.infraestructure\\context\\requestvalidationcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0D8ECBD2-5325-42DB-B97A-4626329BECE3}|Edoha.Domain\\Edoha.Domain.csproj|c:\\users\\eduardo zagato junio\\source\\repos\\edoha\\src\\edoha.domain\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0D8ECBD2-5325-42DB-B97A-4626329BECE3}|Edoha.Domain\\Edoha.Domain.csproj|solutionrelative:edoha.domain\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,32 +18,19 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "UserService.cs",
-              "DocumentMoniker": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Domain\\Services\\UserService.cs",
-              "RelativeDocumentMoniker": "Edoha.Domain\\Services\\UserService.cs",
-              "ToolTip": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Domain\\Services\\UserService.cs",
-              "RelativeToolTip": "Edoha.Domain\\Services\\UserService.cs",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAYwDwAAAAYAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "JwtInjection.cs",
+              "DocumentMoniker": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Application\\DependencyInjection\\JwtInjection.cs",
+              "RelativeDocumentMoniker": "Edoha.Application\\DependencyInjection\\JwtInjection.cs",
+              "ToolTip": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Application\\DependencyInjection\\JwtInjection.cs",
+              "RelativeToolTip": "Edoha.Application\\DependencyInjection\\JwtInjection.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAxwBwAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-20T21:48:48.974Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "RequestValidationContext.cs",
-              "DocumentMoniker": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Infraestructure\\Context\\RequestValidationContext.cs",
-              "RelativeDocumentMoniker": "Edoha.Infraestructure\\Context\\RequestValidationContext.cs",
-              "ToolTip": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Infraestructure\\Context\\RequestValidationContext.cs",
-              "RelativeToolTip": "Edoha.Infraestructure\\Context\\RequestValidationContext.cs",
-              "ViewState": "AgIAACYAAAAAAAAAAAAswC0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-20T21:38:46.359Z",
+              "WhenOpened": "2025-07-22T00:44:36.869Z",
               "EditorCaption": ""
             },
             {
@@ -62,22 +41,9 @@
               "RelativeDocumentMoniker": "Edoha.Application\\Program.cs",
               "ToolTip": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Application\\Program.cs",
               "RelativeToolTip": "Edoha.Application\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAADgvxAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-20T21:33:40.852Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ValidationMiddleware.cs",
-              "DocumentMoniker": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Application\\Middlewares\\ValidationMiddleware.cs",
-              "RelativeDocumentMoniker": "Edoha.Application\\Middlewares\\ValidationMiddleware.cs",
-              "ToolTip": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Application\\Middlewares\\ValidationMiddleware.cs*",
-              "RelativeToolTip": "Edoha.Application\\Middlewares\\ValidationMiddleware.cs*",
-              "ViewState": "AgIAAAUAAAAAAAAAAAA8wBYAAABKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-20T21:31:30.05Z",
+              "WhenOpened": "2025-07-22T00:34:00.667Z",
               "EditorCaption": ""
             }
           ]
