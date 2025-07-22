@@ -10,6 +10,7 @@
         "dependencies": {
           "Edoha.Domain": "1.0.0",
           "Edoha.Infraestructure": "1.0.0",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.18",
           "Microsoft.Data.SqlClient": "6.0.1",
           "Serilog": "4.3.0",
           "Serilog.AspNetCore": "9.0.0",
@@ -654,6 +655,17 @@
         "resources": {
           "lib/net6.0/zh-Hant/Humanizer.resources.dll": {
             "locale": "zh-Hant"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Authentication.JwtBearer/8.0.18": {
+        "dependencies": {
+          "Microsoft.IdentityModel.Protocols.OpenIdConnect": "7.5.0"
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll": {
+            "assemblyVersion": "8.0.18.0",
+            "fileVersion": "8.0.1825.31706"
           }
         }
       },
@@ -1859,6 +1871,13 @@
       "sha512": "sha512-VIXB7HCUC34OoaGnO3HJVtSv2/wljPhjV7eKH4+TFPgQdJj2lvHNKY41Dtg0Bphu7X5UaXFR4zrYYyo+GNOjbA==",
       "path": "humanizer.core.zh-hant/2.14.1",
       "hashPath": "humanizer.core.zh-hant.2.14.1.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Authentication.JwtBearer/8.0.18": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Ty49uva5oIFa7nOkeL+6TGRU7DQohBaEGs+QcGoGSXq4d7MZnNueLte0HFa9WHvjZUDfJSQ1PVmWkFeIYS1w4Q==",
+      "path": "microsoft.aspnetcore.authentication.jwtbearer/8.0.18",
+      "hashPath": "microsoft.aspnetcore.authentication.jwtbearer.8.0.18.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Http/2.2.2": {
       "type": "package",
