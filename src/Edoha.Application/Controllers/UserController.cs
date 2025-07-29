@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Edoha.Domain.Interfaces.Services;
-using Edoha.Domain.Entities;
-using System.Net.Sockets;
 using Edoha.Domain.Models.DTOs.User;
 using Edoha.Domain.Models.InputModels;
 using Edoha.Domain.Models.InputModels.User;
+using Edoha.Domain.Interfaces.Domain.Services;
 
 namespace Edoha.Controllers
 {

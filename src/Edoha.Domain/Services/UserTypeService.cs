@@ -1,15 +1,8 @@
 ﻿using Edoha.Domain.Entities;
-using Edoha.Domain.Interfaces.Context;
-using Edoha.Domain.Interfaces.Repositories;
-using Edoha.Domain.Interfaces.Services;
+using Edoha.Domain.Interfaces.Domain.Services;
+using Edoha.Domain.Interfaces.Infraestructure.Context;
+using Edoha.Domain.Interfaces.Infraestructure.Repositories;
 using Edoha.Domain.Models.DTOs.UserType;
-using Edoha.Shared.Helpers;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Edoha.Domain.Services
 {

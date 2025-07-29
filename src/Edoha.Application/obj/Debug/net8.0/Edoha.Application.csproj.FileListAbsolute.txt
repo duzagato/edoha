@@ -265,10 +265,8 @@ C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Application\bin\Debug
 C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Application\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
 C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Application\bin\Debug\net8.0\Edoha.Domain.dll
 C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Application\bin\Debug\net8.0\Edoha.Infraestructure.dll
-C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Application\bin\Debug\net8.0\Edoha.Shared.dll
 C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Application\bin\Debug\net8.0\Edoha.Domain.pdb
 C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Application\bin\Debug\net8.0\Edoha.Infraestructure.pdb
-C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Application\bin\Debug\net8.0\Edoha.Shared.pdb
 C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Application\obj\Debug\net8.0\rjimswa.dswa.cache.json
 C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Application\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
 C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Application\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json

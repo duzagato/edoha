@@ -1,7 +1,6 @@
 ﻿using Edoha.Application.DependencyInjection;
 using Npgsql;
 using System.Data;
-using YourApp.Application.DependencyInjection;
 
 namespace Edoha.Application;
 

@@ -1,7 +1,7 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace YourApp.Application.DependencyInjection
+namespace Edoha.Application.DependencyInjection
 {
     public static class JwtInjection
     {
