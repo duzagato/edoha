@@ -1,5 +1,5 @@
 ﻿using System.Text.Json;
-using Edoha.Shared.Exceptions;
+using Edoha.Domain.Exceptions;
 
 namespace Edoha.Application.Middlewares
 {

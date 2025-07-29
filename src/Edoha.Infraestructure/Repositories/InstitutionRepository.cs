@@ -1,14 +1,12 @@
 ﻿using Edoha.Domain.Entities;
-using Edoha.Infraestructure.Helpers;
+using Edoha.Domain.Helpers;
 using Edoha.Infrastructure.Repositories;
-using System;
-using System.Collections.Generic;
 using System.Data.Common;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Edoha.Domain.Interfaces.Repositories;
+using Edoha.Domain.Interfaces.Infraestructure.Repositories;
 
 namespace Edoha.Infraestructure.Repositories
 {

@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Edoha.Shared\Edoha.Shared.csproj" />
+    <Folder Include="Interfaces\Infraestructure\Factory\" />
   </ItemGroup>
-
 </Project>

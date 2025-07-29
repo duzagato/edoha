@@ -1,4 +1,4 @@
-﻿using Edoha.Shared.Exceptions;
+﻿using Edoha.Domain.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

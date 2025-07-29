@@ -1,13 +1,7 @@
 ﻿using Edoha.Domain.Models.DTOs;
-using Edoha.Shared.Exceptions;
-using Edoha.Domain.Interfaces.Context;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+using Edoha.Domain.Exceptions;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Edoha.Domain.Interfaces.Infraestructure.Context;
 
 namespace Edoha.Infraestructure.Context
 {

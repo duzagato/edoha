@@ -2022,9 +2022,6 @@
       "Edoha.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
-        "dependencies": {
-          "Edoha.Shared": "1.0.0"
-        },
         "compile": {
           "bin/placeholder/Edoha.Domain.dll": {}
         },
@@ -2038,7 +2035,6 @@
         "dependencies": {
           "Dapper": "2.1.66",
           "Edoha.Domain": "1.0.0",
-          "Edoha.Shared": "1.0.0",
           "Humanizer": "2.14.1",
           "Microsoft.Data.SqlClient": "6.0.1",
           "Microsoft.Extensions.Configuration": "8.0.0",
@@ -2050,16 +2046,6 @@
         },
         "runtime": {
           "bin/placeholder/Edoha.Infraestructure.dll": {}
-        }
-      },
-      "Edoha.Shared/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
-        "compile": {
-          "bin/placeholder/Edoha.Shared.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Edoha.Shared.dll": {}
         }
       }
     }
@@ -5072,11 +5058,6 @@
       "type": "project",
       "path": "../Edoha.Infraestructure/Edoha.Infraestructure.csproj",
       "msbuildProject": "../Edoha.Infraestructure/Edoha.Infraestructure.csproj"
-    },
-    "Edoha.Shared/1.0.0": {
-      "type": "project",
-      "path": "../Edoha.Shared/Edoha.Shared.csproj",
-      "msbuildProject": "../Edoha.Shared/Edoha.Shared.csproj"
     }
   },
   "projectFileDependencyGroups": {
