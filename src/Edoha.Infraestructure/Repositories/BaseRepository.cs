@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Threading.Tasks;
+﻿using System.Data;
 using Dapper;
 using System.Reflection;
-using System.Net.Http.Headers;
-using Edoha.Domain.Interfaces;
 using Edoha.Domain.Models.DTOs;
-using Edoha.Infraestructure.Factory;
-using Edoha.Shared.Helpers;
-using Edoha.Domain.Interfaces.Repositories;
+using Edoha.Domain.Helpers;
+using Edoha.Domain.Interfaces.Infraestructure.Repositories;
 
 namespace Edoha.Infrastructure.Repositories
 {
@@ -29,8 +23,8 @@ namespace Edoha.Infrastructure.Repositories
             var tableName = RepositoryHelper.GetTableName<T>();
             _schema = RepositoryHelper.GetSchema<T>();
             _tableName = StringHelper.PascalToSnakeCase(tableName);
-            _idColumnPascalCase = RepositoryHelper.GetIdColumnName(tableName);
-            _idColumnSnakeCase = StringHelper.PascalToSnakeCase(_idColumnPascalCase);
+            _idColumnPascalCase = "Id";
+            _idColumnSnakeCase = "id";
             _properties = RepositoryHelper.GetProperties<T>(_idColumnPascalCase);
         }
 

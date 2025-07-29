@@ -1,8 +1,7 @@
-﻿using Edoha.Domain.Interfaces.Context;
-using Edoha.Domain.Interfaces.Services;
+﻿using Edoha.Domain.Interfaces.Domain.Services;
+using Edoha.Domain.Interfaces.Infraestructure.Context;
 using Edoha.Domain.Services;
 using Edoha.Infraestructure.Context;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Edoha.Application;
 

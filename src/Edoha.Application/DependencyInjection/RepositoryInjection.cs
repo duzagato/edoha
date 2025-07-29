@@ -1,7 +1,5 @@
-﻿using Edoha.Domain.Interfaces.Repositories;
+﻿using Edoha.Domain.Interfaces.Infraestructure.Repositories;
 using Edoha.Infraestructure.Repositories;
-using Edoha.Infrastructure.Repositories;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Edoha.Application.DependencyInjection;
 
