@@ -2,7 +2,7 @@
 
 namespace Edoha.Domain.Models.DTOs.Page
 {
-    public class CreatePage
+    public class CreatePage : DTO
     {
         [Required]
         public string Name { get; set; }

@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Edoha.Domain.Entities;
+using Edoha.Domain.Models.DTOs.Permission;
 
 namespace Edoha.Domain.Interfaces.Domain.Services
 {
-    internal interface IPermissionService
+    public interface IPermissionService : IService<Permission>
     {
+        Task<IEnumerable<Permission>> SelectAllPermissions();
+        Task<Permission?> SelectPermissionById(Guid id);
+        Task InsertPermission(CreatePermissionDTO dto);
+        Task UpdatePermissionById(UpdatePermissionDTO dto);
+        Task DeletePermissionById(Guid id);
     }
 }

@@ -2,8 +2,7 @@
 
 namespace Edoha.Domain.Interfaces.Infraestructure.Repositories
 {
-    public interface IInstitutionRepository : IBaseRepository<Institution>
+    public interface IUserPermissionRepository : IBaseRepository<UserPermission>
     {
-
     }
 }
