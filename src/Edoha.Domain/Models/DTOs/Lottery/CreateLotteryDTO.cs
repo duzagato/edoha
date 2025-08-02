@@ -1,4 +1,4 @@
-﻿using Edoha.Shared.Annotations.Numerical;
+﻿using Edoha.Domain.Annotations.Numerical;
 using Edoha.Domain.Models.DTOs;
 using System;
 using System.Collections.Generic;

@@ -14,7 +14,7 @@ namespace Edoha.Shared.Helpers
         public static string GetSchema<T>() where T : class
         {
             var tableAttribute = typeof(T).GetCustomAttribute<TableAttribute>();
-            return tableAttribute?.Schema ?? "EDOHA";
+            return tableAttribute?.Schema ?? "edoha";
         }
 
         public static string GetTableName<T>() where T : class

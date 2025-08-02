@@ -1,8 +1,7 @@
-﻿using Edoha.Domain.Interfaces.Context;
-using Edoha.Domain.Interfaces.Services;
+﻿using Edoha.Domain.Interfaces.Domain.Services;
+using Edoha.Domain.Interfaces.Infraestructure.Context;
 using Edoha.Domain.Services;
 using Edoha.Infraestructure.Context;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Edoha.Application;
 
@@ -10,11 +9,15 @@ public static class ServiceInjection
 {
     public static IServiceCollection Register(IServiceCollection services)
     {
+        services.AddScoped<IActionService, ActionService>();
         services.AddScoped<IRequestValidationContext, RequestValidationContext>();
         services.AddScoped<ILotteryService, LotteryService>();
+        services.AddScoped<IPageService, PageService>();
+        services.AddScoped<IPermissionService, PermissionService>();
         services.AddScoped<ITicketService, TicketService>();
         services.AddScoped<ITicketbookService, TicketbookService>();
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IUserPermissionService, UserPermissionService>();
         services.AddScoped<IUserTypeService, UserTypeService>();
 
         return services;

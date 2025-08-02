@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Edoha.Domain.Interfaces.Services;
-using Edoha.Domain.Entities;
-using System.Net.Sockets;
 using Edoha.Domain.Models.DTOs.User;
 using Edoha.Domain.Models.InputModels;
 using Edoha.Domain.Models.InputModels.User;
+using Edoha.Domain.Interfaces.Domain.Services;
 
 namespace Edoha.Controllers
 {
@@ -75,20 +73,8 @@ namespace Edoha.Controllers
         {
             if(model != null)
             {
-                try
-                {
-                    await _userService.InsertUser(model);
-                    return Ok();
-                }
-                catch (Exception ex)
-                {
-                    return StatusCode(500, new
-                    {
-                        Message = ex.Message,
-                        StackTrace = ex.StackTrace,
-                        InnerException = ex.InnerException?.Message
-                    });
-                }
+                await _userService.InsertUser(model);
+                return Ok();
             }
             else
             {

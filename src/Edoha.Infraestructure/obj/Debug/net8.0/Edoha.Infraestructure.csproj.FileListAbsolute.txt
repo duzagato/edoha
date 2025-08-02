@@ -25,9 +25,7 @@ C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Infraestructure\bin\D
 C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Infraestructure\bin\Debug\net8.0\Edoha.Infraestructure.dll
 C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Infraestructure\bin\Debug\net8.0\Edoha.Infraestructure.pdb
 C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Infraestructure\bin\Debug\net8.0\Edoha.Domain.dll
-C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Infraestructure\bin\Debug\net8.0\Edoha.Shared.dll
 C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Infraestructure\bin\Debug\net8.0\Edoha.Domain.pdb
-C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Infraestructure\bin\Debug\net8.0\Edoha.Shared.pdb
 C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Infraestructure\obj\Debug\net8.0\Edoha.In.EC720BE4.Up2Date
 C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Infraestructure\obj\Debug\net8.0\Edoha.Infraestructure.dll
 C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Infraestructure\obj\Debug\net8.0\refint\Edoha.Infraestructure.dll
