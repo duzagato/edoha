@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Edoha.Infraestructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+32a8920977791114b38eaca1138fb67d3363e6ae")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e5e058295501f63e2e66460c0cdbc2fda81e702a")]
 [assembly: System.Reflection.AssemblyProductAttribute("Edoha.Infraestructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Edoha.Infraestructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

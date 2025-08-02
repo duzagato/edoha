@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Edoha.Domain.Models.DTOs.UserPermission
 {
-    public class CreateUserPermission
+    public class CreateUserPermissionDTO : DTO
     {
         [Required]
         public Guid IdUser { get; set; }

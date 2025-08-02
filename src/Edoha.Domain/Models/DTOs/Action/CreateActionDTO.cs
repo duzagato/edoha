@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Edoha.Domain.Models.DTOs.Action
 {
-    public class CreateActionDTO
+    public class CreateActionDTO : DTO
     {
         [Required]
         public string Name { get; set; }

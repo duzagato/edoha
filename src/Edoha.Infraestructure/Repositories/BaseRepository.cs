@@ -1,9 +1,10 @@
-﻿using System.Data;
-using Dapper;
-using System.Reflection;
-using Edoha.Domain.Models.DTOs;
+﻿using Dapper;
 using Edoha.Domain.Helpers;
 using Edoha.Domain.Interfaces.Infraestructure.Repositories;
+using Edoha.Domain.Models.DTOs;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data;
+using System.Reflection;
 
 namespace Edoha.Infrastructure.Repositories
 {
@@ -20,12 +21,12 @@ namespace Edoha.Infrastructure.Repositories
         {
             _connection = connection;
 
-            var tableName = RepositoryHelper.GetTableName<T>();
-            _schema = RepositoryHelper.GetSchema<T>();
+            var tableName = GetTableName<T>();
+            _schema = GetSchema<T>();
             _tableName = StringHelper.PascalToSnakeCase(tableName);
             _idColumnPascalCase = "Id";
             _idColumnSnakeCase = "id";
-            _properties = RepositoryHelper.GetProperties<T>(_idColumnPascalCase);
+            _properties = GetProperties<T>(_idColumnPascalCase);
         }
 
         protected void CheckConnection()
@@ -126,6 +127,28 @@ namespace Edoha.Infrastructure.Repositories
             var entity = await SelectById(id.Value);
             if (entity == null)
                 throw new KeyNotFoundException("Entidade não encontrada");
+        }
+
+        protected static string GetSchema<T>() where T : class
+        {
+            var tableAttribute = typeof(T).GetCustomAttribute<TableAttribute>();
+            return tableAttribute?.Schema ?? "edoha";
+        }
+
+        protected static string GetTableName<T>() where T : class
+        {
+            var tableAttribute = typeof(T).GetCustomAttribute<TableAttribute>();
+            return tableAttribute?.Name ?? typeof(T).Name;
+        }
+
+        protected static IEnumerable<PropertyInfo> GetProperties<T>(string idColumnName) where T : class
+        {
+            return typeof(T).GetProperties().Where(p => p.Name != idColumnName);
+        }
+
+        protected static string GetIdColumnName(string tableName)
+        {
+            return $"Id{tableName}";
         }
     }
 }

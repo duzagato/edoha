@@ -7,9 +7,13 @@ using System.Threading.Tasks;
 
 namespace Edoha.Domain.Models.DTOs.Permission
 {
-    public class UpdatePermission
+    public class CreatePermissionDTO : DTO
     {
-        public string? Name { get; set; }
+        [Required]
+        public Guid IdInstitution { get; set; }
+
+        [Required]
+        public string Name { get; set; }
         public string? Description { get; set; }
     }
 }

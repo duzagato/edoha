@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Edoha.Domain.Models.DTOs.Action
 {
-    public class UpdateAction
+    public class UpdateActionDTO : DTO
     {
         public string? Name { get; set; }
         public string? Description { get; set; }

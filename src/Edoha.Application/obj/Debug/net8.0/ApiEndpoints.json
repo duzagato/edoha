@@ -1,5 +1,153 @@
 [
   {
+    "ContainingType": "Edoha.Application.Controllers.ActionController",
+    "Method": "GetAll",
+    "RelativePath": "Action",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Edoha.Application.Controllers.ActionController",
+    "Method": "Create",
+    "RelativePath": "Action",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Edoha.Domain.Models.DTOs.Action.CreateActionDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Edoha.Application.Controllers.ActionController",
+    "Method": "Update",
+    "RelativePath": "Action",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Edoha.Domain.Models.DTOs.Action.UpdateActionDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Edoha.Application.Controllers.ActionController",
+    "Method": "GetById",
+    "RelativePath": "Action/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Edoha.Application.Controllers.ActionController",
+    "Method": "DeleteById",
+    "RelativePath": "Action/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Edoha.Application.Controllers.PageController",
+    "Method": "GetAll",
+    "RelativePath": "api/Page",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Edoha.Application.Controllers.PageController",
+    "Method": "Create",
+    "RelativePath": "api/Page",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Edoha.Domain.Models.DTOs.Page.CreatePage",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Edoha.Application.Controllers.PageController",
+    "Method": "Update",
+    "RelativePath": "api/Page",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Edoha.Domain.Models.DTOs.Page.UpdatePage",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Edoha.Application.Controllers.PageController",
+    "Method": "GetById",
+    "RelativePath": "api/Page/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Edoha.Application.Controllers.PageController",
+    "Method": "DeleteById",
+    "RelativePath": "api/Page/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Edoha.Controllers.InstitutionController",
     "Method": "GetAll",
     "RelativePath": "Institution",
@@ -158,6 +306,80 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "Edoha.Application.Controllers.PermissionController",
+    "Method": "GetAll",
+    "RelativePath": "Permission",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Edoha.Application.Controllers.PermissionController",
+    "Method": "Create",
+    "RelativePath": "Permission",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Edoha.Domain.Models.DTOs.Permission.CreatePermissionDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Edoha.Application.Controllers.PermissionController",
+    "Method": "Update",
+    "RelativePath": "Permission",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Edoha.Domain.Models.DTOs.Permission.UpdatePermissionDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Edoha.Application.Controllers.PermissionController",
+    "Method": "GetById",
+    "RelativePath": "Permission/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Edoha.Application.Controllers.PermissionController",
+    "Method": "DeleteById",
+    "RelativePath": "Permission/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "Edoha.Controllers.StatusTicketbookController",
@@ -558,6 +780,64 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "Edoha.Application.Controllers.UserPermissionController",
+    "Method": "GetAll",
+    "RelativePath": "UserPermission",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Edoha.Application.Controllers.UserPermissionController",
+    "Method": "Create",
+    "RelativePath": "UserPermission",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Edoha.Domain.Models.DTOs.UserPermission.CreateUserPermissionDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Edoha.Application.Controllers.UserPermissionController",
+    "Method": "GetById",
+    "RelativePath": "UserPermission/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Edoha.Application.Controllers.UserPermissionController",
+    "Method": "DeleteById",
+    "RelativePath": "UserPermission/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "Edoha.Controllers.UserTypeController",

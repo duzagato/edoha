@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Edoha.Domain.Models.DTOs.Page
 {
-    public class UpdatePage
+    public class UpdatePage : DTO
     {
         public string? Name { get; set; }
         public string? Description { get; set; }
