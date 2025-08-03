@@ -1,6 +1,5 @@
-﻿using Edoha.Domain.Interfaces.Util;
+﻿using Edoha.Domain.Interfaces.Infraestructure.Util;
 using Edoha.Infraestructure.Util;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Edoha.Application.DependencyInjection;
 

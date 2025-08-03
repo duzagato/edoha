@@ -1,8 +1,6 @@
 # Ignore bin and obj folders
 */bin/
 */obj/
-
-
 # Ignore build results
 *.exe
 *.dll
@@ -41,3 +39,6 @@ _ReSharper*/
 *.nupkg
 *.snupkg
 packages/
+
+
+# te amo

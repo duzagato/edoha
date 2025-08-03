@@ -26,4 +26,9 @@ public static class ServoceCollection
     {
         return UtilsInjection.Register(services);
     }
+
+    public static IServiceCollection AddJwt(this IServiceCollection services, IConfiguration configuration)
+    {
+        return JwtInjection.AddJwt(services, configuration);
+    }
 }
