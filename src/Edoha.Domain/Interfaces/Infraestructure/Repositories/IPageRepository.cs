@@ -4,5 +4,6 @@ namespace Edoha.Domain.Interfaces.Infraestructure.Repositories
 {
     public interface IPageRepository : IBaseRepository<Page>
     {
+        Task<IEnumerable<string>> SelectPagesPermissionsByIdUser(Guid idUser);
     }
 }

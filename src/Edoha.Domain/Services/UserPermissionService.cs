@@ -1,4 +1,5 @@
 ﻿using Edoha.Domain.Entities;
+using Action = Edoha.Domain.Entities.Action;
 using Edoha.Domain.Models.DTOs.UserPermission;
 using Edoha.Domain.Interfaces.Infraestructure.Context;
 using Edoha.Domain.Interfaces.Infraestructure.Repositories;
@@ -12,6 +13,7 @@ namespace Edoha.Domain.Services
         private readonly IPageRepository _pageRepository;
         private readonly IPermissionRepository _permissionRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IUserPermissionRepository _userPermissionRepository;
 
         public UserPermissionService(
             IActionRepository actionRepository,
@@ -19,6 +21,7 @@ namespace Edoha.Domain.Services
             IPermissionRepository permissionRepository,
             IUserRepository userRepository,
             IUserPermissionRepository repository,
+            IUserPermissionRepository userPermissionRepository,
             IRequestValidationContext requestValidationContext
         ) : base(repository, requestValidationContext)
         {
@@ -26,6 +29,7 @@ namespace Edoha.Domain.Services
             _pageRepository = pageRepository;
             _permissionRepository = permissionRepository;
             _userRepository = userRepository;
+            _userPermissionRepository = userPermissionRepository;
         }
 
         public async Task InsertUserPermission(CreateUserPermissionDTO dto)
@@ -50,6 +54,26 @@ namespace Edoha.Domain.Services
         public async Task DeleteUserPermissionById(Guid id)
         {
             await DeleteById(id);
+        }
+
+        public async Task<List<UserPermissionPage>> GetUserPermissionsGroupByPageName(Guid idUser)
+        {
+            var userPermissions = await _userPermissionRepository.GetUserPermissionExpandByIdUser(idUser);
+
+            var permissionsByPage = userPermissions
+            .GroupBy(p => p.PageName)
+            .Select(page => new UserPermissionPage(
+                pageName: page.Key,
+                actions: page.Select(p => new Action
+                {
+                    Name = p.ActionName,
+                    WithoutOwner = p.WithoutOwner,
+                    OtherOwner = p.OtherOwner
+                }).ToList()
+            ))
+            .ToList();
+
+            return permissionsByPage;
         }
     }
 }

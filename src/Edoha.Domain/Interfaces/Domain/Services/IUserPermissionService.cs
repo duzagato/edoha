@@ -15,5 +15,7 @@ namespace Edoha.Domain.Interfaces.Domain.Services
         Task<IEnumerable<UserPermission>> SelectAllUserPermissions();
 
         Task DeleteUserPermissionById(Guid id);
+
+        Task<List<UserPermissionPage>> GetUserPermissionsGroupByPageName(Guid idUser);
     }
 }
