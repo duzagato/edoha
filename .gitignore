@@ -1,46 +1,52 @@
-# Ignore bin and obj folders
+*/.vs/
+## Arquivos e pastas padrão do .NET
 */bin/
 */obj/
 
-
-# Ignore build results
-*.exe
-*.dll
-*.pdb
-
-# Ignore user-specific files
+## Configurações de usuário e IDEs
 *.user
 *.suo
 *.userosscache
 *.sln.docstates
 
-# Ignore Visual Studio cache
-*/.vs/
+## Pastas de publicação
+*/publish/
+*/out/
 
-# Ignore temporary files
+## Pastas de pacotes e cache
+*/packages/
+*.nupkg
+project.lock.json
+project.fragment.lock.json
+*/artifacts/
+
+## Arquivos temporários
 *.log
 *.tmp
 
-# Ignore Rider IDE configs
-.idea/
-
-# Ignore local configuration files
-*.env
-*.local.json
-
-# Ignore Test results
+## Diretórios de Testes e Cobertura
 TestResults/
 *.coverage
 *.coveragexml
+*.vsp
+*.vspx
+*.vspscc
+*.vssscc
 
-# Ignore ReSharper files
+## Visual Studio e Rider
+.vs/
+.idea/
+*.sln.iml
+
+## Ambientes virtuais ou secrets
+.env
+*.secret
+*.key
+*.pfx
+*.p12
+
+## Outros
 _ReSharper*/
-*.[Rr]e[Ss]harper
-
-# Ignore NuGet packages
-*.nupkg
-*.snupkg
-packages/
-
-
-# te amo
+*.DotSettings.user
+*.dbmdl
+*.bak

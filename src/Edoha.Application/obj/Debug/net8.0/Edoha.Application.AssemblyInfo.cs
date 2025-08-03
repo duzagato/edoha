@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Edoha.Application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e5e058295501f63e2e66460c0cdbc2fda81e702a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6903711111c8e998133aff5c5d4fa2592071c350")]
 [assembly: System.Reflection.AssemblyProductAttribute("Edoha.Application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Edoha.Application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
