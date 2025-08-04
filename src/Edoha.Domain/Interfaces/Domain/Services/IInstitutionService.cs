@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Edoha.Domain.Entities;
+﻿using Edoha.Domain.Entities;
 using Edoha.Domain.Models.DTOs.Institution;
 
 namespace Edoha.Domain.Interfaces.Domain.Services

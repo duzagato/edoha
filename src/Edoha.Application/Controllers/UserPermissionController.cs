@@ -15,23 +15,10 @@ namespace Edoha.Application.Controllers
             _userPermissionService = userPermissionService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
-        {
-            var userPermissions = await _userPermissionService.SelectAllUserPermissions();
-
-            if (userPermissions == null || !userPermissions.Any())
-            {
-                return NoContent();
-            }
-
-            return Ok(userPermissions);
-        }
-
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
-            var userPermission = await _userPermissionService.SelectUserPermissionById(id);
+            var userPermission = await _userPermissionService.GetUserPermissionsGroupByPageName(id);
 
             if (userPermission == null)
             {

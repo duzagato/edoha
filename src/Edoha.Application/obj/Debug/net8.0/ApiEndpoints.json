@@ -148,6 +148,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Edoha.Application.Controllers.AuthController",
+    "Method": "Authenticate",
+    "RelativePath": "Auth",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "credentials",
+        "Type": "Edoha.Domain.Models.DTOs.Auth.CredentialsDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Edoha.Controllers.InstitutionController",
     "Method": "GetAll",
     "RelativePath": "Institution",
@@ -780,16 +796,6 @@
         "StatusCode": 200
       }
     ]
-  },
-  {
-    "ContainingType": "Edoha.Application.Controllers.UserPermissionController",
-    "Method": "GetAll",
-    "RelativePath": "UserPermission",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
   },
   {
     "ContainingType": "Edoha.Application.Controllers.UserPermissionController",

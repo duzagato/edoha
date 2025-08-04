@@ -8,6 +8,7 @@ public static class UtilsInjection
     public static IServiceCollection Register(IServiceCollection services)
     {
         services.AddScoped<ICrypto, Crypto>();
+        services.AddScoped<IJson, Json>();
         return services;
     }
 }
