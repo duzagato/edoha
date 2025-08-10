@@ -1615,11 +1615,19 @@
         "additionalProperties": false
       },
       "CredentialsDTO": {
+        "required": [
+          "nickname",
+          "password"
+        ],
         "type": "object",
         "properties": {
-          "idUser": {
-            "type": "string",
-            "format": "uuid"
+          "nickname": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "password": {
+            "minLength": 1,
+            "type": "string"
           }
         },
         "additionalProperties": false

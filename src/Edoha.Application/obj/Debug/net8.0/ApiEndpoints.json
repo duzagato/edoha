@@ -149,7 +149,7 @@
   },
   {
     "ContainingType": "Edoha.Application.Controllers.AuthController",
-    "Method": "Authenticate",
+    "Method": "Autenticate",
     "RelativePath": "Auth",
     "HttpMethod": "POST",
     "IsController": true,

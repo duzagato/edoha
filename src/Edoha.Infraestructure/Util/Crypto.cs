@@ -8,7 +8,7 @@ namespace Edoha.Infraestructure.Util
         private const int SaltSize = 16;
         private const int HashSize = 32;
         private const int Iterations = 100000;
-        private string UnhashedValue;
+        private string? UnhashedValue;
 
         public void SetUnhashedValue(string unhashedValue)
         {
@@ -20,7 +20,7 @@ namespace Edoha.Infraestructure.Util
             using (var rng = new RNGCryptoServiceProvider())
             {
                 byte[] salt = new byte[SaltSize];
-                rng.GetBytes(salt); 
+                rng.GetBytes(salt);
 
                 using (var pbkdf2 = new Rfc2898DeriveBytes(UnhashedValue, salt, Iterations, HashAlgorithmName.SHA256))
                 {
@@ -35,18 +35,20 @@ namespace Edoha.Infraestructure.Util
             }
         }
 
-        public bool ValidatePBKDF2(byte[] hashedValue)
+        public bool ValidatePBKDF2(string unhashedValue, byte[] storedHash)
         {
-            byte[] pbkdf2 = this.GetPBKDF2();
+            byte[] salt = new byte[SaltSize];
+            Array.Copy(storedHash, 0, salt, 0, SaltSize);
 
-            if(pbkdf2 == hashedValue)
+            byte[] hash = new byte[HashSize];
+            Array.Copy(storedHash, SaltSize, hash, 0, HashSize);
+
+            using (var pbkdf2 = new Rfc2898DeriveBytes(unhashedValue, salt, Iterations, HashAlgorithmName.SHA256))
             {
-                return true;
-            }
-            else
-            {
-                return false;
+                byte[] testHash = pbkdf2.GetBytes(HashSize);
+                return CryptographicOperations.FixedTimeEquals(testHash, hash);
             }
         }
+
     }
 }

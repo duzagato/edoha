@@ -1,34 +1,30 @@
-﻿using Edoha.Domain.Entities;
+﻿using Edoha.Domain.Constants.Alerts;
+using Edoha.Domain.Entities;
+using Edoha.Domain.Exceptions;
 using Edoha.Domain.Interfaces.Domain.Services;
 using Edoha.Domain.Interfaces.Infraestructure.Context;
 using Edoha.Domain.Interfaces.Infraestructure.Repositories;
 using Edoha.Domain.Interfaces.Infraestructure.Util;
 using Edoha.Domain.Models.DTOs.User;
 using Edoha.Domain.Models.InputModels.User;
-using Edoha.Domain.Constants.Alerts;
-using Edoha.Domain.Helpers;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Edoha.Domain.Services
 {
     public class UserService : Service<User>, IUserService
     {
         private readonly ICrypto _crypto;
+        private readonly IUserRepository _userRepository;
         private readonly IUserTypeRepository _userTypeRepository;
 
         public UserService(IUserRepository repository, 
-            ICrypto crypto, 
+            ICrypto crypto,
+            IUserRepository userRepository,
             IUserTypeRepository userTypeRepository, 
             IRequestValidationContext requestValidationContext) 
             : base(repository, requestValidationContext) 
         { 
             _crypto = crypto;
+            _userRepository = userRepository;
             _userTypeRepository = userTypeRepository;
         }
 
@@ -71,6 +67,13 @@ namespace Edoha.Domain.Services
 
         }
 
+        public async Task<User?> SelectUserCredentialsByNickname(string nickname)
+        {
+            var user = await _userRepository.SelectUserCredentialsByNickname(nickname);
+
+            return user;
+        }
+
         public async Task<User> SelectUserById(Guid id)
         {
             return await _repository.SelectById(id);
@@ -89,6 +92,31 @@ namespace Edoha.Domain.Services
         public async Task DeleteUserById(Guid id)
         {
             await DeleteById(id);
+        }
+
+        public async Task<User> ValidateUserCredentials(string nickname, string password)
+        {
+            User? user = await SelectUserCredentialsByNickname(nickname);
+
+            if(user is not null)
+            {
+                bool isValidPassword = _crypto.ValidatePBKDF2(password, user.Password!);
+
+                if(isValidPassword)
+                {
+                    return user;
+                }
+                else
+                {
+                    SetInvalidCredentialsMessage();
+                    throw new RequestValidationException(_requestValidationContext.GetErrors());
+                }
+            }
+            else
+            {
+                SetInvalidCredentialsMessage();
+                throw new RequestValidationException(_requestValidationContext.GetErrors());
+            }
         }
 
         private bool IsUsernameSended(string? username)
@@ -140,6 +168,11 @@ namespace Edoha.Domain.Services
             {
                 _requestValidationContext.AddError("UnhashedPassword", UserAlerts.EmptyPassword);
             }
+        }
+
+        private void SetInvalidCredentialsMessage()
+        {
+            _requestValidationContext.AddError("Autentication", "Usuário ou Senha inválido!");
         }
     }
 }

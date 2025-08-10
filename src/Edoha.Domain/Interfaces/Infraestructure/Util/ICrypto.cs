@@ -10,5 +10,7 @@ namespace Edoha.Domain.Interfaces.Infraestructure.Util
     {
         public void SetUnhashedValue(string password);
         public byte[] GetPBKDF2();
+
+        public bool ValidatePBKDF2(string unhashedValue, byte[] storedHash);
     }
 }

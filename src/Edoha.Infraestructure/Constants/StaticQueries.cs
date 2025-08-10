@@ -26,5 +26,8 @@ namespace Edoha.Infraestructure.Constants
             $"FROM {SchemaEdoha}.{UserPermissionsExpandView} " +
             "WHERE id_user = @IdUser";
 
+        public static string SelectUserCredentialsByNickname = "SELECT id, nickname, password " +
+            $"FROM {SchemaEdoha}.user " +
+            "WHERE nickname = @Nickname";
     }
 }

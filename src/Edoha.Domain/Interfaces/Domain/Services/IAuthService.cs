@@ -4,6 +4,6 @@ namespace Edoha.Domain.Interfaces.Domain.Services
 {
     public interface IAuthService
     {
-        Task<string> Authenticate(CredentialsDTO credentials);
+        Task<string> Autenticate(CredentialsDTO credentials);
     }
 }

@@ -16,24 +16,12 @@ namespace Edoha.Application.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Authenticate([FromBody] CredentialsDTO credentials)
+        public async Task<IActionResult> Autenticate([FromBody] CredentialsDTO credentials)
         {
             if (credentials != null)
             {
-                try
-                {
-                    var token = await _authService.Authenticate(credentials);
-                    return Ok(token); // ← agora Ok() está disponível
-                }
-                catch (Exception ex)
-                {
-                    return StatusCode(500, new
-                    {
-                        Message = ex.Message,
-                        StackTrace = ex.StackTrace,
-                        InnerException = ex.InnerException?.Message
-                    });
-                }
+                var token = await _authService.Autenticate(credentials);
+                return Ok(token); // ← agora Ok() está disponível
             }
             else
             {

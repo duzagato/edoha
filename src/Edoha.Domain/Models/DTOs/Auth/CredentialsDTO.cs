@@ -1,7 +1,13 @@
-﻿namespace Edoha.Domain.Models.DTOs.Auth
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Edoha.Domain.Models.DTOs.Auth
 {
-    public class CredentialsDTO
+    public class CredentialsDTO : DTO
     {
-        public Guid IdUser { get; set; }
+        [Required]
+        public string? Nickname { get; set; } 
+
+        [Required]
+        public string? Password { get; set; }
     }
 }

@@ -20,5 +20,9 @@ namespace Edoha.Domain.Interfaces.Domain.Services
         public Task UpdateUserById(UpdateUserDTO dto);
 
         public Task DeleteUserById(Guid id);
+
+        Task<User> SelectUserCredentialsByNickname(string nickname);
+
+        Task<User> ValidateUserCredentials(string nickname, string password);
     }
 }
