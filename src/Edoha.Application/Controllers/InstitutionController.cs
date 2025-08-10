@@ -13,7 +13,7 @@ namespace Edoha.Controllers
 
         public InstitutionController(IInstitutionService institutionService)
         {
-            _institutionService = institutionService;
+            _institutionService = institutionService; 
         }
 
         [HttpGet]
