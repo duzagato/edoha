@@ -9,7 +9,7 @@ namespace Edoha.Infraestructure.Util
         {
             var options = new JsonSerializerOptions
             {
-                WriteIndented = true,
+                WriteIndented = false,
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             };
 

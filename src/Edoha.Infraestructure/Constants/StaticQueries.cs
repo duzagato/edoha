@@ -17,6 +17,11 @@ namespace Edoha.Infraestructure.Constants
             $"FROM {SchemaEdoha}.{UserPermissionsExpandView} " +
             "WHERE id_user = @IdUser AND page_name = @PageName";
 
+        public static string SelectUserActionByName = "" +
+            "SELECT DISTINCT action_name, without_owner, other_owner " +
+            $"FROM {SchemaEdoha}.{UserPermissionsExpandView} " +
+            "WHERE id_user = @IdUser AND page_name = @PageName AND action_name = @ActionName";
+
         public static string SelectPagesPermissionsByIdUser = "SELECT DISTINCT page_name" +
             $"FROM {SchemaEdoha}.{UserPermissionsExpandView} " +
             "WHERE id_user = @IdUser";

@@ -9,6 +9,8 @@ public static class UtilsInjection
     {
         services.AddScoped<ICrypto, Crypto>();
         services.AddScoped<IJson, Json>();
+        services.AddScoped<ISystemUtils, SystemUtils>();
+
         return services;
     }
 }

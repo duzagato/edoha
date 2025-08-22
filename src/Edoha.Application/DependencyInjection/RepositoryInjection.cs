@@ -9,6 +9,7 @@ public static class RepositoryInjection
     {
         services.AddScoped<IActionRepository, ActionRepository>();
         services.AddScoped<IInstitutionRepository, InstitutionRepository>();
+        services.AddScoped<ILoginRepository, LoginRepository>();
         services.AddScoped<ILotteryRepository, LotteryRepository>();
         services.AddScoped<IPageRepository, PageRepository>();
         services.AddScoped<IPermissionRepository, PermissionRepository>();

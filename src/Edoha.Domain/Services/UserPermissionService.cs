@@ -75,5 +75,12 @@ namespace Edoha.Domain.Services
 
             return permissionsByPage;
         }
+
+        public async Task<Action?> GetUserActionByPageName(Guid idUser, string pageName, string actionName)
+        {
+            var action = await _actionRepository.SelectUserActionByName(idUser, pageName, actionName);
+
+            return action;
+        }
     }
 }

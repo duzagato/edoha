@@ -6,6 +6,8 @@ using Serilog.Enrichers.CorrelationId;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddHttpContextAccessor();
+
 // Configurando Serilog como logger principal
 Log.Logger = new LoggerConfiguration()
     .Enrich.FromLogContext()

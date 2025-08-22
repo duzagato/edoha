@@ -25,5 +25,17 @@ namespace Edoha.Infraestructure.Repositories
 
             return actions ?? throw new KeyNotFoundException("Entidade não encontrada");
         }
+
+        public async Task<Action?> SelectUserActionByName(Guid idUser, string pageName, string actionName)
+        {
+            Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
+            CheckConnection();
+
+            string query = StaticQueries.SelectUserActionByName;
+
+            var action = await _connection.QueryFirstOrDefaultAsync<Action>(query, new { IdUser = idUser, PageName = pageName, ActionName = actionName });
+
+            return action;
+        }
     }
 }
