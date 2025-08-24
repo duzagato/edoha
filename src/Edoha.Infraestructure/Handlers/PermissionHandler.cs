@@ -1,8 +1,9 @@
-﻿using Edoha.Domain.Interfaces.Domain.Services;
+﻿using Edoha.Domain.Entities;
+using Action = Edoha.Domain.Entities.Action;
+using Edoha.Domain.Interfaces.Domain.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
-using System.Net.Http;
 using System.Security.Claims;
 
 namespace Edoha.Infrastructure.Handlers
@@ -33,8 +34,16 @@ namespace Edoha.Infrastructure.Handlers
             var page = GetRequestPage(context, httpContext);
             var action = GetRequestAction(context, httpContext);
             var idUser = GetIdUser(context);
+            var permission = await GetPermissionForThisPage(idUser, page, action);
 
-            var permission = await _userPermissionsService.GetUserActionByPageName(idUser, action, page);
+            if (permission != null) 
+            {
+                context.Succeed(requirement);
+            }
+            else
+            {
+                context.Fail();
+            }
         }
 
         private string GetRequestPage(AuthorizationHandlerContext context, HttpContext? httpContext)
@@ -75,6 +84,20 @@ namespace Edoha.Infrastructure.Handlers
             }
 
             return idUser;
+        }
+
+        private async Task<Action> GetPermissionForThisPage(Guid idUser, string page, string action)
+        {
+            var permission = await _userPermissionsService.GetUserActionByPageName(idUser, page, action);
+
+            if(permission is null)
+            {
+                throw new Exception("Não possui permissão");
+            }
+            else
+            {
+                return permission;
+            }
         }
     }
 }

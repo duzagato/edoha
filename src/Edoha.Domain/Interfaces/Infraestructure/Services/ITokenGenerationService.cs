@@ -4,7 +4,7 @@ namespace Edoha.Domain.Interfaces.Infraestructure.Services
 {
     public interface ITokenGenerationService
     {
-        string GenerateToken(User user, string permissionsJson);
+        string GenerateToken(User user);
 
         string GenerateRefreshToken();
     }

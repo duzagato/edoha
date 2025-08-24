@@ -5,6 +5,14 @@
     {
       "AbsoluteMoniker": "D:0:0:{16C64E76-ACA8-4491-8FD2-5FD2996A0A28}|Edoha.Infraestructure\\Edoha.Infraestructure.csproj|c:\\users\\eduardo zagato junio\\source\\repos\\edoha\\src\\edoha.infraestructure\\handlers\\permissionhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{16C64E76-ACA8-4491-8FD2-5FD2996A0A28}|Edoha.Infraestructure\\Edoha.Infraestructure.csproj|solutionrelative:edoha.infraestructure\\handlers\\permissionhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{16C64E76-ACA8-4491-8FD2-5FD2996A0A28}|Edoha.Infraestructure\\Edoha.Infraestructure.csproj|c:\\users\\eduardo zagato junio\\source\\repos\\edoha\\src\\edoha.infraestructure\\repositories\\userpermissionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{16C64E76-ACA8-4491-8FD2-5FD2996A0A28}|Edoha.Infraestructure\\Edoha.Infraestructure.csproj|solutionrelative:edoha.infraestructure\\repositories\\userpermissionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2E3E8AF0-3A72-445B-AE7D-9F3245C47871}|Edoha.Application\\Edoha.Application.csproj|c:\\users\\eduardo zagato junio\\source\\repos\\edoha\\src\\edoha.application\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2E3E8AF0-3A72-445B-AE7D-9F3245C47871}|Edoha.Application\\Edoha.Application.csproj|solutionrelative:edoha.application\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,19 +22,45 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UserPermissionRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Infraestructure\\Repositories\\UserPermissionRepository.cs",
+              "RelativeDocumentMoniker": "Edoha.Infraestructure\\Repositories\\UserPermissionRepository.cs",
+              "ToolTip": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Infraestructure\\Repositories\\UserPermissionRepository.cs",
+              "RelativeToolTip": "Edoha.Infraestructure\\Repositories\\UserPermissionRepository.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAwBgAAABgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-24T04:10:20.059Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Application\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "Edoha.Application\\Controllers\\UserController.cs",
+              "ToolTip": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Application\\Controllers\\UserController.cs",
+              "RelativeToolTip": "Edoha.Application\\Controllers\\UserController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-24T04:06:24.315Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "PermissionHandler.cs",
               "DocumentMoniker": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Infraestructure\\Handlers\\PermissionHandler.cs",
               "RelativeDocumentMoniker": "Edoha.Infraestructure\\Handlers\\PermissionHandler.cs",
-              "ToolTip": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Infraestructure\\Handlers\\PermissionHandler.cs",
-              "RelativeToolTip": "Edoha.Infraestructure\\Handlers\\PermissionHandler.cs",
-              "ViewState": "AgIAABwAAAAAAAAAAAAkwCQAAAAaAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Infraestructure\\Handlers\\PermissionHandler.cs*",
+              "RelativeToolTip": "Edoha.Infraestructure\\Handlers\\PermissionHandler.cs*",
+              "ViewState": "AgIAAEwAAAAAAAAAAAAwwFoAAABnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-22T09:06:51.731Z",
+              "WhenOpened": "2025-08-24T03:31:50.729Z",
               "EditorCaption": ""
             }
           ]

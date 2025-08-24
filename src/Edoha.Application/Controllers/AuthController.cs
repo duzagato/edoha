@@ -1,6 +1,7 @@
 ﻿using Edoha.Domain.Interfaces.Domain.Services;
 using Edoha.Domain.Models.DTOs.Auth;
 using Microsoft.AspNetCore.Mvc;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Edoha.Application.Controllers
 {
@@ -21,7 +22,11 @@ namespace Edoha.Application.Controllers
             if (credentials != null)
             {
                 var token = await _authService.Autenticate(credentials);
-                return Ok(token); // ← agora Ok() está disponível
+
+                return Ok(new
+                {
+                    token = token
+                });
             }
             else
             {

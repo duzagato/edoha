@@ -1,5 +1,7 @@
 ﻿using Edoha.Domain.Interfaces.Infraestructure.Repositories;
 using Edoha.Infraestructure.Repositories;
+using Edoha.Infrastructure.Handlers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Edoha.Application.DependencyInjection;
 

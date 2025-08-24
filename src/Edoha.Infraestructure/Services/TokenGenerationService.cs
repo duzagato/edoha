@@ -11,14 +11,13 @@ namespace Edoha.Infraestructure.Services
 {
     public class TokenGenerationService : ITokenGenerationService
     {
-        public string GenerateToken(User user, string permissionsJson)
+        public string GenerateToken(User user)
         {
 
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.Nickname!),
-                new Claim("Permissions", permissionsJson)
+                new Claim(ClaimTypes.Name, user.Nickname!)
             };
 
             var key = new SymmetricSecurityKey(

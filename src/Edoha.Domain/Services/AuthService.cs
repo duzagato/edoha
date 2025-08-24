@@ -53,10 +53,7 @@ namespace Edoha.Domain.Services
 
         private async Task<string> GenerateToken(User user)
         {
-            var userPermissions = await _userPermissionService.GetUserPermissionsGroupByPageName(user.Id);
-            var permissionsJson = _json.Serialize(userPermissions);
-
-            var token = _tokenGenerationService.GenerateToken(user, permissionsJson);
+            var token = _tokenGenerationService.GenerateToken(user);
 
             return token;
         }

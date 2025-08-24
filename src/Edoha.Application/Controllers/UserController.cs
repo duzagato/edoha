@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Edoha.Domain.Interfaces.Domain.Services;
 using Edoha.Domain.Models.DTOs.User;
 using Edoha.Domain.Models.InputModels;
 using Edoha.Domain.Models.InputModels.User;
-using Edoha.Domain.Interfaces.Domain.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Edoha.Controllers
 {
@@ -18,6 +19,7 @@ namespace Edoha.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = "PermissionPolicy")]
         public async Task<IActionResult> GetAll()
         {
             try

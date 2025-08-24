@@ -17,7 +17,6 @@ Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Information() // ?? Corrigido: não existe `.LoggerMinimumLevelConfiguration` nem `.information()`
     .CreateLogger();
 
-// Substitui o logger padrão do ASP.NET Core por Serilog
 builder.Host.UseSerilog();
 
 builder.Services.AddJwt(builder.Configuration);

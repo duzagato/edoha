@@ -1,5 +1,6 @@
 ﻿using Edoha.Domain.Interfaces.Domain.Services;
 using Edoha.Domain.Models.DTOs.Action;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Edoha.Application.Controllers
@@ -16,6 +17,7 @@ namespace Edoha.Application.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = "PermissionPolicy")]
         public async Task<IActionResult> GetAll()
         {
             var actions = await _actionService.SelectAllActions();
