@@ -1,8 +1,10 @@
 ﻿using Edoha.Infrastructure.Handlers;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using System.Text.Json;
 
 namespace Edoha.Application.DependencyInjection
 {
@@ -18,23 +20,64 @@ namespace Edoha.Application.DependencyInjection
 
             services.AddAuthentication(options =>
             {
-                options.DefaultAuthenticateScheme = "Bearer";
-                options.DefaultChallengeScheme = "Bearer";
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
-                .AddJwtBearer("Bearer", options =>
+            .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    options.TokenValidationParameters = new TokenValidationParameters
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = configuration["Jwt:Issuer"],
+                    ValidAudience = configuration["Jwt:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(
+                        Encoding.UTF8.GetBytes(configuration["Jwt:Key"]!))
+                };
+
+                // Configurando eventos para 401/403
+                options.Events = new JwtBearerEvents
+                {
+                    OnAuthenticationFailed = context =>
                     {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
-                        ValidIssuer = configuration["Jwt:Issuer"],
-                        ValidAudience = configuration["Jwt:Audience"],
-                        IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(configuration["Jwt:Key"]!))
-                    };
-                });
+                        // Token inválido ou expirado
+                        context.NoResult();
+                        context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                        context.Response.ContentType = "application/json";
+                        return context.Response.WriteAsync(JsonSerializer.Serialize(new
+                        {
+                            message = "Token inválido ou expirado."
+                        }));
+                    },
+                    OnChallenge = context =>
+                    {
+                        // Chamado quando o token está ausente ou inválido
+                        if (!context.Response.HasStarted)
+                        {
+                            context.HandleResponse();
+                            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                            context.Response.ContentType = "application/json";
+                            return context.Response.WriteAsync(JsonSerializer.Serialize(new
+                            {
+                                message = "Token ausente ou inválido."
+                            }));
+                        }
+                        return Task.CompletedTask;
+                    },
+                    OnForbidden = context =>
+                    {
+                        // Usuário autenticado mas sem permissão
+                        context.Response.StatusCode = StatusCodes.Status403Forbidden;
+                        context.Response.ContentType = "application/json";
+                        return context.Response.WriteAsync(JsonSerializer.Serialize(new
+                        {
+                            message = "Usuário autenticado, mas sem permissão para acessar este recurso."
+                        }));
+                    }
+                };
+            });
 
             services.AddScoped<IAuthorizationHandler, PermissionHandler>();
 
@@ -50,21 +93,20 @@ namespace Edoha.Application.DependencyInjection
                     Description = "Informe 'Bearer {seu token}'"
                 });
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
                 {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                }
-            },
-            new string[] {}
-        }
-    });
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] {}
+                    }
+                });
             });
-
 
             return services;
         }

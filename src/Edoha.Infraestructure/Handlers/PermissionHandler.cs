@@ -29,18 +29,21 @@ namespace Edoha.Infrastructure.Handlers
             PermissionRequirement requirement
         )
         {
-            var httpContext = _httpContext.HttpContext;
-
-            var page = GetRequestPage(context, httpContext);
-            var action = GetRequestAction(context, httpContext);
-            var idUser = GetIdUser(context);
-            var permission = await GetPermissionForThisPage(idUser, page, action);
-
-            if (permission != null) 
+            try
             {
-                context.Succeed(requirement);
+                var httpContext = _httpContext.HttpContext;
+
+                var page = GetRequestPage(context, httpContext);
+                var action = GetRequestAction(context, httpContext);
+                var idUser = GetIdUser(context);
+                var permission = await GetPermissionForThisPage(idUser, page, action);
+
+                if (permission != null)
+                {
+                    context.Succeed(requirement);
+                }
             }
-            else
+            catch
             {
                 context.Fail();
             }

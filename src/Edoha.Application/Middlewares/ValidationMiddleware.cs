@@ -1,5 +1,6 @@
-﻿using System.Text.Json;
-using Edoha.Domain.Exceptions;
+﻿using Edoha.Domain.Exceptions;
+using Microsoft.IdentityModel.Tokens;
+using System.Text.Json;
 
 namespace Edoha.Application.Middlewares
 {
@@ -17,6 +18,7 @@ namespace Edoha.Application.Middlewares
         public async Task InvokeAsync(HttpContext context)
         {
             _logger.LogInformation("ExceptionHandlerMiddleware iniciado!");
+            
             try
             {
                 await _next(context);
@@ -38,6 +40,22 @@ namespace Edoha.Application.Middlewares
                 var json = JsonSerializer.Serialize(result);
                 await context.Response.WriteAsync(json);
                 _logger.LogInformation("ExceptionHandlerMiddleware finalizado!");
+            }
+            catch (SecurityTokenException ex)
+            {
+                _logger.LogWarning(ex, "Token inválido ou não autorizado.");
+                context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                context.Response.ContentType = "application/json";
+                await context.Response.WriteAsync(JsonSerializer.Serialize(new
+                {
+                    message = "Token inválido ou não autorizado."
+                }));
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                context.Response.ContentType = "application/json";
+                await context.Response.WriteAsync(JsonSerializer.Serialize(new { message = ex.Message }));
             }
             catch (Exception ex)
             {
