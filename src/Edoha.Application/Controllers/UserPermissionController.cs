@@ -8,10 +8,12 @@ namespace Edoha.Application.Controllers
     [Route("/[controller]")]
     public class UserPermissionController : ControllerBase
     {
+        private readonly ILogger _ilogger;
         private readonly IUserPermissionService _userPermissionService;
 
-        public UserPermissionController(IUserPermissionService userPermissionService)
+        public UserPermissionController(ILogger ilogger, IUserPermissionService userPermissionService)
         {
+            _ilogger = ilogger;
             _userPermissionService = userPermissionService;
         }
 

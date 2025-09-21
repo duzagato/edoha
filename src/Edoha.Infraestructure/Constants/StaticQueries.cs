@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Edoha.Infraestructure.Constants
 {
-    public static class StaticQueries
+    public static class  StaticQueries
     {
         public static string SchemaEdoha = "edoha";
 
@@ -34,5 +34,8 @@ namespace Edoha.Infraestructure.Constants
         public static string SelectUserCredentialsByNickname = "SELECT id, nickname, password " +
             $"FROM {SchemaEdoha}.user " +
             "WHERE nickname = @Nickname";
+
+        public static string SelectAllConfigurationsByTableName = "SELECT * FROM edoha.table_configuration " +
+            "WHERE table_schema = @Schema AND table_name = @TableName";
     }
 }

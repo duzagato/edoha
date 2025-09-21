@@ -720,6 +720,36 @@
         }
       }
     },
+    "/TableConfiguration/{schema}/{tableName}": {
+      "get": {
+        "tags": [
+          "TableConfiguration"
+        ],
+        "parameters": [
+          {
+            "name": "schema",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tableName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/Ticket": {
       "get": {
         "tags": [

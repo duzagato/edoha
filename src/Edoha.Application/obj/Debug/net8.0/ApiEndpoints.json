@@ -478,6 +478,27 @@
     ]
   },
   {
+    "ContainingType": "Edoha.Application.Controllers.TableConfigurationController",
+    "Method": "GetAll",
+    "RelativePath": "TableConfiguration/{schema}/{tableName}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "schema",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "tableName",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Edoha.Controllers.TicketController",
     "Method": "GetAll",
     "RelativePath": "Ticket",

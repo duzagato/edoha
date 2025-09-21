@@ -15,6 +15,7 @@ public static class RepositoryInjection
         services.AddScoped<ILotteryRepository, LotteryRepository>();
         services.AddScoped<IPageRepository, PageRepository>();
         services.AddScoped<IPermissionRepository, PermissionRepository>();
+        services.AddScoped<ITableConfigurationRepository, TableConfigurationRepository>();
         services.AddScoped<ITicketRepository, TicketRepository>();
         services.AddScoped<ITicketbookRepository, TicketbookRepository>();
         services.AddScoped<IStatusTicketbookRepository, StatusTicketbookRepository>();
