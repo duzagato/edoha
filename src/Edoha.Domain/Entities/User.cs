@@ -12,6 +12,5 @@ namespace Edoha.Domain.Entities
         public string? Phone { get; set; }
         public string? Nickname { get; set; }
         public byte[]? Password { get; set; }
-        public Guid IdUserType { get; set; }
     }
 }

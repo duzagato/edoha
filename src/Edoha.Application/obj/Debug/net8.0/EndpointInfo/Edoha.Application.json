@@ -1591,10 +1591,6 @@
           "unhashedPassword": {
             "type": "string",
             "nullable": true
-          },
-          "idUserType": {
-            "type": "string",
-            "format": "uuid"
           }
         },
         "additionalProperties": false

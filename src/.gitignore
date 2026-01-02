@@ -9,7 +9,7 @@ publish/
 
 ## [ Visual Studio 2022 ]
 .vs/
-src/.vs
+.vs/*
 *.user
 *.userosscache
 *.sln.docstates
@@ -24,8 +24,8 @@ TestResults/
 
 ## [ Visual Studio Code ]
 .vscode/
-# Se vocÃª quiser versionar apenas as configuraÃ§Ãµes de tarefas/debug, 
-# remova o comentÃ¡rio abaixo para ignorar apenas o histÃ³rico de estados:
+# Se você quiser versionar apenas as configurações de tarefas/debug, 
+# remova o comentário abaixo para ignorar apenas o histórico de estados:
 # .vscode/project_stats.json
 
 ## [ User-specific files ]
@@ -39,8 +39,8 @@ TestResults/
 .env
 .env.*
 appsettings.Development.json
-# Nota: Muitas vezes o appsettings.Development.json Ã© mantido no git para 
-# servir de template, mas segredos reais devem usar User Secrets ou VariÃ¡veis de Ambiente.
+# Nota: Muitas vezes o appsettings.Development.json é mantido no git para 
+# servir de template, mas segredos reais devem usar User Secrets ou Variáveis de Ambiente.
 
 ## [ OS specific files ]
 .DS_Store
@@ -48,6 +48,6 @@ Thumbs.db
 
 ## [ Packages ]
 *.nupkg
-# As pastas 'packages' do NuGet geralmente sÃ£o restauradas automaticamente
+# As pastas 'packages' do NuGet geralmente são restauradas automaticamente
 **/packages/*
 !**/packages/build/

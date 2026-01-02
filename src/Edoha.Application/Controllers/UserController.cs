@@ -19,7 +19,6 @@ namespace Edoha.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = "PermissionPolicy")]
         public async Task<IActionResult> GetAll()
         {
             try

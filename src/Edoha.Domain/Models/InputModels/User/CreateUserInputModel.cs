@@ -8,10 +8,9 @@ namespace Edoha.Domain.Models.InputModels.User
 {
     public class CreateUserInputModel
     {
-        public string? Name { get; set; }
+        public string Name { get; set; }
         public string? Phone { get; set; }
         public string? Nickname { get; set; }
         public string? UnhashedPassword { get; set; }
-        public Guid IdUserType { get; set; }
     }
 }

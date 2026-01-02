@@ -36,13 +36,16 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAngular",
         policy =>
         {
-            policy.WithOrigins("http://localhost:4200") // origem do Angular
+            policy.WithOrigins("http://localhost:4200")
                   .AllowAnyHeader()
                   .AllowAnyMethod();
         });
 });
 
 var app = builder.Build();
+
+app.UseRouting();
+app.UseCors("AllowAngular");
 
 Log.Information("API Edoha iniciada em ambiente: {Ambiente}", app.Environment.EnvironmentName);
 

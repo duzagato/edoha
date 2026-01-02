@@ -30,8 +30,6 @@ namespace Edoha.Domain.Services
 
         public async Task InsertUser(CreateUserInputModel model)
         {
-            await _userTypeRepository.IdExists(model.IdUserType);
-
             byte[]? hashedPassword = null;
             bool usernameSended = IsUsernameSended(model.Nickname);
             bool passwordSended = IsPasswordSended(model.UnhashedPassword);
@@ -50,8 +48,7 @@ namespace Edoha.Domain.Services
                 Name = model.Name!,
                 Phone = model.Phone!,
                 Nickname = model.Nickname,
-                Password = hashedPassword,
-                IdUserType = model.IdUserType
+                Password = hashedPassword
             };
 
             await Insert(dto);
