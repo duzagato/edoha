@@ -864,6 +864,50 @@
         }
       }
     },
+    "/Ticketbook/returneds": {
+      "get": {
+        "tags": [
+          "Ticketbook"
+        ],
+        "parameters": [
+          {
+            "name": "idLottery",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
+    "/Ticketbook/withdrawns": {
+      "get": {
+        "tags": [
+          "Ticketbook"
+        ],
+        "parameters": [
+          {
+            "name": "idLottery",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
     "/Ticketbook": {
       "get": {
         "tags": [
@@ -963,6 +1007,38 @@
         "parameters": [
           {
             "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Ticketbook/{idTicketbook}/status/{idStatusTicketbook}": {
+      "patch": {
+        "tags": [
+          "Ticketbook"
+        ],
+        "parameters": [
+          {
+            "name": "idTicketbook",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "idStatusTicketbook",
             "in": "path",
             "required": true,
             "schema": {

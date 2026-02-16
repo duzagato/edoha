@@ -37,5 +37,11 @@ namespace Edoha.Infraestructure.Constants
 
         public static string SelectAllConfigurationsByTableName = "SELECT * FROM edoha.table_configuration " +
             "WHERE table_schema = @Schema AND table_name = @TableName";
+
+        public static string SelectReturnedsTicketbooksByLottery = "SELECT * FROM lottery.ticketbook WHERE id_lottery = @IdLottery AND id_status_ticketbook IN (SELECT id FROM lottery.status_ticketbook WHERE name = @NameStatusTicketbook)";
+
+        public static string SelectWithdrawnTicketbooksByLottery = "SELECT * FROM lottery.ticketbook WHERE id_lottery = @IdLottery AND id_status_ticketbook IN (SELECT id FROM lottery.status_ticketbook WHERE name = @NameStatusTicketbook)";
+
+        public static string UpdateStatusTicketbook = "UPDATE lottery.ticketbook SET id_status_ticketbook = @IdStatusTicketbook, devolution_date = NOW() WHERE id = @IdTicketbook";
     }
 }

@@ -25,3 +25,4 @@ C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Domain\obj\Debug\net8
 C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Domain\obj\Debug\net8.0\refint\Edoha.Domain.dll
 C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Domain\obj\Debug\net8.0\Edoha.Domain.pdb
 C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Domain\obj\Debug\net8.0\ref\Edoha.Domain.dll
+C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Domain\obj\Debug\net8.0\Edoha.Domain.csproj.AssemblyReference.cache

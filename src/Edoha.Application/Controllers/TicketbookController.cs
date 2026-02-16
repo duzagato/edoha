@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Edoha.Domain.Models.DTOs.Ticketbook;
 using Edoha.Domain.Interfaces.Domain.Services;
+using Edoha.Domain.Models.Requests.Ticketbook;
 
 namespace Edoha.Controllers
 {
@@ -13,6 +14,58 @@ namespace Edoha.Controllers
         public TicketbookController(ITicketbookService ticketbookService)
         {
             _ticketbookService = ticketbookService;
+        }
+
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [HttpGet("returneds")]
+        public async Task<IActionResult> GetReturnedTicketbooks([FromQuery] Guid idLottery)
+        {
+            try
+            {
+                var ticketbooks = await _ticketbookService.SelectReturnedsTicketbooks(idLottery);
+
+                if (!ticketbooks.Any())
+                {
+                    return NoContent();
+                }
+
+                return Ok(ticketbooks);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace,
+                    InnerException = ex.InnerException?.Message
+                });
+            }
+        }
+
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [HttpGet("withdrawns")]
+        public async Task<IActionResult> GetWithdrawnsTicketbooks([FromQuery] Guid idLottery)
+        {
+            try
+            {
+                var ticketbooks = await _ticketbookService.SelectWithdrawnsTicketbooks(idLottery);
+
+                if (!ticketbooks.Any())
+                {
+                    return NoContent();
+                }
+
+                return Ok(ticketbooks);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace,
+                    InnerException = ex.InnerException?.Message
+                });
+            }
         }
 
         [HttpGet]
@@ -53,6 +106,26 @@ namespace Edoha.Controllers
                 }
 
                 return Ok(ticketbook);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace,
+                    InnerException = ex.InnerException?.Message
+                });
+            }
+        }
+
+        [HttpPatch("{idTicketbook}/status/{idStatusTicketbook}")]
+        public async Task<IActionResult> PatchStatusTicketbook([FromRoute] Guid idTicketbook, Guid idStatusTicketbook)
+        {
+            try
+            {
+                await _ticketbookService.ChangeTicketbookStatus(idStatusTicketbook, idTicketbook);
+
+                return NoContent();
             }
             catch (Exception ex)
             {

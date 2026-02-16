@@ -659,6 +659,71 @@
     ]
   },
   {
+    "ContainingType": "Edoha.Controllers.TicketbookController",
+    "Method": "PatchStatusTicketbook",
+    "RelativePath": "Ticketbook/{idTicketbook}/status/{idStatusTicketbook}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idTicketbook",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "idStatusTicketbook",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Edoha.Controllers.TicketbookController",
+    "Method": "GetReturnedTicketbooks",
+    "RelativePath": "Ticketbook/returneds",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idLottery",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 204
+      }
+    ]
+  },
+  {
+    "ContainingType": "Edoha.Controllers.TicketbookController",
+    "Method": "GetWithdrawnsTicketbooks",
+    "RelativePath": "Ticketbook/withdrawns",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idLottery",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 204
+      }
+    ]
+  },
+  {
     "ContainingType": "Edoha.Controllers.UserController",
     "Method": "GetAll",
     "RelativePath": "User",

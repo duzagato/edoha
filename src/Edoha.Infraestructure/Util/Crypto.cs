@@ -46,6 +46,8 @@ namespace Edoha.Infraestructure.Util
             using (var pbkdf2 = new Rfc2898DeriveBytes(unhashedValue, salt, Iterations, HashAlgorithmName.SHA256))
             {
                 byte[] testHash = pbkdf2.GetBytes(HashSize);
+                Console.WriteLine(testHash);
+                Console.WriteLine(hash);
                 return CryptographicOperations.FixedTimeEquals(testHash, hash);
             }
         }

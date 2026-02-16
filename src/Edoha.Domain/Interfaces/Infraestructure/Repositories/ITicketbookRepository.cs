@@ -9,6 +9,10 @@ namespace Edoha.Domain.Interfaces.Infraestructure.Repositories
 {
     public interface ITicketbookRepository : IBaseRepository<Ticketbook>
     {
+        public Task<IEnumerable<Ticketbook>> SelectReturnedsTicketbooksByLottery(Guid idLottery);
 
+        public Task<IEnumerable<Ticketbook>> SelectWithdrawnTicketbooksByLottery(Guid IdLottery);
+
+        public Task UpdateStatus(Guid idStatusTicketbook, Guid idTicketbook);
     }
 }
