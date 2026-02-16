@@ -13,7 +13,7 @@ namespace Edoha.Domain.Interfaces.Domain.Services
 
         public Task<IEnumerable<Ticketbook>> SelectWithdrawnsTicketbooks(Guid idLottery);
 
-        public Task ChangeTicketbookStatus(Guid idStatusTicketbook, Guid idTicketbook);
+        public Task ChangeTicketbookStatus(int idStatusTicketbook, Guid idTicketbook);
 
         public Task<Ticketbook> SelectTicketbookById(Guid id);
 

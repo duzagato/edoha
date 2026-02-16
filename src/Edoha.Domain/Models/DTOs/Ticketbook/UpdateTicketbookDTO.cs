@@ -8,7 +8,7 @@ namespace Edoha.Domain.Models.DTOs.Ticketbook
         public Guid? IdHolder { get; set; }
 
         [Min(1)]
-        public Guid IdStatusTicketbook { get; set; }
+        public int IdStatusTicketbook { get; set; }
         public DateTime? WithdrawnDate { get; set; }
         public DateTime? DevolutionDate { get; set; }
     }

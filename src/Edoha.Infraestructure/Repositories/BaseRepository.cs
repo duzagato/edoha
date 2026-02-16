@@ -129,6 +129,23 @@ namespace Edoha.Infrastructure.Repositories
                 throw new KeyNotFoundException("Entidade não encontrada");
         }
 
+        public async Task IdExists(int? id)
+        {
+            if (id == null || id == 0)
+                throw new ArgumentException("O ID enviado está inválido");
+
+            CheckConnection();
+
+            var query = $@"
+                SELECT COUNT(*) FROM ""{_schema}"".""{_tableName}""
+                WHERE ""{_idColumnSnakeCase}"" = @Id";
+
+            var count = await _connection.ExecuteScalarAsync<int>(query, new { Id = id });
+            
+            if (count == 0)
+                throw new KeyNotFoundException("Entidade não encontrada");
+        }
+
         protected static string GetSchema<T>() where T : class
         {
             var tableAttribute = typeof(T).GetCustomAttribute<TableAttribute>();

@@ -119,7 +119,7 @@ namespace Edoha.Controllers
         }
 
         [HttpPatch("{idTicketbook}/status/{idStatusTicketbook}")]
-        public async Task<IActionResult> PatchStatusTicketbook([FromRoute] Guid idTicketbook, Guid idStatusTicketbook)
+        public async Task<IActionResult> PatchStatusTicketbook([FromRoute] Guid idTicketbook, int idStatusTicketbook)
         {
             try
             {
