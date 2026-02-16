@@ -63,7 +63,7 @@ namespace Edoha.Infraestructure.Repositories
             return ticketbooks;
         }
 
-        public async Task UpdateStatus(Guid idStatusTicketbook, Guid idTicketbook)
+        public async Task UpdateStatus(int idStatusTicketbook, Guid idTicketbook)
         {
             try
             {

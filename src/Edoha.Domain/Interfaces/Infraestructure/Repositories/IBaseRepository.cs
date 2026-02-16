@@ -20,5 +20,7 @@ namespace Edoha.Domain.Interfaces.Infraestructure.Repositories
         Task<int> SelectCountById(Guid id);
 
         Task IdExists(Guid? id);
+
+        Task IdExists(int? id);
     }
 }

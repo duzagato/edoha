@@ -13,7 +13,7 @@ namespace Edoha.Domain.Entities
         public Guid IdLottery { get; set; }
         public Guid? IdOwner { get; set; }
         public Guid? IdHolder { get; set; }
-        public Guid IdStatusTicketbook { get; set; }
+        public int IdStatusTicketbook { get; set; }
         public int Number { get; set; }
         public DateTime? WithdrawnDate { get; set; }
         public DateTime? DevolutionDate { get; set; }

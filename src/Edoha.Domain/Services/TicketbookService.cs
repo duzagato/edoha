@@ -46,7 +46,7 @@ namespace Edoha.Domain.Services
             return ticketbooks;
         }
 
-        public async Task ChangeTicketbookStatus(Guid idStatusTicketbook, Guid idTicketbook)
+        public async Task ChangeTicketbookStatus(int idStatusTicketbook, Guid idTicketbook)
         {
             _logger.LogInformation("Alterando o status do Talão");
             _logger.LogInformation("ID novo status: {Id}", idStatusTicketbook);
