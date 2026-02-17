@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Edoha.Application.Controllers
 {
     [ApiController]
-    [Route("/[controller]")]
+    [Route("/action")]
     public class ActionController : ControllerBase
     {
         private readonly IActionService _actionService;

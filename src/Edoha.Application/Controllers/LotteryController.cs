@@ -5,7 +5,7 @@ using Edoha.Domain.Interfaces.Domain.Services;
 namespace Edoha.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("lottery")]
     public class LotteryController : ControllerBase
     {
         private readonly ILotteryService _lotteryService;

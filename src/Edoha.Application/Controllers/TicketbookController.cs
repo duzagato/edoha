@@ -6,7 +6,7 @@ using Edoha.Domain.Models.Requests.Ticketbook;
 namespace Edoha.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("ticketbook")]
     public class TicketbookController : ControllerBase
     {
         private readonly ITicketbookService _ticketbookService;

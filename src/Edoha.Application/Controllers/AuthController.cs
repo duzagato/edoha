@@ -6,7 +6,7 @@ using System.IdentityModel.Tokens.Jwt;
 namespace Edoha.Application.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("auth")]
     public class AuthController : ControllerBase // ← herda de ControllerBase
     {
         private readonly ILogger<AuthController> _ilogger;
