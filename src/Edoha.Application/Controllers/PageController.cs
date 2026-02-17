@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Edoha.Application.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/page")]
     public class PageController : ControllerBase
     {
         private readonly IPageService _pageService;

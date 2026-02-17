@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Edoha.Application.Controllers
 {
     [ApiController]
-    [Route("/[controller]")]
+    [Route("/permission")]
     public class PermissionController : ControllerBase
     {
         private readonly IPermissionService _permissionService;

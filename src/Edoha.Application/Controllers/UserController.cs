@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Edoha.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("user")]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;

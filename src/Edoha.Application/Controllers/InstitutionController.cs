@@ -5,7 +5,7 @@ using Edoha.Domain.Interfaces.Domain.Services;
 namespace Edoha.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("institution")]
     public class InstitutionController : ControllerBase
     {
         private readonly IInstitutionService _institutionService;

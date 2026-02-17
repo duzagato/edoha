@@ -5,7 +5,7 @@ using Edoha.Domain.Interfaces.Domain.Services;
 namespace Edoha.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("statusticketbook")]
     public class StatusTicketbookController : ControllerBase
     {
         private readonly IStatusTicketbookService _statusTicketbookService;

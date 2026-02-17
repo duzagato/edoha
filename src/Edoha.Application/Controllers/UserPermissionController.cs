@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Edoha.Application.Controllers
 {
     [ApiController]
-    [Route("/[controller]")]
+    [Route("/userpermission")]
     public class UserPermissionController : ControllerBase
     {
         private readonly ILogger _ilogger;
