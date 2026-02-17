@@ -40,8 +40,12 @@ namespace Edoha.Infraestructure.Constants
 
         public static string SelectReturnedsTicketbooksByLottery = "SELECT * FROM lottery.ticketbook WHERE id_lottery = @IdLottery AND id_status_ticketbook IN (SELECT id FROM lottery.status_ticketbook WHERE name = @NameStatusTicketbook)";
 
-        public static string SelectWithdrawnTicketbooksByLottery = "SELECT * FROM lottery.ticketbook WHERE id_lottery = @IdLottery AND id_status_ticketbook IN (SELECT id FROM lottery.status_ticketbook WHERE name = @NameStatusTicketbook)";
+        public static string SelectTicketbookByStatus = "SELECT * FROM lottery.ticketbook WHERE id_lottery = @IdLottery AND id_status_ticketbook = @IdStatusTicketbook";
 
-        public static string UpdateStatusTicketbook = "UPDATE lottery.ticketbook SET id_status_ticketbook = @IdStatusTicketbook, devolution_date = NOW() WHERE id = @IdTicketbook";
+        public static string UpdateStatusTicketbook = "UPDATE lottery.ticketbook SET id_status_ticketbook = @IdStatusTicketbook WHERE id = @IdTicketbook";
+
+        public static string UpdateStatusTicketbookToReturned = "UPDATE lottery.ticketbook SET id_status_ticketbook = @IdStatusTicketbook, devolution_date = NOW() WHERE id = @IdTicketbook";
+
+        public static string UpdateStatusTicketbookToWithdraw = "UPDATE lottery.ticketbook SET id_status_ticketbook = @IdStatusTicketbook, withdrawn_date = NOW() WHERE id = @IdTicketbook";
     }
 }

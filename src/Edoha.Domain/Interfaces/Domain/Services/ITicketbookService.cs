@@ -15,6 +15,10 @@ namespace Edoha.Domain.Interfaces.Domain.Services
 
         public Task ChangeTicketbookStatus(int idStatusTicketbook, Guid idTicketbook);
 
+        public Task ChangeTicketbookStatusToReturned(Guid idTicketbook);
+
+        public Task ChangeTicketbookStatusToWithdraw(Guid idTicketbook);
+
         public Task<Ticketbook> SelectTicketbookById(Guid id);
 
         public Task<IEnumerable<Ticketbook>> SelectAllTicketbooks();

@@ -10,6 +10,6 @@ namespace Edoha.Domain.Models.DTOs.StatusTicketbook
 {
     public class CreateStatusTicketbookDTO : DTO
     {
-
+        public string Name { get; set; }
     }
 }

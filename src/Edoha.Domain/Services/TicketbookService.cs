@@ -54,6 +54,22 @@ namespace Edoha.Domain.Services
             await _ticketbookRepository.UpdateStatus(idStatusTicketbook, idTicketbook);
         }
 
+        public async Task ChangeTicketbookStatusToWithdraw(Guid idTicketbook)
+        {
+            _logger.LogInformation("Alterando o status do Talão para retirado");
+            _logger.LogInformation("ID do talão: {Ticketbook}", idTicketbook);
+
+            await _ticketbookRepository.UpdateStatusToWithdraw(idTicketbook);
+        }
+
+        public async Task ChangeTicketbookStatusToReturned(Guid idTicketbook)
+        {
+            _logger.LogInformation("Alterando o status do Talão para devolvido");
+            _logger.LogInformation("ID do talão: {Ticketbook}", idTicketbook);
+
+            await _ticketbookRepository.UpdateStatusToReturned(idTicketbook);
+        }
+
         public async Task<Ticketbook> SelectTicketbookById(Guid id)
         {
             return await _repository.SelectById(id);

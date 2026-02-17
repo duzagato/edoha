@@ -10,10 +10,12 @@ namespace Edoha.Controllers
     public class TicketbookController : ControllerBase
     {
         private readonly ITicketbookService _ticketbookService;
+        private readonly ILogger<TicketbookController> _logger;
 
-        public TicketbookController(ITicketbookService ticketbookService)
+        public TicketbookController(ITicketbookService ticketbookService, ILogger<TicketbookController> logger)
         {
             _ticketbookService = ticketbookService;
+            _logger = logger;
         }
 
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -124,6 +126,49 @@ namespace Edoha.Controllers
             try
             {
                 await _ticketbookService.ChangeTicketbookStatus(idStatusTicketbook, idTicketbook);
+                _logger.LogInformation("Alteração executada com sucesso!");
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace,
+                    InnerException = ex.InnerException?.Message
+                });
+            }
+        }
+
+        [HttpPatch("{idTicketbook}/status/returned")]
+        public async Task<IActionResult> PatchStatusTicketbook([FromRoute] Guid idTicketbook)
+        {
+            try
+            {
+                await _ticketbookService.ChangeTicketbookStatusToReturned(idTicketbook);
+                _logger.LogInformation("Alteração executada com sucesso!");
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace,
+                    InnerException = ex.InnerException?.Message
+                });
+            }
+        }
+
+        [HttpPatch("{idTicketbook}/status/withdraw")]
+        public async Task<IActionResult> PatchStatusTicketbookToWithdraw([FromRoute] Guid idTicketbook)
+        {
+            try
+            {
+                await _ticketbookService.ChangeTicketbookStatusToWithdraw(idTicketbook);
+                _logger.LogInformation("Alteração executada com sucesso!");
 
                 return NoContent();
             }

@@ -15,8 +15,28 @@
       "RelativeMoniker": "D:0:0:{2E3E8AF0-3A72-445B-AE7D-9F3245C47871}|Edoha.Application\\Edoha.Application.csproj|solutionrelative:edoha.application\\controllers\\ticketbookcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0D8ECBD2-5325-42DB-B97A-4626329BECE3}|Edoha.Domain\\Edoha.Domain.csproj|c:\\users\\eduardo zagato junio\\source\\repos\\edoha\\src\\edoha.domain\\services\\ticketbookservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0D8ECBD2-5325-42DB-B97A-4626329BECE3}|Edoha.Domain\\Edoha.Domain.csproj|solutionrelative:edoha.domain\\services\\ticketbookservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0D8ECBD2-5325-42DB-B97A-4626329BECE3}|Edoha.Domain\\Edoha.Domain.csproj|c:\\users\\eduardo zagato junio\\source\\repos\\edoha\\src\\edoha.domain\\interfaces\\domain\\services\\iticketbookservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0D8ECBD2-5325-42DB-B97A-4626329BECE3}|Edoha.Domain\\Edoha.Domain.csproj|solutionrelative:edoha.domain\\interfaces\\domain\\services\\iticketbookservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{16C64E76-ACA8-4491-8FD2-5FD2996A0A28}|Edoha.Infraestructure\\Edoha.Infraestructure.csproj|c:\\users\\eduardo zagato junio\\source\\repos\\edoha\\src\\edoha.infraestructure\\repositories\\statusticketbookrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{16C64E76-ACA8-4491-8FD2-5FD2996A0A28}|Edoha.Infraestructure\\Edoha.Infraestructure.csproj|solutionrelative:edoha.infraestructure\\repositories\\statusticketbookrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2E3E8AF0-3A72-445B-AE7D-9F3245C47871}|Edoha.Application\\Edoha.Application.csproj|c:\\users\\eduardo zagato junio\\source\\repos\\edoha\\src\\edoha.application\\dependencyinjection\\serviceinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2E3E8AF0-3A72-445B-AE7D-9F3245C47871}|Edoha.Application\\Edoha.Application.csproj|solutionrelative:edoha.application\\dependencyinjection\\serviceinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2E3E8AF0-3A72-445B-AE7D-9F3245C47871}|Edoha.Application\\Edoha.Application.csproj|c:\\users\\eduardo zagato junio\\source\\repos\\edoha\\src\\edoha.application\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2E3E8AF0-3A72-445B-AE7D-9F3245C47871}|Edoha.Application\\Edoha.Application.csproj|solutionrelative:edoha.application\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2E3E8AF0-3A72-445B-AE7D-9F3245C47871}|Edoha.Application\\Edoha.Application.csproj|c:\\users\\eduardo zagato junio\\source\\repos\\edoha\\src\\edoha.application\\controllers\\statusticketbookcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2E3E8AF0-3A72-445B-AE7D-9F3245C47871}|Edoha.Application\\Edoha.Application.csproj|solutionrelative:edoha.application\\controllers\\statusticketbookcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0D8ECBD2-5325-42DB-B97A-4626329BECE3}|Edoha.Domain\\Edoha.Domain.csproj|c:\\users\\eduardo zagato junio\\source\\repos\\edoha\\src\\edoha.domain\\models\\dtos\\statusticketbook\\createstatusticketbookdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0D8ECBD2-5325-42DB-B97A-4626329BECE3}|Edoha.Domain\\Edoha.Domain.csproj|solutionrelative:edoha.domain\\models\\dtos\\statusticketbook\\createstatusticketbookdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0D8ECBD2-5325-42DB-B97A-4626329BECE3}|Edoha.Domain\\Edoha.Domain.csproj|c:\\users\\eduardo zagato junio\\source\\repos\\edoha\\src\\edoha.domain\\entities\\statusticketbook.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -57,10 +77,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2E3E8AF0-3A72-445B-AE7D-9F3245C47871}|Edoha.Application\\Edoha.Application.csproj|c:\\users\\eduardo zagato junio\\source\\repos\\edoha\\src\\edoha.application\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2E3E8AF0-3A72-445B-AE7D-9F3245C47871}|Edoha.Application\\Edoha.Application.csproj|solutionrelative:edoha.application\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{16C64E76-ACA8-4491-8FD2-5FD2996A0A28}|Edoha.Infraestructure\\Edoha.Infraestructure.csproj|c:\\users\\eduardo zagato junio\\source\\repos\\edoha\\src\\edoha.infraestructure\\util\\crypto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -116,10 +132,35 @@
               "RelativeDocumentMoniker": "Edoha.Infraestructure\\Constants\\StaticQueries.cs",
               "ToolTip": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Infraestructure\\Constants\\StaticQueries.cs",
               "RelativeToolTip": "Edoha.Infraestructure\\Constants\\StaticQueries.cs",
-              "ViewState": "AgIAACYAAAAAAAAAAAAAwC8AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAACYAAAAAAAAAAAAAADAAAACUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-16T20:13:37.307Z",
+              "WhenOpened": "2026-02-17T18:35:16.858Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ITicketbookService.cs",
+              "DocumentMoniker": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Domain\\Interfaces\\Domain\\Services\\ITicketbookService.cs",
+              "RelativeDocumentMoniker": "Edoha.Domain\\Interfaces\\Domain\\Services\\ITicketbookService.cs",
+              "ToolTip": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Domain\\Interfaces\\Domain\\Services\\ITicketbookService.cs",
+              "RelativeToolTip": "Edoha.Domain\\Interfaces\\Domain\\Services\\ITicketbookService.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA8AAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-17T17:47:33.654Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ServiceInjection.cs",
+              "DocumentMoniker": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Application\\DependencyInjection\\ServiceInjection.cs",
+              "RelativeDocumentMoniker": "Edoha.Application\\DependencyInjection\\ServiceInjection.cs",
+              "ToolTip": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Application\\DependencyInjection\\ServiceInjection.cs",
+              "RelativeToolTip": "Edoha.Application\\DependencyInjection\\ServiceInjection.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAQwBYAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-16T21:57:32.006Z"
             },
             {
               "$type": "Document",
@@ -129,10 +170,22 @@
               "RelativeDocumentMoniker": "Edoha.Infraestructure\\Repositories\\TicketbookRepository.cs",
               "ToolTip": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Infraestructure\\Repositories\\TicketbookRepository.cs",
               "RelativeToolTip": "Edoha.Infraestructure\\Repositories\\TicketbookRepository.cs",
-              "ViewState": "AgIAAEcAAAAAAAAAAAAqwEwAAAA/AAAAAAAAAA==",
+              "ViewState": "AgIAAGcAAAAAAAAAAAAewGgAAABRAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-16T18:27:38.062Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "StatusTicketbookController.cs",
+              "DocumentMoniker": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Application\\Controllers\\StatusTicketbookController.cs",
+              "RelativeDocumentMoniker": "Edoha.Application\\Controllers\\StatusTicketbookController.cs",
+              "ToolTip": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Application\\Controllers\\StatusTicketbookController.cs",
+              "RelativeToolTip": "Edoha.Application\\Controllers\\StatusTicketbookController.cs",
+              "ViewState": "AgIAAD4AAAAAAAAAAAAgwEwAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-16T21:51:16.037Z"
             },
             {
               "$type": "Document",
@@ -142,27 +195,50 @@
               "RelativeDocumentMoniker": "Edoha.Application\\Controllers\\TicketbookController.cs",
               "ToolTip": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Application\\Controllers\\TicketbookController.cs",
               "RelativeToolTip": "Edoha.Application\\Controllers\\TicketbookController.cs",
-              "ViewState": "AgIAAHAAAAAAAAAAAAAAAHoAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAHkAAAAAAAAAAAAqwKUAAABIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-15T19:03:44.624Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "TicketbookService.cs",
-              "DocumentMoniker": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Domain\\Services\\TicketbookService.cs",
-              "RelativeDocumentMoniker": "Edoha.Domain\\Services\\TicketbookService.cs",
-              "ToolTip": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Domain\\Services\\TicketbookService.cs",
-              "RelativeToolTip": "Edoha.Domain\\Services\\TicketbookService.cs",
-              "ViewState": "AgIAACkAAAAAAAAAAAAgwDAAAABbAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "StatusTicketbookRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Infraestructure\\Repositories\\StatusTicketbookRepository.cs",
+              "RelativeDocumentMoniker": "Edoha.Infraestructure\\Repositories\\StatusTicketbookRepository.cs",
+              "ToolTip": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Infraestructure\\Repositories\\StatusTicketbookRepository.cs",
+              "RelativeToolTip": "Edoha.Infraestructure\\Repositories\\StatusTicketbookRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-14T22:18:17.394Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-16T22:21:37.156Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 8,
+              "Title": "CreateStatusTicketbookDTO.cs",
+              "DocumentMoniker": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Domain\\Models\\DTOs\\StatusTicketbook\\CreateStatusTicketbookDTO.cs",
+              "RelativeDocumentMoniker": "Edoha.Domain\\Models\\DTOs\\StatusTicketbook\\CreateStatusTicketbookDTO.cs",
+              "ToolTip": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Domain\\Models\\DTOs\\StatusTicketbook\\CreateStatusTicketbookDTO.cs",
+              "RelativeToolTip": "Edoha.Domain\\Models\\DTOs\\StatusTicketbook\\CreateStatusTicketbookDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-16T21:51:37.734Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Application\\Program.cs",
+              "RelativeDocumentMoniker": "Edoha.Application\\Program.cs",
+              "ToolTip": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Application\\Program.cs",
+              "RelativeToolTip": "Edoha.Application\\Program.cs",
+              "ViewState": "AgIAADMAAAAAAAAAAAAAACEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-26T05:30:01.046Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
               "Title": "LotteryRepository.cs",
               "DocumentMoniker": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Infraestructure\\Repositories\\LotteryRepository.cs",
               "RelativeDocumentMoniker": "Edoha.Infraestructure\\Repositories\\LotteryRepository.cs",
@@ -170,12 +246,11 @@
               "RelativeToolTip": "Edoha.Infraestructure\\Repositories\\LotteryRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-15T19:35:39.082Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-15T19:35:39.082Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 9,
               "Title": "StatusTicketbook.cs",
               "DocumentMoniker": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Domain\\Entities\\StatusTicketbook.cs",
               "RelativeDocumentMoniker": "Edoha.Domain\\Entities\\StatusTicketbook.cs",
@@ -183,25 +258,23 @@
               "RelativeToolTip": "Edoha.Domain\\Entities\\StatusTicketbook.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAIBJwAoAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-15T19:39:23.848Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-15T19:39:23.848Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 12,
               "Title": "BaseRepository.cs",
               "DocumentMoniker": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Infraestructure\\Repositories\\BaseRepository.cs",
               "RelativeDocumentMoniker": "Edoha.Infraestructure\\Repositories\\BaseRepository.cs",
               "ToolTip": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Infraestructure\\Repositories\\BaseRepository.cs",
               "RelativeToolTip": "Edoha.Infraestructure\\Repositories\\BaseRepository.cs",
-              "ViewState": "AgIAAIEAAAAAAAAAAAAiwIMAAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAAIEAAAAAAAAAAAAiwJQAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-15T19:34:53.219Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-15T19:34:53.219Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 11,
               "Title": "Ticket.cs",
               "DocumentMoniker": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Domain\\Entities\\Ticket.cs",
               "RelativeDocumentMoniker": "Edoha.Domain\\Entities\\Ticket.cs",
@@ -209,12 +282,11 @@
               "RelativeToolTip": "Edoha.Domain\\Entities\\Ticket.cs",
               "ViewState": "AgIAAAIAAAAAAAAAAAAnwAkAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-15T19:37:31.729Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-15T19:37:31.729Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 10,
               "Title": "Ticketbook.cs",
               "DocumentMoniker": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Domain\\Entities\\Ticketbook.cs",
               "RelativeDocumentMoniker": "Edoha.Domain\\Entities\\Ticketbook.cs",
@@ -222,12 +294,11 @@
               "RelativeToolTip": "Edoha.Domain\\Entities\\Ticketbook.cs",
               "ViewState": "AgIAAAIAAAAAAAAAAAAnwAkAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-15T19:37:38.717Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-15T19:37:38.717Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 14,
               "Title": "TicketRepository.cs",
               "DocumentMoniker": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Infraestructure\\Repositories\\TicketRepository.cs",
               "RelativeDocumentMoniker": "Edoha.Infraestructure\\Repositories\\TicketRepository.cs",
@@ -235,12 +306,11 @@
               "RelativeToolTip": "Edoha.Infraestructure\\Repositories\\TicketRepository.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-15T19:34:36.329Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-15T19:34:36.329Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 15,
               "Title": "Edoha.Domain.csproj",
               "DocumentMoniker": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Domain\\Edoha.Domain.csproj",
               "RelativeDocumentMoniker": "Edoha.Domain\\Edoha.Domain.csproj",
@@ -248,12 +318,11 @@
               "RelativeToolTip": "Edoha.Domain\\Edoha.Domain.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-02-15T15:22:32.665Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-15T15:22:32.665Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 17,
               "Title": "Edoha.Application.csproj",
               "DocumentMoniker": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Application\\Edoha.Application.csproj",
               "RelativeDocumentMoniker": "Edoha.Application\\Edoha.Application.csproj",
@@ -261,12 +330,11 @@
               "RelativeToolTip": "Edoha.Application\\Edoha.Application.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-02-15T15:22:31.032Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-15T15:22:31.032Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 16,
               "Title": "ReturnedsTicketbooksRequest.cs",
               "DocumentMoniker": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Domain\\Models\\Requests\\Ticketbook\\ReturnedsTicketbooksRequest.cs",
               "RelativeDocumentMoniker": "Edoha.Domain\\Models\\Requests\\Ticketbook\\ReturnedsTicketbooksRequest.cs",
@@ -274,12 +342,11 @@
               "RelativeToolTip": "Edoha.Domain\\Models\\Requests\\Ticketbook\\ReturnedsTicketbooksRequest.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-14T23:29:44.1Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-14T23:29:44.1Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 18,
               "Title": ".gitignore",
               "DocumentMoniker": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\.gitignore",
               "RelativeDocumentMoniker": ".gitignore",
@@ -287,12 +354,11 @@
               "RelativeToolTip": ".gitignore",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2026-02-14T20:19:23.703Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-14T20:19:23.703Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 19,
               "Title": "Crypto.cs",
               "DocumentMoniker": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Infraestructure\\Util\\Crypto.cs",
               "RelativeDocumentMoniker": "Edoha.Infraestructure\\Util\\Crypto.cs",
@@ -300,12 +366,11 @@
               "RelativeToolTip": "Edoha.Infraestructure\\Util\\Crypto.cs",
               "ViewState": "AgIAACMAAAAAAAAAAADwvzEAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-10T00:02:53.809Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-10T00:02:53.809Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 21,
               "Title": "AuthService.cs",
               "DocumentMoniker": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Domain\\Services\\AuthService.cs",
               "RelativeDocumentMoniker": "Edoha.Domain\\Services\\AuthService.cs",
@@ -313,12 +378,11 @@
               "RelativeToolTip": "Edoha.Domain\\Services\\AuthService.cs",
               "ViewState": "AgIAACEAAAAAAAAAAAAUwCwAAABBAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-09T23:58:37.449Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-09T23:58:37.449Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 22,
               "Title": "AuthController.cs",
               "DocumentMoniker": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Application\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "Edoha.Application\\Controllers\\AuthController.cs",
@@ -326,12 +390,11 @@
               "RelativeToolTip": "Edoha.Application\\Controllers\\AuthController.cs",
               "ViewState": "AgIAABQAAAAAAAAAAAAQwBsAAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-09T23:57:48.525Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-09T23:57:48.525Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 23,
               "Title": "Entity.cs",
               "DocumentMoniker": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Domain\\Entities\\Entity.cs",
               "RelativeDocumentMoniker": "Edoha.Domain\\Entities\\Entity.cs",
@@ -339,12 +402,11 @@
               "RelativeToolTip": "Edoha.Domain\\Entities\\Entity.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-28T21:39:17.43Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-28T21:39:17.43Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 25,
               "Title": "UserController.cs",
               "DocumentMoniker": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Application\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "Edoha.Application\\Controllers\\UserController.cs",
@@ -352,25 +414,11 @@
               "RelativeToolTip": "Edoha.Application\\Controllers\\UserController.cs",
               "ViewState": "AgIAAA4AAAAAAAAAAAAAwBcAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-26T05:35:11.328Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-26T05:35:11.328Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Application\\Program.cs",
-              "RelativeDocumentMoniker": "Edoha.Application\\Program.cs",
-              "ToolTip": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Application\\Program.cs",
-              "RelativeToolTip": "Edoha.Application\\Program.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAIBJwCEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-26T05:30:01.046Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 24,
               "Title": "User.cs",
               "DocumentMoniker": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Domain\\Entities\\User.cs",
               "RelativeDocumentMoniker": "Edoha.Domain\\Entities\\User.cs",
@@ -378,12 +426,11 @@
               "RelativeToolTip": "Edoha.Domain\\Entities\\User.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAIBJwBAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-03T05:58:53.074Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-03T05:58:53.074Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 20,
               "Title": "UserService.cs",
               "DocumentMoniker": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Domain\\Services\\UserService.cs",
               "RelativeDocumentMoniker": "Edoha.Domain\\Services\\UserService.cs",
@@ -391,12 +438,11 @@
               "RelativeToolTip": "Edoha.Domain\\Services\\UserService.cs",
               "ViewState": "AgIAAF0AAAAAAAAAAAA/wGMAAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-27T00:13:52.997Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-27T00:13:52.997Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 26,
               "Title": "CreateUserDTO.cs",
               "DocumentMoniker": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Domain\\Models\\DTOs\\User\\CreateUserDTO.cs",
               "RelativeDocumentMoniker": "Edoha.Domain\\Models\\DTOs\\User\\CreateUserDTO.cs",
@@ -404,12 +450,11 @@
               "RelativeToolTip": "Edoha.Domain\\Models\\DTOs\\User\\CreateUserDTO.cs",
               "ViewState": "AgIAAA4AAAAAAAAAAAAMwBIAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-03T05:58:42.61Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-03T05:58:42.61Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 27,
               "Title": "CreateUserInputModel.cs",
               "DocumentMoniker": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Domain\\Models\\InputModels\\User\\CreateUserInputModel.cs",
               "RelativeDocumentMoniker": "Edoha.Domain\\Models\\InputModels\\User\\CreateUserInputModel.cs",
@@ -417,8 +462,7 @@
               "RelativeToolTip": "Edoha.Domain\\Models\\InputModels\\User\\CreateUserInputModel.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-26T23:19:25.487Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-26T23:19:25.487Z"
             }
           ]
         }

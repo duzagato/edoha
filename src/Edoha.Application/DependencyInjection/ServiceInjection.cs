@@ -18,6 +18,7 @@ public static class ServiceInjection
         services.AddScoped<ILotteryService, LotteryService>();
         services.AddScoped<IPageService, PageService>();
         services.AddScoped<IPermissionService, PermissionService>();
+        services.AddScoped<IStatusTicketbookService, StatusTicketbookService>();
         services.AddScoped<ITableConfigurationService, TableConfigurationService>();
         services.AddScoped<ITicketService, TicketService>();
         services.AddScoped<ITicketbookService, TicketbookService>();

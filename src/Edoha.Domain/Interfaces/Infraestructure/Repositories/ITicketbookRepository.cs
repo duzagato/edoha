@@ -14,5 +14,9 @@ namespace Edoha.Domain.Interfaces.Infraestructure.Repositories
         public Task<IEnumerable<Ticketbook>> SelectWithdrawnTicketbooksByLottery(Guid IdLottery);
 
         public Task UpdateStatus(int idStatusTicketbook, Guid idTicketbook);
+
+        public Task UpdateStatusToReturned(Guid idTicketbook);
+
+        public Task UpdateStatusToWithdraw(Guid idTicketbook);
     }
 }
