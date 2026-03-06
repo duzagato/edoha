@@ -13,9 +13,9 @@ namespace Edoha.Domain.Interfaces.Services
     {
         public Task InsertTicketbook(CreateTicketbookDTO dto);
 
-        public Task<Ticketbook> SelectTicketbookById(Guid id);
+        public Task<TicketbookResponse> SelectTicketbookById(Guid id);
 
-        public Task<IEnumerable<Ticketbook>> SelectAllTicketbooks();
+        public Task<IEnumerable<TicketbookResponse>> SelectAllTicketbooks();
 
         public Task UpdateTicketbookById(UpdateTicketbookDTO dto);
 
