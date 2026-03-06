@@ -44,8 +44,7 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-app.UseRouting();
-app.UseCors("AllowAngular");
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 Log.Information("API Edoha iniciada em ambiente: {Ambiente}", app.Environment.EnvironmentName);
 
@@ -56,10 +55,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseRouting();
+app.UseCors("AllowAngular");
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.MapControllers();
-app.UseCors("AllowAngular");
 
 app.Run();

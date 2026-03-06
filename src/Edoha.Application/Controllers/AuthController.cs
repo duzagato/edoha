@@ -1,7 +1,6 @@
 ﻿using Edoha.Domain.Interfaces.Domain.Services;
 using Edoha.Domain.Models.DTOs.Auth;
 using Microsoft.AspNetCore.Mvc;
-using System.IdentityModel.Tokens.Jwt;
 
 namespace Edoha.Application.Controllers
 {
