@@ -1,35 +1,53 @@
-C:\Users\Eduardo\source\repos\Edoha\Edoha.Infraestructure\bin\Debug\net8.0\Edoha.Infraestructure.deps.json
-C:\Users\Eduardo\source\repos\Edoha\Edoha.Infraestructure\bin\Debug\net8.0\Edoha.Infraestructure.dll
-C:\Users\Eduardo\source\repos\Edoha\Edoha.Infraestructure\bin\Debug\net8.0\Edoha.Infraestructure.pdb
-C:\Users\Eduardo\source\repos\Edoha\Edoha.Infraestructure\bin\Debug\net8.0\Edoha.Domain.dll
-C:\Users\Eduardo\source\repos\Edoha\Edoha.Infraestructure\bin\Debug\net8.0\Edoha.Domain.pdb
-C:\Users\Eduardo\source\repos\Edoha\Edoha.Infraestructure\obj\Debug\net8.0\Edoha.Infraestructure.csproj.AssemblyReference.cache
-C:\Users\Eduardo\source\repos\Edoha\Edoha.Infraestructure\obj\Debug\net8.0\Edoha.Infraestructure.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Eduardo\source\repos\Edoha\Edoha.Infraestructure\obj\Debug\net8.0\Edoha.Infraestructure.AssemblyInfoInputs.cache
-C:\Users\Eduardo\source\repos\Edoha\Edoha.Infraestructure\obj\Debug\net8.0\Edoha.Infraestructure.AssemblyInfo.cs
-C:\Users\Eduardo\source\repos\Edoha\Edoha.Infraestructure\obj\Debug\net8.0\Edoha.Infraestructure.csproj.CoreCompileInputs.cache
-C:\Users\Eduardo\source\repos\Edoha\Edoha.Infraestructure\obj\Debug\net8.0\Edoha.In.EC720BE4.Up2Date
-C:\Users\Eduardo\source\repos\Edoha\Edoha.Infraestructure\obj\Debug\net8.0\Edoha.Infraestructure.dll
-C:\Users\Eduardo\source\repos\Edoha\Edoha.Infraestructure\obj\Debug\net8.0\refint\Edoha.Infraestructure.dll
-C:\Users\Eduardo\source\repos\Edoha\Edoha.Infraestructure\obj\Debug\net8.0\Edoha.Infraestructure.pdb
-C:\Users\Eduardo\source\repos\Edoha\Edoha.Infraestructure\obj\Debug\net8.0\ref\Edoha.Infraestructure.dll
-C:\Users\Eduardo\source\repos\Edoha\Edoha.Infraestructure\bin\Debug\net8.0\Edoha.Shared.dll
-C:\Users\Eduardo\source\repos\Edoha\Edoha.Infraestructure\bin\Debug\net8.0\Edoha.Shared.pdb
-C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Infraestructure\obj\Debug\net8.0\Edoha.Infraestructure.csproj.AssemblyReference.cache
-C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Infraestructure\obj\Debug\net8.0\Edoha.Infraestructure.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Infraestructure\obj\Debug\net8.0\Edoha.Infraestructure.AssemblyInfoInputs.cache
-C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Infraestructure\obj\Debug\net8.0\Edoha.Infraestructure.AssemblyInfo.cs
-C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Infraestructure\obj\Debug\net8.0\Edoha.Infraestructure.csproj.CoreCompileInputs.cache
-C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Infraestructure\obj\Debug\net8.0\Edoha.Infraestructure.sourcelink.json
-C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Infraestructure\bin\Debug\net8.0\Edoha.Infraestructure.deps.json
-C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Infraestructure\bin\Debug\net8.0\Edoha.Infraestructure.dll
-C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Infraestructure\bin\Debug\net8.0\Edoha.Infraestructure.pdb
-C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Infraestructure\bin\Debug\net8.0\Edoha.Domain.dll
-C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Infraestructure\bin\Debug\net8.0\Edoha.Shared.dll
-C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Infraestructure\bin\Debug\net8.0\Edoha.Domain.pdb
-C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Infraestructure\bin\Debug\net8.0\Edoha.Shared.pdb
-C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Infraestructure\obj\Debug\net8.0\Edoha.In.EC720BE4.Up2Date
-C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Infraestructure\obj\Debug\net8.0\Edoha.Infraestructure.dll
-C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Infraestructure\obj\Debug\net8.0\refint\Edoha.Infraestructure.dll
-C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Infraestructure\obj\Debug\net8.0\Edoha.Infraestructure.pdb
-C:\Users\Eduardo Zagato Junio\source\repos\edoha\src\Edoha.Infraestructure\obj\Debug\net8.0\ref\Edoha.Infraestructure.dll
+C:/Users/Eduardo/source/repos/Edoha/Edoha.Infraestructure/bin/Debug/net8.0/Edoha.Infraestructure.deps.json
+C:/Users/Eduardo/source/repos/Edoha/Edoha.Infraestructure/bin/Debug/net8.0/Edoha.Infraestructure.dll
+C:/Users/Eduardo/source/repos/Edoha/Edoha.Infraestructure/bin/Debug/net8.0/Edoha.Infraestructure.pdb
+C:/Users/Eduardo/source/repos/Edoha/Edoha.Infraestructure/bin/Debug/net8.0/Edoha.Domain.dll
+C:/Users/Eduardo/source/repos/Edoha/Edoha.Infraestructure/bin/Debug/net8.0/Edoha.Domain.pdb
+C:/Users/Eduardo/source/repos/Edoha/Edoha.Infraestructure/obj/Debug/net8.0/Edoha.Infraestructure.csproj.AssemblyReference.cache
+C:/Users/Eduardo/source/repos/Edoha/Edoha.Infraestructure/obj/Debug/net8.0/Edoha.Infraestructure.GeneratedMSBuildEditorConfig.editorconfig
+C:/Users/Eduardo/source/repos/Edoha/Edoha.Infraestructure/obj/Debug/net8.0/Edoha.Infraestructure.AssemblyInfoInputs.cache
+C:/Users/Eduardo/source/repos/Edoha/Edoha.Infraestructure/obj/Debug/net8.0/Edoha.Infraestructure.AssemblyInfo.cs
+C:/Users/Eduardo/source/repos/Edoha/Edoha.Infraestructure/obj/Debug/net8.0/Edoha.Infraestructure.csproj.CoreCompileInputs.cache
+C:/Users/Eduardo/source/repos/Edoha/Edoha.Infraestructure/obj/Debug/net8.0/Edoha.In.EC720BE4.Up2Date
+C:/Users/Eduardo/source/repos/Edoha/Edoha.Infraestructure/obj/Debug/net8.0/Edoha.Infraestructure.dll
+C:/Users/Eduardo/source/repos/Edoha/Edoha.Infraestructure/obj/Debug/net8.0/refint/Edoha.Infraestructure.dll
+C:/Users/Eduardo/source/repos/Edoha/Edoha.Infraestructure/obj/Debug/net8.0/Edoha.Infraestructure.pdb
+C:/Users/Eduardo/source/repos/Edoha/Edoha.Infraestructure/obj/Debug/net8.0/ref/Edoha.Infraestructure.dll
+C:/Users/Eduardo/source/repos/Edoha/Edoha.Infraestructure/bin/Debug/net8.0/Edoha.Shared.dll
+C:/Users/Eduardo/source/repos/Edoha/Edoha.Infraestructure/bin/Debug/net8.0/Edoha.Shared.pdb
+C:/Users/Eduardo Zagato Junio/source/repos/edoha/src/Edoha.Infraestructure/obj/Debug/net8.0/Edoha.Infraestructure.csproj.AssemblyReference.cache
+C:/Users/Eduardo Zagato Junio/source/repos/edoha/src/Edoha.Infraestructure/obj/Debug/net8.0/Edoha.Infraestructure.GeneratedMSBuildEditorConfig.editorconfig
+C:/Users/Eduardo Zagato Junio/source/repos/edoha/src/Edoha.Infraestructure/obj/Debug/net8.0/Edoha.Infraestructure.AssemblyInfoInputs.cache
+C:/Users/Eduardo Zagato Junio/source/repos/edoha/src/Edoha.Infraestructure/obj/Debug/net8.0/Edoha.Infraestructure.AssemblyInfo.cs
+C:/Users/Eduardo Zagato Junio/source/repos/edoha/src/Edoha.Infraestructure/obj/Debug/net8.0/Edoha.Infraestructure.csproj.CoreCompileInputs.cache
+C:/Users/Eduardo Zagato Junio/source/repos/edoha/src/Edoha.Infraestructure/obj/Debug/net8.0/Edoha.Infraestructure.sourcelink.json
+C:/Users/Eduardo Zagato Junio/source/repos/edoha/src/Edoha.Infraestructure/bin/Debug/net8.0/Edoha.Infraestructure.deps.json
+C:/Users/Eduardo Zagato Junio/source/repos/edoha/src/Edoha.Infraestructure/bin/Debug/net8.0/Edoha.Infraestructure.dll
+C:/Users/Eduardo Zagato Junio/source/repos/edoha/src/Edoha.Infraestructure/bin/Debug/net8.0/Edoha.Infraestructure.pdb
+C:/Users/Eduardo Zagato Junio/source/repos/edoha/src/Edoha.Infraestructure/bin/Debug/net8.0/Edoha.Domain.dll
+C:/Users/Eduardo Zagato Junio/source/repos/edoha/src/Edoha.Infraestructure/bin/Debug/net8.0/Edoha.Shared.dll
+C:/Users/Eduardo Zagato Junio/source/repos/edoha/src/Edoha.Infraestructure/bin/Debug/net8.0/Edoha.Domain.pdb
+C:/Users/Eduardo Zagato Junio/source/repos/edoha/src/Edoha.Infraestructure/bin/Debug/net8.0/Edoha.Shared.pdb
+C:/Users/Eduardo Zagato Junio/source/repos/edoha/src/Edoha.Infraestructure/obj/Debug/net8.0/Edoha.In.EC720BE4.Up2Date
+C:/Users/Eduardo Zagato Junio/source/repos/edoha/src/Edoha.Infraestructure/obj/Debug/net8.0/Edoha.Infraestructure.dll
+C:/Users/Eduardo Zagato Junio/source/repos/edoha/src/Edoha.Infraestructure/obj/Debug/net8.0/refint/Edoha.Infraestructure.dll
+C:/Users/Eduardo Zagato Junio/source/repos/edoha/src/Edoha.Infraestructure/obj/Debug/net8.0/Edoha.Infraestructure.pdb
+C:/Users/Eduardo Zagato Junio/source/repos/edoha/src/Edoha.Infraestructure/obj/Debug/net8.0/ref/Edoha.Infraestructure.dll
+/home/runner/work/edoha/edoha/src/Edoha.Infraestructure/obj/Debug/net8.0/Edoha.Infraestructure.dll
+/home/runner/work/edoha/edoha/src/Edoha.Infraestructure/obj/Debug/net8.0/refint/Edoha.Infraestructure.dll
+/home/runner/work/edoha/edoha/src/Edoha.Infraestructure/obj/Debug/net8.0/Edoha.Infraestructure.pdb
+/home/runner/work/edoha/edoha/src/Edoha.Infraestructure/bin/Debug/net8.0/Edoha.Infraestructure.deps.json
+/home/runner/work/edoha/edoha/src/Edoha.Infraestructure/bin/Debug/net8.0/Edoha.Infraestructure.dll
+/home/runner/work/edoha/edoha/src/Edoha.Infraestructure/bin/Debug/net8.0/Edoha.Infraestructure.pdb
+/home/runner/work/edoha/edoha/src/Edoha.Infraestructure/bin/Debug/net8.0/Edoha.Domain.dll
+/home/runner/work/edoha/edoha/src/Edoha.Infraestructure/bin/Debug/net8.0/Edoha.Shared.dll
+/home/runner/work/edoha/edoha/src/Edoha.Infraestructure/bin/Debug/net8.0/Edoha.Domain.pdb
+/home/runner/work/edoha/edoha/src/Edoha.Infraestructure/bin/Debug/net8.0/Edoha.Shared.pdb
+/home/runner/work/edoha/edoha/src/Edoha.Infraestructure/obj/Debug/net8.0/Edoha.Infraestructure.csproj.AssemblyReference.cache
+/home/runner/work/edoha/edoha/src/Edoha.Infraestructure/obj/Debug/net8.0/Edoha.Infraestructure.GeneratedMSBuildEditorConfig.editorconfig
+/home/runner/work/edoha/edoha/src/Edoha.Infraestructure/obj/Debug/net8.0/Edoha.Infraestructure.AssemblyInfoInputs.cache
+/home/runner/work/edoha/edoha/src/Edoha.Infraestructure/obj/Debug/net8.0/Edoha.Infraestructure.AssemblyInfo.cs
+/home/runner/work/edoha/edoha/src/Edoha.Infraestructure/obj/Debug/net8.0/Edoha.Infraestructure.csproj.CoreCompileInputs.cache
+/home/runner/work/edoha/edoha/src/Edoha.Infraestructure/obj/Debug/net8.0/Edoha.Infraestructure.sourcelink.json
+/home/runner/work/edoha/edoha/src/Edoha.Infraestructure/obj/Debug/net8.0/Edoha.In.EC720BE4.Up2Date
+/home/runner/work/edoha/edoha/src/Edoha.Infraestructure/obj/Debug/net8.0/ref/Edoha.Infraestructure.dll
