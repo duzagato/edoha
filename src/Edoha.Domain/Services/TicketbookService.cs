@@ -13,9 +13,11 @@ namespace Edoha.Domain.Services
         private readonly IStatusTicketbookRepository _statusTicketbookRepository;
         private readonly ILotteryRepository _lotteryRepository;
         private readonly ITicketbookRepository _ticketbookRepository;
+        private readonly IUserRepository _userRepository;
 
         public TicketbookService(ITicketbookRepository repository, IStatusTicketbookRepository statusTicketbookRepository, ILotteryRepository lotteryRepository, 
           ITicketbookRepository ticketbookRepository,
+          IUserRepository userRepository,
           ILogger<ITicketbookService> logger,
           IRequestValidationContext requestValidationContex) : base(repository, requestValidationContex) 
         {
@@ -23,6 +25,39 @@ namespace Edoha.Domain.Services
             _statusTicketbookRepository = statusTicketbookRepository;
             _lotteryRepository = lotteryRepository;
             _ticketbookRepository = ticketbookRepository;
+            _userRepository = userRepository;
+        }
+
+        private async Task<TicketbookResponse> BuildTicketbookResponse(Ticketbook ticketbook)
+        {
+            var lottery = await _lotteryRepository.SelectById(ticketbook.IdLottery);
+            var statusTicketbook = await _statusTicketbookRepository.SelectByCode(ticketbook.IdStatusTicketbook);
+
+            User? owner = ticketbook.IdOwner.HasValue
+                ? await _userRepository.SelectById(ticketbook.IdOwner.Value)
+                : null;
+
+            User? holder = ticketbook.IdHolder.HasValue
+                ? await _userRepository.SelectById(ticketbook.IdHolder.Value)
+                : null;
+
+            User? createdBy = ticketbook.CreatedBy.HasValue
+                ? await _userRepository.SelectById(ticketbook.CreatedBy.Value)
+                : null;
+
+            return new TicketbookResponse
+            {
+                Id = ticketbook.Id,
+                Lottery = lottery,
+                Owner = owner,
+                Holder = holder,
+                StatusTicketbook = statusTicketbook,
+                Number = ticketbook.Number,
+                WithdrawnDate = ticketbook.WithdrawnDate,
+                DevolutionDate = ticketbook.DevolutionDate,
+                CreatedAt = ticketbook.CreatedAt,
+                CreatedBy = createdBy
+            };
         }
 
         public async Task InsertTicketbook(CreateTicketbookDTO dto)
@@ -32,18 +67,22 @@ namespace Edoha.Domain.Services
             await this.Insert(dto);
         }
 
-        public async Task<IEnumerable<Ticketbook>> SelectReturnedsTicketbooks(Guid idLottery)
+        public async Task<IEnumerable<TicketbookResponse>> SelectReturnedsTicketbooks(Guid idLottery)
         {
             var ticketbooks = await _ticketbookRepository.SelectReturnedsTicketbooksByLottery(idLottery);
-
-            return ticketbooks;
+            var responses = new List<TicketbookResponse>();
+            foreach (var ticketbook in ticketbooks)
+                responses.Add(await BuildTicketbookResponse(ticketbook));
+            return responses;
         }
 
-        public async Task<IEnumerable<Ticketbook>> SelectWithdrawnsTicketbooks(Guid idLottery)
+        public async Task<IEnumerable<TicketbookResponse>> SelectWithdrawnsTicketbooks(Guid idLottery)
         {
             var ticketbooks = await _ticketbookRepository.SelectWithdrawnTicketbooksByLottery(idLottery);
-
-            return ticketbooks;
+            var responses = new List<TicketbookResponse>();
+            foreach (var ticketbook in ticketbooks)
+                responses.Add(await BuildTicketbookResponse(ticketbook));
+            return responses;
         }
 
         public async Task ChangeTicketbookStatus(int idStatusTicketbook, Guid idTicketbook)
@@ -70,14 +109,19 @@ namespace Edoha.Domain.Services
             await _ticketbookRepository.UpdateStatusToReturned(idTicketbook);
         }
 
-        public async Task<Ticketbook> SelectTicketbookById(Guid id)
+        public async Task<TicketbookResponse> SelectTicketbookById(Guid id)
         {
-            return await _repository.SelectById(id);
+            var ticketbook = await _repository.SelectById(id);
+            return await BuildTicketbookResponse(ticketbook);
         }
 
-        public async Task<IEnumerable<Ticketbook>> SelectAllTicketbooks()
+        public async Task<IEnumerable<TicketbookResponse>> SelectAllTicketbooks()
         {
-            return await _repository.SelectAll();
+            var ticketbooks = await _repository.SelectAll();
+            var responses = new List<TicketbookResponse>();
+            foreach (var ticketbook in ticketbooks)
+                responses.Add(await BuildTicketbookResponse(ticketbook));
+            return responses;
         }
 
         public async Task UpdateTicketbookById(UpdateTicketbookDTO dto)

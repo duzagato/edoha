@@ -9,9 +9,9 @@ namespace Edoha.Domain.Interfaces.Domain.Services
     {
         public Task InsertTicketbook(CreateTicketbookDTO dto);
 
-        public Task<IEnumerable<Ticketbook>> SelectReturnedsTicketbooks(Guid idLottery);
+        public Task<IEnumerable<TicketbookResponse>> SelectReturnedsTicketbooks(Guid idLottery);
 
-        public Task<IEnumerable<Ticketbook>> SelectWithdrawnsTicketbooks(Guid idLottery);
+        public Task<IEnumerable<TicketbookResponse>> SelectWithdrawnsTicketbooks(Guid idLottery);
 
         public Task ChangeTicketbookStatus(int idStatusTicketbook, Guid idTicketbook);
 
@@ -19,9 +19,9 @@ namespace Edoha.Domain.Interfaces.Domain.Services
 
         public Task ChangeTicketbookStatusToWithdraw(Guid idTicketbook);
 
-        public Task<Ticketbook> SelectTicketbookById(Guid id);
+        public Task<TicketbookResponse> SelectTicketbookById(Guid id);
 
-        public Task<IEnumerable<Ticketbook>> SelectAllTicketbooks();
+        public Task<IEnumerable<TicketbookResponse>> SelectAllTicketbooks();
 
         public Task UpdateTicketbookById(UpdateTicketbookDTO dto);
 

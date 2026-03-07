@@ -9,6 +9,6 @@ namespace Edoha.Domain.Interfaces.Infraestructure.Repositories
 {
     public interface IStatusTicketbookRepository : IBaseRepository<StatusTicketbook>
     {
-
+        Task<StatusTicketbook?> SelectByCode(int code);
     }
 }
