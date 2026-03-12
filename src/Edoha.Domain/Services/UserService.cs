@@ -7,6 +7,7 @@ using Edoha.Domain.Interfaces.Infraestructure.Repositories;
 using Edoha.Domain.Interfaces.Infraestructure.Util;
 using Edoha.Domain.Models.DTOs.User;
 using Edoha.Domain.Models.InputModels.User;
+using Edoha.Domain.Models.Responses.User;
 
 namespace Edoha.Domain.Services
 {
@@ -54,9 +55,30 @@ namespace Edoha.Domain.Services
             await Insert(dto);
         }
 
-        public void InsertUserInformation()
+        public async Task<Guid> InsertUserInformation(string? name, string? phone)
         {
+            if (!String.IsNullOrEmpty(name) &&
+               !String.IsNullOrEmpty(phone))
+            {
+                UserInformation userInformation = new UserInformation()
+                {
+                    Name = name,
+                    Phone = phone
+                };
 
+                return await _repository.InsertOrGetId(userInformation);
+            }
+            else
+            {
+                throw new ArgumentException("Nome e Telefone são obrigatórios.");
+            }
+        }
+
+        public async Task<IEnumerable<UserInformationResponse?>> GetUserInformation(bool withTicketbooks)
+        {
+            var users = await _userRepository.SelectUserInformation(withTicketbooks);
+
+            return users;
         }
 
         public void InsertUserCredentials()

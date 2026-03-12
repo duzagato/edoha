@@ -1,12 +1,12 @@
 ﻿using Dapper;
 using Edoha.Domain.Entities;
 using Edoha.Domain.Interfaces.Infraestructure.Repositories;
-using Edoha.Domain.Models.DTOs.UserPermission;
 using Edoha.Infraestructure.Constants;
-using Edoha.Infraestructure.Constants.Enums;
+using Edoha.Domain.Constants.Enums;
 using Edoha.Infrastructure.Repositories;
 using Microsoft.Extensions.Logging;
 using System.Data;
+using Edoha.Domain.Models.DTOs.Ticketbook;
 
 namespace Edoha.Infraestructure.Repositories
 {
@@ -143,6 +143,57 @@ namespace Edoha.Infraestructure.Repositories
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Ocorreu um erro ao realizar alteração de status no banco de dados");
+                throw;
+            }
+        }
+
+        public async Task<bool> ValidateNumber(Guid idLottery, int number)
+        {
+            try
+            {
+                CheckConnection();
+
+                _logger.LogInformation("Executando query para validar se a combinação rifa e número de talão já existe");
+
+                string query = StaticQueries.LotteryTicketbookNumberExists;
+
+                _logger.LogInformation("IdLottery: {IdLottery}", idLottery);
+                _logger.LogInformation("Número Talão: {Number}", number);
+
+                bool exists = await _connection.QueryFirstAsync<bool>(query, new
+                {
+                    IdLottery = idLottery,
+                    Number = number
+                });
+
+                _logger.LogInformation("Query executada.");
+
+                return exists;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Ocorreu um erro ao realizar alteração de status no banco de dados");
+                throw;
+            }
+        }
+
+        public async Task<TicketbookConfigurationDTO?> SelectTicketbookConfiguration(Guid idTicketbook)
+        {
+            try
+            {
+                _logger.LogInformation("Recebendo configurações de talão e rifa");
+                _logger.LogInformation("ID Talão que será consultado: {IdTicketbook}", idTicketbook);
+
+                string query = StaticQueries.TicketbookConfiguration;
+
+                var ticketbookConfiguration = await _connection.QueryFirstOrDefaultAsync<TicketbookConfigurationDTO?>(query, new { idTicketbook = idTicketbook });
+
+                _logger.LogInformation("Configurações do talão recebida com sucesso!");
+
+                return ticketbookConfiguration;
+            }catch(Exception ex)
+            {
+                _logger.LogError(ex, "Ocorreu um erro ao tentar receber configurações do talão");
                 throw;
             }
         }

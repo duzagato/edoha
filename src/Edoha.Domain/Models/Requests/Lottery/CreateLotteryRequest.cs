@@ -1,15 +1,8 @@
-﻿using Edoha.Domain.Annotations.Numerical;
-using Edoha.Domain.Models.DTOs;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Edoha.Domain.Models.DTOs.Lottery
+namespace Edoha.Domain.Models.Requests.Lottery
 {
-    public class CreateLotteryDTO : DTO
+    public class CreateLotteryRequest
     {
         [Required]
         public Guid IdInstitution { get; set; }
@@ -18,15 +11,12 @@ namespace Edoha.Domain.Models.DTOs.Lottery
         public string Name { get; set; }
 
         [Required]
-        [Min(1)]
         public int NumTicketsTicketbook { get; set; }
 
         [Required]
-        [Min(1)]
         public int NumTicketbooks { get; set; }
 
         [Required]
-        [Min(1)]
         public decimal PriceTicket { get; set; }
 
         [Required]

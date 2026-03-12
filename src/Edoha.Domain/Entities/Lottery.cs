@@ -9,6 +9,9 @@ namespace Edoha.Domain.Entities
     public class Lottery : Entity
     {
         [Required]
+        public Guid IdInstitution { get; set; }
+
+        [Required]
         public string Name { get; set; }
 
         [Required]

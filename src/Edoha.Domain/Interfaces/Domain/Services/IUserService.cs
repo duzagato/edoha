@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Edoha.Domain.Entities;
+﻿using Edoha.Domain.Entities;
 using Edoha.Domain.Models.InputModels.User;
 using Edoha.Domain.Models.DTOs.User;
+using Edoha.Domain.Models.Responses.User;
 
 namespace Edoha.Domain.Interfaces.Domain.Services
 {
@@ -13,9 +9,13 @@ namespace Edoha.Domain.Interfaces.Domain.Services
     {
         public Task InsertUser(CreateUserInputModel model);
 
+        Task<Guid> InsertUserInformation(string? name, string? phone);
+
         public Task<User> SelectUserById(Guid id);
 
         public Task<IEnumerable<User>> SelectAllUsers();
+
+        public Task<IEnumerable<UserInformationResponse?>> GetUserInformation(bool withTicketbooks);
 
         public Task UpdateUserById(UpdateUserDTO dto);
 

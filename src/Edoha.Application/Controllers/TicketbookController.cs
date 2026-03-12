@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Edoha.Domain.Models.DTOs.Ticketbook;
 using Edoha.Domain.Interfaces.Domain.Services;
+using Edoha.Domain.Entities;
 using Edoha.Domain.Models.Requests.Ticketbook;
 
 namespace Edoha.Controllers
@@ -186,7 +187,7 @@ namespace Edoha.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateTicketbookDTO request)
+        public async Task<IActionResult> Create([FromBody] PostTicketbookRequest request)
         {
             if (request != null)
             {

@@ -1,16 +1,14 @@
 ﻿using Edoha.Domain.Annotations.Numerical;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Edoha.Domain.Entities
+namespace Edoha.Domain.Models.Requests.Ticketbook
 {
-    [Table("ticketbook", Schema = "lottery")]
-    public class Ticketbook : Entity
+    public class PostTicketbookRequest
     {
         [Required]
         public Guid IdLottery { get; set; }
         public Holder? TicketbookHolder { get; set; }
-
+        
         [Required]
         public Owner TicketbookOwner { get; set; }
 
@@ -26,15 +24,13 @@ namespace Edoha.Domain.Entities
 
     public class Holder
     {
-        public Guid? Id { get; set; }
         public string Name { get; set; }
         public string Phone { get; set; }
-     }
+    }
 
-     public class Owner
-     {
-        public Guid? Id { get; set; }
+    public class Owner
+    {
         public string Name { get; set; }
         public string Phone { get; set; }
-     }
+    }
 }

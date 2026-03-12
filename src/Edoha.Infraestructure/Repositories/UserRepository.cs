@@ -2,6 +2,7 @@
 using Edoha.Domain.Entities;
 using Edoha.Domain.Interfaces.Infraestructure.Repositories;
 using Edoha.Domain.Models.DTOs.UserPermission;
+using Edoha.Domain.Models.Responses.User;
 using Edoha.Infraestructure.Constants;
 using Edoha.Infrastructure.Repositories;
 using System.Data;
@@ -25,6 +26,27 @@ namespace Edoha.Infraestructure.Repositories
             var user = await _connection.QueryFirstOrDefaultAsync<User>(query, new { Nickname = nickname });
 
             return user ?? null;
+        }
+
+        public async Task<IEnumerable<UserInformationResponse>> SelectUserInformation(bool withTicketbooks)
+        {
+            Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
+            CheckConnection();
+
+            string sql = String.Empty;
+
+            if (withTicketbooks)
+            {
+                sql = StaticQueries.SelectAllUserInformationWithTicketbook;
+            }
+            else
+            {
+                sql = StaticQueries.SelectAllUserInformation;
+            }
+
+            var users = await _connection.QueryAsync<UserInformationResponse>(sql);
+
+            return users;
         }
     }
 }

@@ -1,9 +1,13 @@
-﻿using Edoha.Domain.Entities;
-using Edoha.Domain.Models.DTOs.Ticketbook;
+﻿using Edoha.Domain.Constants.Enums;
+using Edoha.Domain.Entities;
+using Edoha.Domain.Interfaces.Domain.Services;
 using Edoha.Domain.Interfaces.Infraestructure.Context;
 using Edoha.Domain.Interfaces.Infraestructure.Repositories;
-using Edoha.Domain.Interfaces.Domain.Services;
+using Edoha.Domain.Models.DTOs.Ticketbook;
+using Edoha.Domain.Models.Requests.Ticketbook;
 using Microsoft.Extensions.Logging;
+using System.Numerics;
+using System.Xml.Linq;
 
 namespace Edoha.Domain.Services
 {
@@ -13,23 +17,63 @@ namespace Edoha.Domain.Services
         private readonly IStatusTicketbookRepository _statusTicketbookRepository;
         private readonly ILotteryRepository _lotteryRepository;
         private readonly ITicketbookRepository _ticketbookRepository;
+        private readonly IUserService _userService;
 
         public TicketbookService(ITicketbookRepository repository, IStatusTicketbookRepository statusTicketbookRepository, ILotteryRepository lotteryRepository, 
           ITicketbookRepository ticketbookRepository,
           ILogger<ITicketbookService> logger,
+          IUserService userService,
           IRequestValidationContext requestValidationContex) : base(repository, requestValidationContex) 
         {
             _logger = logger;
             _statusTicketbookRepository = statusTicketbookRepository;
             _lotteryRepository = lotteryRepository;
             _ticketbookRepository = ticketbookRepository;
+            _userService = userService;
         }
 
-        public async Task InsertTicketbook(CreateTicketbookDTO dto)
+        public async Task InsertTicketbook(PostTicketbookRequest ticketbookRequest)
         {
-            await _lotteryRepository.IdExists(dto.IdLottery);
-            await _statusTicketbookRepository.IdExists(dto.IdStatusTicketbook);
-            await this.Insert(dto);
+            var idLottery = _lotteryRepository.IdExists(ticketbookRequest.IdLottery);
+            var idStatusTicketbook = _statusTicketbookRepository.IdExists(ticketbookRequest.IdStatusTicketbook);
+            var ticketbookExists = await _ticketbookRepository.ValidateNumber(ticketbookRequest.IdLottery, ticketbookRequest.Number);
+
+            if (ticketbookExists)
+            {
+                throw new Exception("O talão já existe");
+            }
+
+
+            var idOwner = await _userService.InsertUserInformation(ticketbookRequest.TicketbookOwner.Name, ticketbookRequest.TicketbookOwner.Phone);
+
+            Guid? idHolder = null;
+
+            if (String.IsNullOrEmpty(ticketbookRequest.TicketbookHolder.Name) &&
+               String.IsNullOrEmpty(ticketbookRequest.TicketbookHolder.Phone))
+            {
+                idHolder = await _userService.InsertUserInformation(ticketbookRequest.TicketbookHolder?.Name, ticketbookRequest.TicketbookHolder?.Phone);
+            }
+
+                CreateTicketbookDTO dto = new CreateTicketbookDTO
+                {
+                    IdLottery = ticketbookRequest.IdLottery,
+                    Number = ticketbookRequest.Number,
+                    IdOwner = idOwner,
+                    IdHolder = idHolder ?? null,
+                    WithdrawnDate = DateTime.Now,
+                    IdStatusTicketbook = ticketbookRequest.IdStatusTicketbook
+                };
+
+            if (ticketbookRequest.IdStatusTicketbook is (int)StatusTicketbookEnum.Devolvido)
+            {
+                dto.DevolutionDate = DateTime.Now;
+            }
+            else
+            {
+                dto.DevolutionDate = null;
+            }
+
+            await Insert(dto);
         }
 
         public async Task<IEnumerable<Ticketbook>> SelectReturnedsTicketbooks(Guid idLottery)

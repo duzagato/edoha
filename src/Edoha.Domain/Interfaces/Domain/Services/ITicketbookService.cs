@@ -7,24 +7,24 @@ namespace Edoha.Domain.Interfaces.Domain.Services
 {
     public interface ITicketbookService : IService<Ticketbook>
     {
-        public Task InsertTicketbook(CreateTicketbookDTO dto);
+        Task InsertTicketbook(PostTicketbookRequest ticketbookRequest);
 
-        public Task<IEnumerable<Ticketbook>> SelectReturnedsTicketbooks(Guid idLottery);
+        Task<IEnumerable<Ticketbook>> SelectReturnedsTicketbooks(Guid idLottery);
 
-        public Task<IEnumerable<Ticketbook>> SelectWithdrawnsTicketbooks(Guid idLottery);
+        Task<IEnumerable<Ticketbook>> SelectWithdrawnsTicketbooks(Guid idLottery);
 
-        public Task ChangeTicketbookStatus(int idStatusTicketbook, Guid idTicketbook);
+        Task ChangeTicketbookStatus(int idStatusTicketbook, Guid idTicketbook);
 
-        public Task ChangeTicketbookStatusToReturned(Guid idTicketbook);
+        Task ChangeTicketbookStatusToReturned(Guid idTicketbook);
 
-        public Task ChangeTicketbookStatusToWithdraw(Guid idTicketbook);
+        Task ChangeTicketbookStatusToWithdraw(Guid idTicketbook);
 
-        public Task<Ticketbook> SelectTicketbookById(Guid id);
+        Task<Ticketbook> SelectTicketbookById(Guid id);
 
-        public Task<IEnumerable<Ticketbook>> SelectAllTicketbooks();
+        Task<IEnumerable<Ticketbook>> SelectAllTicketbooks();
 
-        public Task UpdateTicketbookById(UpdateTicketbookDTO dto);
+        Task UpdateTicketbookById(UpdateTicketbookDTO dto);
 
-        public Task DeleteTicketbookById(Guid id);
+        Task DeleteTicketbookById(Guid id);
     }
 }

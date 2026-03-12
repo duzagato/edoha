@@ -13,6 +13,8 @@ namespace Edoha.Domain.Interfaces.Infraestructure.Repositories
 
         Task Insert(DTO dto);
 
+        Task<Guid> InsertOrGetId(DTO dto);
+
         Task Update(DTO dto);
 
         Task DeleteById(Guid id);
@@ -22,5 +24,7 @@ namespace Edoha.Domain.Interfaces.Infraestructure.Repositories
         Task IdExists(Guid? id);
 
         Task IdExists(int? id);
+
+        Task<bool> IsUnique(string column, string value);
     }
 }

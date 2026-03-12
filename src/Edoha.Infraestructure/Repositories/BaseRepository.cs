@@ -80,6 +80,38 @@ namespace Edoha.Infrastructure.Repositories
             await _connection.ExecuteAsync(query, dto);
         }
 
+        public async Task<Guid> InsertOrGetId(DTO dto)
+        {
+            CheckConnection();
+
+            var props = dto.GetProperties(_idColumnPascalCase);
+            var columnNames = props.Select(p => $@"""{StringHelper.PascalToSnakeCase(p.Name)}""").ToList();
+            var paramNames = props.Select(p => $"@{p.Name}").ToList();
+
+            var columns = string.Join(", ", columnNames);
+            var values = string.Join(", ", paramNames);
+
+            var conflictColumns = string.Join(", ", columnNames);
+            conflictColumns = "phone";
+
+            var whereConditions = string.Join(" AND ", columnNames.Zip(paramNames, (col, param) => $"{col} = {param}"));
+
+            var query = $@"
+        WITH insercao AS (
+            INSERT INTO ""{_schema}"".""{_tableName}"" ({columns})
+            VALUES ({values})
+            ON CONFLICT ({conflictColumns}) DO NOTHING
+            RETURNING ""id""
+        )
+        SELECT ""id"" FROM insercao
+        UNION ALL
+        SELECT ""id"" FROM ""{_schema}"".""{_tableName}"" 
+        WHERE {whereConditions}
+        LIMIT 1;";
+
+            return await _connection.ExecuteScalarAsync<Guid>(query, dto);
+        }
+
         public async Task Update(DTO dto)
         {
             CheckConnection();
@@ -144,6 +176,26 @@ namespace Edoha.Infrastructure.Repositories
             
             if (count == 0)
                 throw new KeyNotFoundException("Entidade não encontrada");
+        }
+
+        public async Task<bool> IsUnique(string column, string value)
+        {
+            CheckConnection();
+
+            var query = $@"
+                SELECT COUNT(*) FROM ""{_schema}"".""{_tableName}""
+                WHERE ""{column}"" = @Value";
+
+            var count = await _connection.ExecuteScalarAsync<int>(query, new { column = value });
+
+            if (count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         protected static string GetSchema<T>() where T : class

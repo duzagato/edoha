@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Edoha.Domain.Entities;
+﻿using Edoha.Domain.Entities;
+using Edoha.Domain.Models.DTOs.Ticketbook;
 
 namespace Edoha.Domain.Interfaces.Infraestructure.Repositories
 {
@@ -18,5 +14,9 @@ namespace Edoha.Domain.Interfaces.Infraestructure.Repositories
         public Task UpdateStatusToReturned(Guid idTicketbook);
 
         public Task UpdateStatusToWithdraw(Guid idTicketbook);
+
+        Task<bool> ValidateNumber(Guid idLottery, int number);
+
+        Task<TicketbookConfigurationDTO?> SelectTicketbookConfiguration(Guid IdTicketbook);
     }
 }

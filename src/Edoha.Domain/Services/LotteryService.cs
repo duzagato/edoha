@@ -8,13 +8,24 @@ namespace Edoha.Domain.Services
 {
     public class LotteryService : Service<Lottery>, ILotteryService
     {
+        ILotteryRepository _lotteryRepository;
 
         public LotteryService(ILotteryRepository repository, 
             IRequestValidationContext requestValidationContext)
-            : base(repository, requestValidationContext) { }
+            : base(repository, requestValidationContext) 
+        {
+            _lotteryRepository = repository;
+        }
 
         public async Task InsertLottery(CreateLotteryDTO dto)
         {
+            bool lotteryIsUnique =  await _lotteryRepository.LotteryIsUnique(dto.IdInstitution, dto.Name);
+
+            if (!lotteryIsUnique)
+            {
+                await _requestValidationContext.AddError("name", "Já existe uma rifa com esse nome");
+            }
+
             await Insert(dto);
         }
 

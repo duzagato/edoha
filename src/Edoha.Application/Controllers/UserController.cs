@@ -67,7 +67,12 @@ namespace Edoha.Controllers
             }
         }
 
-
+        [HttpGet("user_information")]
+        public async Task<IActionResult> GetUsersWithTicketbooks([FromQuery] bool withTicketbooks = false)
+        {
+            var users = await _userService.GetUserInformation(withTicketbooks);
+            return Ok(users);
+        }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateUserInputModel model)

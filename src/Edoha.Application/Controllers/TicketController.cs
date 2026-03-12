@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Edoha.Domain.Models.DTOs.Ticket;
 using Edoha.Domain.Interfaces.Domain.Services;
+using Edoha.Domain.Models.Requests.Ticket;
 
 namespace Edoha.Controllers
 {
@@ -67,14 +68,14 @@ namespace Edoha.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateTicketDTO request)
+        public async Task<IActionResult> Create([FromBody] CreateTicketRequest request)
         {
             if(request != null)
             {
                 try
                 {
                     await _ticketService.InsertTicket(request);
-                    return Ok();
+                    return Created();
                 }
                 catch (Exception ex)
                 {
