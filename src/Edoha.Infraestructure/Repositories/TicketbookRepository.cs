@@ -186,7 +186,7 @@ namespace Edoha.Infraestructure.Repositories
 
                 string query = StaticQueries.TicketbookConfiguration;
 
-                var ticketbookConfiguration = await _connection.QueryFirstOrDefaultAsync<TicketbookConfigurationDTO?>(query, new { idTicketbook = idTicketbook });
+                var ticketbookConfiguration = await _connection.QueryFirstOrDefaultAsync<TicketbookConfigurationDTO?>(query, new { IdTicketbook = idTicketbook });
 
                 _logger.LogInformation("Configurações do talão recebida com sucesso!");
 

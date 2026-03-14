@@ -27,7 +27,11 @@ builder.Services.AddRepositories();
 builder.Services.AddUtils();
 builder.Services.AddDomainServices();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .ConfigureApiBehaviorOptions(options =>
+    {
+        options.SuppressModelStateInvalidFilter = true; // Impede que o ASP.NET retorne 400 automaticamente
+    });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

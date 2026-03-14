@@ -1,4 +1,5 @@
 ﻿using Edoha.Domain.Entities;
+using Edoha.Domain.Exceptions;
 using Edoha.Domain.Interfaces.Domain.Services;
 using Edoha.Domain.Interfaces.Infraestructure.Context;
 using Edoha.Domain.Interfaces.Infraestructure.Repositories;
@@ -27,16 +28,17 @@ namespace Edoha.Domain.Services
 
         public async Task InsertTicket(CreateTicketRequest ticketRequest)
         {
-            var configurationTask = _ticketbookRepository.SelectTicketbookConfiguration(ticketRequest.IdTicketbook);
+            var ticketbookConfiguration = await _ticketbookRepository.SelectTicketbookConfiguration(ticketRequest.IdTicketbook);
+            var ticketExists = await _ticketRepository.TicketExists(ticketRequest.IdTicketbook, ticketRequest.Number);
 
-            var ticketTask = _ticketRepository.TicketExists(ticketRequest.IdTicketbook, ticketRequest.Number);
+            await ValidateTicket(ticketExists, ticketRequest.Number, ticketbookConfiguration);
 
-            var insertDonaterTask = _userService.InsertUserInformation(ticketRequest.TicketDonater.Name, ticketRequest.TicketDonater.Phone);
+            if (_requestValidationContext.GetErrors().Count > 0)
+            {
+                throw new RequestValidationException(_requestValidationContext.GetErrors());
+            }
 
-            await Task.WhenAll(configurationTask, ticketTask, insertDonaterTask);
-            await ValidateTicket(ticketTask.Result, ticketRequest.Number, configurationTask.Result);
-            var idDonater = insertDonaterTask.Result;
-
+            var idDonater = await _userService.InsertUserInformation(ticketRequest.TicketDonater.Name, ticketRequest.TicketDonater.Phone);
             DateTime soldDate = ticketRequest.SoldDate ?? DateTime.Now;
 
             CreateTicketDTO dto = new CreateTicketDTO

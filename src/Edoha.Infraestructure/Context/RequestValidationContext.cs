@@ -38,7 +38,7 @@ namespace Edoha.Infraestructure.Context
             : Validator.TryValidateObject(this, context, results, validateAllProperties: true);
 
 
-            if (!isValid)
+            if (!isValid && results.Count > 0)
             {
                 ProccessValidationResult(results);
                 throw new RequestValidationException(GetErrors());
@@ -47,7 +47,7 @@ namespace Edoha.Infraestructure.Context
 
         private void ProccessValidationResult(List<ValidationResult>? results)
         {
-            if (results != null)
+            if (results != null && results.Count > 0)
             {
                 foreach (var result in results)
                 {
