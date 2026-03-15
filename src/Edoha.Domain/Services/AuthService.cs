@@ -7,6 +7,7 @@ using Edoha.Domain.Interfaces.Infraestructure.Util;
 using Edoha.Domain.Models.DTOs.Auth;
 using Edoha.Domain.Models.DTOs.User;
 using Edoha.Domain.Models.Login;
+using Edoha.Domain.Models.Requests;
 
 namespace Edoha.Domain.Services
 {
@@ -39,19 +40,25 @@ namespace Edoha.Domain.Services
             _userPermissionService = userPermissionService;
         }
 
-        public async Task<string> Autenticate(CredentialsDTO credentials)
+        public async Task<AuthResponse> Autenticate(CredentialsDTO credentials)
         {
             await _requestValidationContext.ValidateDTO(credentials);
             var user = await _userService.ValidateUserCredentials(credentials.Nickname!, credentials.Password!);
             
-            var token = await GenerateToken(user);
+            var token = GenerateToken(user);
             await InsertLoginInformation(user!);
+
+            var response = new AuthResponse
+            {
+                IdUser = user.Id,
+                AccessToken = token
+            };
             
 
-            return token;
+            return response;
         }
 
-        private async Task<string> GenerateToken(User user)
+        private string GenerateToken(User user)
         {
             var token = _tokenGenerationService.GenerateToken(user);
 

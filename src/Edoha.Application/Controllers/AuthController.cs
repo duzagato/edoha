@@ -24,13 +24,10 @@ namespace Edoha.Application.Controllers
             if (credentials != null)
             {
                 _ilogger.LogInformation("Credenciais recebidas");
-                var token = await _authService.Autenticate(credentials);
+                var response = await _authService.Autenticate(credentials);
                 _ilogger.LogInformation("Token gerado com sucesso!");
 
-                return Ok(new
-                {
-                    token = token
-                });
+                return Ok(response);
             }
             else
             {
