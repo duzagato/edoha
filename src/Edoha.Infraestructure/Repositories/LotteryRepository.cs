@@ -30,5 +30,15 @@ namespace Edoha.Infraestructure.Repositories
             }
         }
 
+        public async Task<IEnumerable<Lottery>> SelectAllByInstitution(Guid idInstitution)
+        {
+            Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
+            CheckConnection();
+
+            var query = StaticQueries.SelectAllLotteriesByInstitution;
+
+            return await _connection.QueryAsync<Lottery>(query, new { IdInstitution = idInstitution });
+        }
+
     }
 }

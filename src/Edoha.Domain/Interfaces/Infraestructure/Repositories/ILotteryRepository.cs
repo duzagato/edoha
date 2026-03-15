@@ -10,5 +10,6 @@ namespace Edoha.Domain.Interfaces.Infraestructure.Repositories
     public interface ILotteryRepository : IBaseRepository<Lottery>
     {
         Task<bool> LotteryIsUnique(Guid idInstitution, string name);
+        Task<IEnumerable<Lottery>> SelectAllByInstitution(Guid idInstitution);
     }
 }

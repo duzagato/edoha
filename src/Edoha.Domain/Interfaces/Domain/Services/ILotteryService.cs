@@ -10,14 +10,14 @@ namespace Edoha.Domain.Interfaces.Domain.Services
 {
     public interface ILotteryService : IService<Lottery>
     {
-        public Task InsertLottery(CreateLotteryDTO dto);
+        public Task InsertLottery(Guid idInstitution, CreateLotteryDTO dto);
 
-        public Task<Lottery> SelectLotteryById(Guid id);
+        public Task<Lottery> SelectLotteryById(Guid idInstitution, Guid id);
 
-        public Task<IEnumerable<Lottery>> SelectAllLotteries();
+        public Task<IEnumerable<Lottery>> SelectAllLotteries(Guid idInstitution);
 
-        public Task UpdateLotteryById(UpdateLotteryDTO dto);
+        public Task UpdateLotteryById(Guid idInstitution, UpdateLotteryDTO dto);
 
-        public Task DeleteLotteryById(Guid id);
+        public Task DeleteLotteryById(Guid idInstitution, Guid id);
     }
 }

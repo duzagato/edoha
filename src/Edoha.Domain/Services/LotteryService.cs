@@ -9,43 +9,62 @@ namespace Edoha.Domain.Services
     public class LotteryService : Service<Lottery>, ILotteryService
     {
         ILotteryRepository _lotteryRepository;
+        IInstitutionRepository _institutionRepository;
 
-        public LotteryService(ILotteryRepository repository, 
+        public LotteryService(ILotteryRepository repository,
+            IInstitutionRepository institutionRepository,
             IRequestValidationContext requestValidationContext)
             : base(repository, requestValidationContext) 
         {
             _lotteryRepository = repository;
+            _institutionRepository = institutionRepository;
         }
 
-        public async Task InsertLottery(CreateLotteryDTO dto)
+        public async Task InsertLottery(Guid idInstitution, CreateLotteryDTO dto)
         {
-            bool lotteryIsUnique =  await _lotteryRepository.LotteryIsUnique(dto.IdInstitution, dto.Name);
+            await _institutionRepository.IdExists(idInstitution);
+
+            bool lotteryIsUnique = await _lotteryRepository.LotteryIsUnique(idInstitution, dto.Name);
 
             if (!lotteryIsUnique)
             {
                 await _requestValidationContext.AddError("name", "Já existe uma rifa com esse nome");
             }
 
+            dto.IdInstitution = idInstitution;
             await Insert(dto);
         }
 
-        public async Task<Lottery> SelectLotteryById(Guid id)
+        public async Task<Lottery> SelectLotteryById(Guid idInstitution, Guid id)
         {
-            return await _repository.SelectById(id);
+            await _institutionRepository.IdExists(idInstitution);
+            var lottery = await _repository.SelectById(id);
+            if (lottery.IdInstitution != idInstitution)
+                throw new KeyNotFoundException("Entidade não encontrada");
+            return lottery;
         }
 
-        public async Task<IEnumerable<Lottery>> SelectAllLotteries()
+        public async Task<IEnumerable<Lottery>> SelectAllLotteries(Guid idInstitution)
         {
-            return await _repository.SelectAll();
+            await _institutionRepository.IdExists(idInstitution);
+            return await _lotteryRepository.SelectAllByInstitution(idInstitution);
         }
 
-        public async Task UpdateLotteryById(UpdateLotteryDTO dto)
+        public async Task UpdateLotteryById(Guid idInstitution, UpdateLotteryDTO dto)
         {
+            await _institutionRepository.IdExists(idInstitution);
+            var lottery = await _repository.SelectById(dto.Id);
+            if (lottery.IdInstitution != idInstitution)
+                throw new KeyNotFoundException("Entidade não encontrada");
             await Update(dto);
         }
 
-        public async Task DeleteLotteryById(Guid id)
+        public async Task DeleteLotteryById(Guid idInstitution, Guid id)
         {
+            await _institutionRepository.IdExists(idInstitution);
+            var lottery = await _repository.SelectById(id);
+            if (lottery.IdInstitution != idInstitution)
+                throw new KeyNotFoundException("Entidade não encontrada");
             await DeleteById(id);
         }
     }

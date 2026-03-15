@@ -5,9 +5,6 @@ namespace Edoha.Domain.Models.Requests.Lottery
     public class CreateLotteryRequest
     {
         [Required]
-        public Guid IdInstitution { get; set; }
-
-        [Required]
         public string Name { get; set; }
 
         [Required]
