@@ -8,6 +8,5 @@ namespace Edoha.Domain.Models.Requests.Ticketbook
 {
     public class WithdrawnsTicketbooksRequest
     {
-        public Guid IdLottery { get; set; }
     }
 }

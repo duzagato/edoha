@@ -7,7 +7,7 @@ using Edoha.Domain.Models.Requests.Ticketbook;
 namespace Edoha.Controllers
 {
     [ApiController]
-    [Route("ticketbook")]
+    [Route("lottery/{idLottery}/ticketbook")]
     public class TicketbookController : ControllerBase
     {
         private readonly ITicketbookService _ticketbookService;
@@ -21,7 +21,7 @@ namespace Edoha.Controllers
 
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpGet("returneds")]
-        public async Task<IActionResult> GetReturnedTicketbooks([FromQuery] Guid idLottery)
+        public async Task<IActionResult> GetReturnedTicketbooks([FromRoute] Guid idLottery)
         {
             try
             {
@@ -47,7 +47,7 @@ namespace Edoha.Controllers
 
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpGet("withdrawns")]
-        public async Task<IActionResult> GetWithdrawnsTicketbooks([FromQuery] Guid idLottery)
+        public async Task<IActionResult> GetWithdrawnsTicketbooks([FromRoute] Guid idLottery)
         {
             try
             {
@@ -72,11 +72,11 @@ namespace Edoha.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromRoute] Guid idLottery)
         {
             try
             {
-                var ticketbooks = await _ticketbookService.SelectAllTicketbooks();
+                var ticketbooks = await _ticketbookService.SelectAllTicketbooks(idLottery);
 
                 if (!ticketbooks.Any())
                 {
@@ -97,11 +97,11 @@ namespace Edoha.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(Guid id)
+        public async Task<IActionResult> GetById([FromRoute] Guid idLottery, Guid id)
         {
             try
             {
-                var ticketbook = await _ticketbookService.SelectTicketbookById(id);
+                var ticketbook = await _ticketbookService.SelectTicketbookById(id, idLottery);
 
                 if (ticketbook == null)
                 {
@@ -122,11 +122,11 @@ namespace Edoha.Controllers
         }
 
         [HttpPatch("{idTicketbook}/status/{idStatusTicketbook}")]
-        public async Task<IActionResult> PatchStatusTicketbook([FromRoute] Guid idTicketbook, int idStatusTicketbook)
+        public async Task<IActionResult> PatchStatusTicketbook([FromRoute] Guid idLottery, [FromRoute] Guid idTicketbook, int idStatusTicketbook)
         {
             try
             {
-                await _ticketbookService.ChangeTicketbookStatus(idStatusTicketbook, idTicketbook);
+                await _ticketbookService.ChangeTicketbookStatus(idStatusTicketbook, idTicketbook, idLottery);
                 _logger.LogInformation("Alteração executada com sucesso!");
 
                 return NoContent();
@@ -143,11 +143,11 @@ namespace Edoha.Controllers
         }
 
         [HttpPatch("{idTicketbook}/status/returned")]
-        public async Task<IActionResult> PatchStatusTicketbook([FromRoute] Guid idTicketbook)
+        public async Task<IActionResult> PatchStatusTicketbook([FromRoute] Guid idLottery, [FromRoute] Guid idTicketbook)
         {
             try
             {
-                await _ticketbookService.ChangeTicketbookStatusToReturned(idTicketbook);
+                await _ticketbookService.ChangeTicketbookStatusToReturned(idTicketbook, idLottery);
                 _logger.LogInformation("Alteração executada com sucesso!");
 
                 return NoContent();
@@ -164,11 +164,11 @@ namespace Edoha.Controllers
         }
 
         [HttpPatch("{idTicketbook}/status/withdraw")]
-        public async Task<IActionResult> PatchStatusTicketbookToWithdraw([FromRoute] Guid idTicketbook)
+        public async Task<IActionResult> PatchStatusTicketbookToWithdraw([FromRoute] Guid idLottery, [FromRoute] Guid idTicketbook)
         {
             try
             {
-                await _ticketbookService.ChangeTicketbookStatusToWithdraw(idTicketbook);
+                await _ticketbookService.ChangeTicketbookStatusToWithdraw(idTicketbook, idLottery);
                 _logger.LogInformation("Alteração executada com sucesso!");
 
                 return NoContent();
@@ -187,13 +187,13 @@ namespace Edoha.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] PostTicketbookRequest request)
+        public async Task<IActionResult> Create([FromRoute] Guid idLottery, [FromBody] PostTicketbookRequest request)
         {
             if (request != null)
             {
                 try
                 {
-                    await _ticketbookService.InsertTicketbook(request);
+                    await _ticketbookService.InsertTicketbook(request, idLottery);
                     return Ok();
                 }
                 catch (Exception ex)
@@ -213,13 +213,13 @@ namespace Edoha.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] UpdateTicketbookDTO request)
+        public async Task<IActionResult> Update([FromRoute] Guid idLottery, [FromBody] UpdateTicketbookDTO request)
         {
             if (request != null)
             {
                 try
                 {
-                    await _ticketbookService.UpdateTicketbookById(request);
+                    await _ticketbookService.UpdateTicketbookById(request, idLottery);
                     return Ok();
                 }
                 catch (Exception ex)
@@ -239,9 +239,9 @@ namespace Edoha.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task DeleteById(Guid id)
+        public async Task DeleteById([FromRoute] Guid idLottery, Guid id)
         {
-            await _ticketbookService.DeleteTicketbookById(id);
+            await _ticketbookService.DeleteTicketbookById(id, idLottery);
         }
     }
 }

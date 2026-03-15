@@ -32,11 +32,11 @@ namespace Edoha.Domain.Services
             _userService = userService;
         }
 
-        public async Task InsertTicketbook(PostTicketbookRequest ticketbookRequest)
+        public async Task InsertTicketbook(PostTicketbookRequest ticketbookRequest, Guid idLottery)
         {
-            var idLottery = _lotteryRepository.IdExists(ticketbookRequest.IdLottery);
+            await _lotteryRepository.IdExists(idLottery);
             var idStatusTicketbook = _statusTicketbookRepository.IdExists(ticketbookRequest.IdStatusTicketbook);
-            var ticketbookExists = await _ticketbookRepository.ValidateNumber(ticketbookRequest.IdLottery, ticketbookRequest.Number);
+            var ticketbookExists = await _ticketbookRepository.ValidateNumber(idLottery, ticketbookRequest.Number);
 
             if (ticketbookExists)
             {
@@ -56,7 +56,7 @@ namespace Edoha.Domain.Services
 
                 CreateTicketbookDTO dto = new CreateTicketbookDTO
                 {
-                    IdLottery = ticketbookRequest.IdLottery,
+                    IdLottery = idLottery,
                     Number = ticketbookRequest.Number,
                     IdOwner = idOwner,
                     IdHolder = idHolder ?? null,
@@ -78,6 +78,7 @@ namespace Edoha.Domain.Services
 
         public async Task<IEnumerable<Ticketbook>> SelectReturnedsTicketbooks(Guid idLottery)
         {
+            await _lotteryRepository.IdExists(idLottery);
             var ticketbooks = await _ticketbookRepository.SelectReturnedsTicketbooksByLottery(idLottery);
 
             return ticketbooks;
@@ -85,53 +86,61 @@ namespace Edoha.Domain.Services
 
         public async Task<IEnumerable<Ticketbook>> SelectWithdrawnsTicketbooks(Guid idLottery)
         {
+            await _lotteryRepository.IdExists(idLottery);
             var ticketbooks = await _ticketbookRepository.SelectWithdrawnTicketbooksByLottery(idLottery);
 
             return ticketbooks;
         }
 
-        public async Task ChangeTicketbookStatus(int idStatusTicketbook, Guid idTicketbook)
+        public async Task ChangeTicketbookStatus(int idStatusTicketbook, Guid idTicketbook, Guid idLottery)
         {
+            await _lotteryRepository.IdExists(idLottery);
             _logger.LogInformation("Alterando o status do Talão");
             _logger.LogInformation("ID novo status: {Id}", idStatusTicketbook);
 
             await _ticketbookRepository.UpdateStatus(idStatusTicketbook, idTicketbook);
         }
 
-        public async Task ChangeTicketbookStatusToWithdraw(Guid idTicketbook)
+        public async Task ChangeTicketbookStatusToWithdraw(Guid idTicketbook, Guid idLottery)
         {
+            await _lotteryRepository.IdExists(idLottery);
             _logger.LogInformation("Alterando o status do Talão para retirado");
             _logger.LogInformation("ID do talão: {Ticketbook}", idTicketbook);
 
             await _ticketbookRepository.UpdateStatusToWithdraw(idTicketbook);
         }
 
-        public async Task ChangeTicketbookStatusToReturned(Guid idTicketbook)
+        public async Task ChangeTicketbookStatusToReturned(Guid idTicketbook, Guid idLottery)
         {
+            await _lotteryRepository.IdExists(idLottery);
             _logger.LogInformation("Alterando o status do Talão para devolvido");
             _logger.LogInformation("ID do talão: {Ticketbook}", idTicketbook);
 
             await _ticketbookRepository.UpdateStatusToReturned(idTicketbook);
         }
 
-        public async Task<Ticketbook> SelectTicketbookById(Guid id)
+        public async Task<Ticketbook> SelectTicketbookById(Guid id, Guid idLottery)
         {
+            await _lotteryRepository.IdExists(idLottery);
             return await _repository.SelectById(id);
         }
 
-        public async Task<IEnumerable<Ticketbook>> SelectAllTicketbooks()
+        public async Task<IEnumerable<Ticketbook>> SelectAllTicketbooks(Guid idLottery)
         {
+            await _lotteryRepository.IdExists(idLottery);
             return await _repository.SelectAll();
         }
 
-        public async Task UpdateTicketbookById(UpdateTicketbookDTO dto)
+        public async Task UpdateTicketbookById(UpdateTicketbookDTO dto, Guid idLottery)
         {
+            await _lotteryRepository.IdExists(idLottery);
             await _statusTicketbookRepository.IdExists(dto.IdStatusTicketbook);
             await this.Update(dto);
         }
 
-        public async Task DeleteTicketbookById(Guid id)
+        public async Task DeleteTicketbookById(Guid id, Guid idLottery)
         {
+            await _lotteryRepository.IdExists(idLottery);
             await this.DeleteById(id);
         }
     }

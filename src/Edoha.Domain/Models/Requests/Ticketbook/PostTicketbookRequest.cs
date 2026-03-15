@@ -5,8 +5,6 @@ namespace Edoha.Domain.Models.Requests.Ticketbook
 {
     public class PostTicketbookRequest
     {
-        [Required]
-        public Guid IdLottery { get; set; }
         public Holder? TicketbookHolder { get; set; }
         
         [Required]
