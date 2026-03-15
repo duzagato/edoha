@@ -6,7 +6,7 @@ using Edoha.Domain.Models.Requests.Ticket;
 namespace Edoha.Controllers
 {
     [ApiController]
-    [Route("ticket")]
+    [Route("ticketbook/{idTicketbook}/ticket")]
     public class TicketController : ControllerBase
     {
         private readonly ITicketService _ticketService;
@@ -17,9 +17,9 @@ namespace Edoha.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(Guid idTicketbook)
         {
-            var tickets = await _ticketService.SelectAllTickets();
+            var tickets = await _ticketService.SelectAllTickets(idTicketbook);
 
             if (!tickets.Any())
             {
@@ -30,9 +30,9 @@ namespace Edoha.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(Guid id)
+        public async Task<IActionResult> GetById(Guid idTicketbook, Guid id)
         {
-            var ticket = await _ticketService.SelectTicketById(id);
+            var ticket = await _ticketService.SelectTicketById(idTicketbook, id);
 
             if (ticket == null)
             {
@@ -43,11 +43,11 @@ namespace Edoha.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateTicketRequest request)
+        public async Task<IActionResult> Create(Guid idTicketbook, [FromBody] CreateTicketRequest request)
         {
             if (request != null)
             {
-                await _ticketService.InsertTicket(request);
+                await _ticketService.InsertTicket(idTicketbook, request);
                 return Created();
             }
             else
@@ -57,11 +57,11 @@ namespace Edoha.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] UpdateTicketDTO request)
+        public async Task<IActionResult> Update(Guid idTicketbook, [FromBody] UpdateTicketDTO request)
         {
             if (request != null)
             {
-                await _ticketService.UpdateTicketById(request);
+                await _ticketService.UpdateTicketById(idTicketbook, request);
                 return Ok();
             }
             else
@@ -71,9 +71,9 @@ namespace Edoha.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task DeleteById(Guid id)
+        public async Task DeleteById(Guid idTicketbook, Guid id)
         {
-            await _ticketService.DeleteTicketById(id);
+            await _ticketService.DeleteTicketById(idTicketbook, id);
         }
     }
 }

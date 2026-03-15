@@ -5,9 +5,6 @@ namespace Edoha.Domain.Models.Requests.Ticket
 {
     public class CreateTicketRequest
     {
-        [Required]
-        public Guid IdTicketbook { get; set; }
-
         public Donater TicketDonater { get; set; }
 
         [Required]

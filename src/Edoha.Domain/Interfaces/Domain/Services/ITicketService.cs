@@ -6,14 +6,14 @@ namespace Edoha.Domain.Interfaces.Domain.Services
 {
     public interface ITicketService : IService<Ticket>
     {
-        Task InsertTicket(CreateTicketRequest ticketRequest);
+        Task InsertTicket(Guid idTicketbook, CreateTicketRequest ticketRequest);
 
-        public Task<Ticket> SelectTicketById(Guid id);
+        public Task<Ticket> SelectTicketById(Guid idTicketbook, Guid id);
 
-        public Task<IEnumerable<Ticket>> SelectAllTickets();
+        public Task<IEnumerable<Ticket>> SelectAllTickets(Guid idTicketbook);
 
-        public Task UpdateTicketById(UpdateTicketDTO dto);
+        public Task UpdateTicketById(Guid idTicketbook, UpdateTicketDTO dto);
 
-        public Task DeleteTicketById(Guid id);
+        public Task DeleteTicketById(Guid idTicketbook, Guid id);
     }
 }
