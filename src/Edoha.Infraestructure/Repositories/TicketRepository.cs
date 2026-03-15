@@ -47,5 +47,38 @@ namespace Edoha.Infraestructure.Repositories
             }
         }
 
+        public async Task<IEnumerable<Ticket>> SelectAllByTicketbook(Guid idTicketbook)
+        {
+            Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
+            CheckConnection();
+
+            _logger.LogInformation("Executando query para listar bilhetes do talão {IdTicketbook}", idTicketbook);
+
+            string query = StaticQueries.SelectAllTicketsByTicketbook;
+
+            var tickets = await _connection.QueryAsync<Ticket>(query, new { IdTicketbook = idTicketbook });
+
+            _logger.LogInformation("Query executada.");
+
+            return tickets;
+        }
+
+        public async Task<Ticket> SelectByIdAndTicketbook(Guid id, Guid idTicketbook)
+        {
+            Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
+            CheckConnection();
+
+            _logger.LogInformation("Executando query para buscar bilhete {Id} do talão {IdTicketbook}", id, idTicketbook);
+
+            string query = StaticQueries.SelectTicketByIdAndTicketbook;
+
+            var ticket = await _connection.QueryFirstOrDefaultAsync<Ticket>(query, new
+            {
+                Id = id,
+                IdTicketbook = idTicketbook
+            });
+
+            return ticket ?? throw new KeyNotFoundException("Entidade não encontrada");
+        }
     }
 }

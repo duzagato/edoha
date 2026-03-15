@@ -26,10 +26,12 @@ namespace Edoha.Domain.Services
             _userService = userService;
         }
 
-        public async Task InsertTicket(CreateTicketRequest ticketRequest)
+        public async Task InsertTicket(Guid idTicketbook, CreateTicketRequest ticketRequest)
         {
-            var ticketbookConfiguration = await _ticketbookRepository.SelectTicketbookConfiguration(ticketRequest.IdTicketbook);
-            var ticketExists = await _ticketRepository.TicketExists(ticketRequest.IdTicketbook, ticketRequest.Number);
+            await _ticketbookRepository.IdExists(idTicketbook);
+
+            var ticketbookConfiguration = await _ticketbookRepository.SelectTicketbookConfiguration(idTicketbook);
+            var ticketExists = await _ticketRepository.TicketExists(idTicketbook, ticketRequest.Number);
 
             await ValidateTicket(ticketExists, ticketRequest.Number, ticketbookConfiguration);
 
@@ -43,7 +45,7 @@ namespace Edoha.Domain.Services
 
             CreateTicketDTO dto = new CreateTicketDTO
             {
-                IdTicketbook = ticketRequest.IdTicketbook,
+                IdTicketbook = idTicketbook,
                 IdDonater = idDonater,
                 Number = ticketRequest.Number,
                 SoldDate = soldDate
@@ -52,23 +54,27 @@ namespace Edoha.Domain.Services
             await Insert(dto);
         }
 
-        public async Task<Ticket> SelectTicketById(Guid id)
+        public async Task<Ticket> SelectTicketById(Guid idTicketbook, Guid id)
         {
-            return await _repository.SelectById(id);
+            await _ticketbookRepository.IdExists(idTicketbook);
+            return await _ticketRepository.SelectByIdAndTicketbook(id, idTicketbook);
         }
 
-        public async Task<IEnumerable<Ticket>> SelectAllTickets()
+        public async Task<IEnumerable<Ticket>> SelectAllTickets(Guid idTicketbook)
         {
-            return await _repository.SelectAll();
+            await _ticketbookRepository.IdExists(idTicketbook);
+            return await _ticketRepository.SelectAllByTicketbook(idTicketbook);
         }
 
-        public async Task UpdateTicketById(UpdateTicketDTO dto)
+        public async Task UpdateTicketById(Guid idTicketbook, UpdateTicketDTO dto)
         {
+            await _ticketbookRepository.IdExists(idTicketbook);
             await this.Update(dto);
         }
 
-        public async Task DeleteTicketById(Guid id)
+        public async Task DeleteTicketById(Guid idTicketbook, Guid id)
         {
+            await _ticketbookRepository.IdExists(idTicketbook);
             await this.DeleteById(id);
         }
 
