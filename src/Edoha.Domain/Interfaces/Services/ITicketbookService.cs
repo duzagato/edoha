@@ -20,5 +20,7 @@ namespace Edoha.Domain.Interfaces.Services
         public Task UpdateTicketbookById(UpdateTicketbookDTO dto);
 
         public Task DeleteTicketbookById(Guid id);
+
+        public Task<Ticketbook?> GetTicketbookByNumber(Guid idLottery, int numberTicketbook);
     }
 }

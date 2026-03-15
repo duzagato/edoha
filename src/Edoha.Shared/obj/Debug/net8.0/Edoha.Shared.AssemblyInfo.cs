@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Edoha.Shared")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ea3c0fdb4c5f5b307923d168b562872600770a21")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+888d87b06f94c275399eea13e5281902042c2528")]
 [assembly: System.Reflection.AssemblyProductAttribute("Edoha.Shared")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Edoha.Shared")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "QVVb1F+nzlY=",
+  "dgSpecHash": "KJUewIK+FIQ=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Eduardo Zagato Junio\\source\\repos\\edoha\\src\\Edoha.Domain\\Edoha.Domain.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "/home/runner/work/edoha/edoha/src/Edoha.Domain/Edoha.Domain.csproj",
+  "expectedPackageFiles": [
+    "/home/runner/.nuget/packages/microsoft.netcore.app.ref/8.0.23/microsoft.netcore.app.ref.8.0.23.nupkg.sha512",
+    "/home/runner/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.23/microsoft.aspnetcore.app.ref.8.0.23.nupkg.sha512"
+  ],
   "logs": []
 }
