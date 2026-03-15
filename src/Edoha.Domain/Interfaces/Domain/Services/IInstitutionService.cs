@@ -11,6 +11,8 @@ namespace Edoha.Domain.Interfaces.Domain.Services
 
         public Task<IEnumerable<Institution>> SelectAllInstitutions();
 
+        public Task<IEnumerable<Institution>> SelectInstitutionsByUser(Guid idUser);
+
         public Task UpdateInstitutionById(UpdateInstitutionDTO dto);
 
         public Task DeleteInstitutionById(Guid id);

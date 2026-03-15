@@ -67,6 +67,33 @@ namespace Edoha.Controllers
 
 
 
+        [HttpGet("institution_by_user/{idUser}")]
+        public async Task<IActionResult> GetByUser(Guid idUser)
+        {
+            try
+            {
+                var institutions = await _institutionService.SelectInstitutionsByUser(idUser);
+
+                if (!institutions.Any())
+                {
+                    return NoContent();
+                }
+
+                return Ok(institutions);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace,
+                    InnerException = ex.InnerException?.Message
+                });
+            }
+        }
+
+
+
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateInstitutionDTO request)
         {
