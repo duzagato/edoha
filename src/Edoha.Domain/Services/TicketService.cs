@@ -127,7 +127,7 @@ namespace Edoha.Domain.Services
 
             if (ticketNumber > maxNumber || ticketNumber < minNumber)
             {
-                await _requestValidationContext.AddError("number", @"O número é inválido. O talão só pode conter números entre {minValue} e {maxValue} para os casos de bilhete de segunda chance");
+                await _requestValidationContext.AddError("number", $"O número é inválido. O talão só pode conter números entre {minNumber} e {maxNumber} para os casos de bilhete de segunda chance");
             }
         }
     }
