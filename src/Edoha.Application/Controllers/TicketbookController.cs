@@ -126,5 +126,35 @@ namespace Edoha.Controllers
         {
             await _ticketbookService.DeleteTicketbookById(id);
         }
+
+        [HttpGet("/lottery/{idLottery}/ticketbook_by_number/{numberTicketbook}")]
+        public async Task<IActionResult> GetTicketbookByNumber(Guid idLottery, int numberTicketbook)
+        {
+            if (idLottery == Guid.Empty || numberTicketbook <= 0)
+            {
+                return BadRequest("Dados incompletos ou não enviados");
+            }
+
+            try
+            {
+                var ticketbook = await _ticketbookService.GetTicketbookByNumber(idLottery, numberTicketbook);
+
+                if (ticketbook == null)
+                {
+                    return NoContent();
+                }
+
+                return Ok(ticketbook);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace,
+                    InnerException = ex.InnerException?.Message
+                });
+            }
+        }
     }
 }

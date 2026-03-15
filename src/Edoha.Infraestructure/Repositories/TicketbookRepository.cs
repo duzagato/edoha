@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Edoha.Domain.Interfaces.Repositories;
+using Dapper;
 
 namespace Edoha.Infraestructure.Repositories
 {
@@ -19,5 +20,14 @@ namespace Edoha.Infraestructure.Repositories
 
         }
 
+        public async Task<Ticketbook?> SelectTicketbookByNumber(Guid idLottery, int numberTicketbook)
+        {
+            DefaultTypeMap.MatchNamesWithUnderscores = true;
+            CheckConnection();
+
+            return await _connection.QueryFirstOrDefaultAsync<Ticketbook>(
+                StaticQueries.SelectTicketbookByNumber,
+                new { IdLottery = idLottery, Number = numberTicketbook });
+        }
     }
 }

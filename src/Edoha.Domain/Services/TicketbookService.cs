@@ -17,11 +17,13 @@ namespace Edoha.Domain.Services
     {
         private readonly IStatusTicketbookRepository _statusTicketbookRepository;
         private readonly ILotteryRepository _lotteryRepository;
+        private readonly ITicketbookRepository _ticketbookRepository;
 
         public TicketbookService(ITicketbookRepository repository, IStatusTicketbookRepository statusTicketbookRepository, ILotteryRepository lotteryRepository, IRequestValidationContext requestValidationContex) : base(repository, requestValidationContex) 
         {
             _statusTicketbookRepository = statusTicketbookRepository;
             _lotteryRepository = lotteryRepository;
+            _ticketbookRepository = repository;
         }
 
         public async Task InsertTicketbook(CreateTicketbookDTO dto)
@@ -50,6 +52,12 @@ namespace Edoha.Domain.Services
         public async Task DeleteTicketbookById(Guid id)
         {
             await this.DeleteById(id);
+        }
+
+        public async Task<Ticketbook?> GetTicketbookByNumber(Guid idLottery, int numberTicketbook)
+        {
+            await _lotteryRepository.IdExists(idLottery);
+            return await _ticketbookRepository.SelectTicketbookByNumber(idLottery, numberTicketbook);
         }
     }
 }
