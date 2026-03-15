@@ -39,12 +39,42 @@ namespace Edoha.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:guid}")]
         public async Task<IActionResult> GetById(Guid idInstitution, Guid id)
         {
             try
             {
                 var lottery = await _lotteryService.SelectLotteryById(idInstitution, id);
+
+                if (lottery == null)
+                {
+                    return NoContent();
+                }
+
+                return Ok(lottery);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace,
+                    InnerException = ex.InnerException?.Message
+                });
+            }
+        }
+
+        [HttpGet("{nameLottery}")]
+        public async Task<IActionResult> GetByName(Guid idInstitution, string nameLottery)
+        {
+            if (string.IsNullOrWhiteSpace(nameLottery))
+            {
+                return BadRequest("O nome da rifa é obrigatório e não pode ser vazio");
+            }
+
+            try
+            {
+                var lottery = await _lotteryService.GetLotteryByName(idInstitution, nameLottery);
 
                 if (lottery == null)
                 {

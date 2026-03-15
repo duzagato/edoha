@@ -16,6 +16,8 @@ namespace Edoha.Domain.Interfaces.Domain.Services
 
         public Task<IEnumerable<Lottery>> SelectAllLotteries(Guid idInstitution);
 
+        public Task<Lottery?> GetLotteryByName(Guid idInstitution, string nameLottery);
+
         public Task UpdateLotteryById(Guid idInstitution, UpdateLotteryDTO dto);
 
         public Task DeleteLotteryById(Guid idInstitution, Guid id);
