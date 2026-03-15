@@ -19,73 +19,36 @@ namespace Edoha.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            try
-            {
-                var tickets = await _ticketService.SelectAllTickets();
+            var tickets = await _ticketService.SelectAllTickets();
 
-                if (!tickets.Any())
-                {
-                    return NoContent();
-                }
-
-                return Ok(tickets);
-            }catch(Exception ex)
+            if (!tickets.Any())
             {
-                return StatusCode(500, new
-                {
-                    Message = ex.Message,
-                    StackTrace = ex.StackTrace,
-                    InnerException = ex.InnerException?.Message
-                });
+                return NoContent();
             }
+
+            return Ok(tickets);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
-            try
-            {
-                var ticket = await _ticketService.SelectTicketById(id);
+            var ticket = await _ticketService.SelectTicketById(id);
 
-                if (ticket == null)
-                {
-                    return NoContent();
-                }
-
-                return Ok(ticket);
-            }
-            catch (Exception ex)
+            if (ticket == null)
             {
-                return StatusCode(500, new
-                {
-                    Message = ex.Message,
-                    StackTrace = ex.StackTrace,
-                    InnerException = ex.InnerException?.Message
-                });
+                return NoContent();
             }
+
+            return Ok(ticket);
         }
-
-
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateTicketRequest request)
         {
-            if(request != null)
+            if (request != null)
             {
-                try
-                {
-                    await _ticketService.InsertTicket(request);
-                    return Created();
-                }
-                catch (Exception ex)
-                {
-                    return StatusCode(500, new
-                    {
-                        Message = ex.Message,
-                        StackTrace = ex.StackTrace,
-                        InnerException = ex.InnerException?.Message
-                    });
-                }
+                await _ticketService.InsertTicket(request);
+                return Created();
             }
             else
             {
@@ -98,20 +61,8 @@ namespace Edoha.Controllers
         {
             if (request != null)
             {
-                try
-                {
-                    await _ticketService.UpdateTicketById(request);
-                    return Ok();
-                }
-                catch (Exception ex)
-                {
-                    return StatusCode(500, new
-                    {
-                        Message = ex.Message,
-                        StackTrace = ex.StackTrace,
-                        InnerException = ex.InnerException?.Message
-                    });
-                }
+                await _ticketService.UpdateTicketById(request);
+                return Ok();
             }
             else
             {
