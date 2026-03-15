@@ -65,5 +65,7 @@ namespace Edoha.Infraestructure.Constants
         public static string SelectTicketByIdAndTicketbook = "SELECT * FROM \"lottery\".\"ticket\" WHERE \"id\" = @Id AND \"id_ticketbook\" = @IdTicketbook;";
 
         public static string TicketbookConfiguration = "SELECT tb.number, l.num_tickets_ticketbook, l.num_ticketbooks, l.double_chance FROM lottery.ticketbook AS tb INNER JOIN lottery.lottery AS l ON l.id = tb.id_lottery WHERE tb.id = @IdTicketbook";
+
+        public static string SelectTicketbookByNumber = "SELECT * FROM lottery.ticketbook WHERE id_lottery = @IdLottery AND number = @Number";
     }
 }

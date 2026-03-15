@@ -18,5 +18,6 @@ namespace Edoha.Domain.Interfaces.Infraestructure.Repositories
         Task<bool> ValidateNumber(Guid idLottery, int number);
 
         Task<TicketbookConfigurationDTO?> SelectTicketbookConfiguration(Guid IdTicketbook);
+        Task<Ticketbook?> SelectTicketbookByNumber(Guid idLottery, int numberTicketbook);
     }
 }

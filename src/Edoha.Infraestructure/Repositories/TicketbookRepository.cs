@@ -197,5 +197,15 @@ namespace Edoha.Infraestructure.Repositories
                 throw;
             }
         }
+
+        public async Task<Ticketbook?> SelectTicketbookByNumber(Guid idLottery, int numberTicketbook)
+        {
+            DefaultTypeMap.MatchNamesWithUnderscores = true;
+            CheckConnection();
+
+            return await _connection.QueryFirstOrDefaultAsync<Ticketbook>(
+                StaticQueries.SelectTicketbookByNumber,
+                new { IdLottery = idLottery, Number = numberTicketbook });
+        }
     }
 }

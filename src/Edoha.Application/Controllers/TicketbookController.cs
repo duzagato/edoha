@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Edoha.Domain.Models.DTOs.Ticketbook;
 using Edoha.Domain.Interfaces.Domain.Services;
-using Edoha.Domain.Entities;
 using Edoha.Domain.Models.Requests.Ticketbook;
 
 namespace Edoha.Controllers
 {
     [ApiController]
-    [Route("lottery/{idLottery}/ticketbook")]
+    [Route("lottery/{idLottery:guid}/ticketbook")]
     public class TicketbookController : ControllerBase
     {
         private readonly ITicketbookService _ticketbookService;
@@ -72,7 +71,7 @@ namespace Edoha.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromRoute] Guid idLottery)
+        public async Task<IActionResult> GetAll(Guid idLottery)
         {
             try
             {
@@ -102,6 +101,36 @@ namespace Edoha.Controllers
             try
             {
                 var ticketbook = await _ticketbookService.SelectTicketbookById(id, idLottery);
+
+                if (ticketbook == null)
+                {
+                    return NoContent();
+                }
+
+                return Ok(ticketbook);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace,
+                    InnerException = ex.InnerException?.Message
+                });
+            }
+        }
+
+        [HttpGet("ticketbook_by_number/{numberTicketbook}")]
+        public async Task<IActionResult> GetTicketbookByNumber(Guid idLottery, int numberTicketbook)
+        {
+            if (idLottery == Guid.Empty || numberTicketbook <= 0)
+            {
+                return BadRequest("Dados incompletos ou não enviados");
+            }
+
+            try
+            {
+                var ticketbook = await _ticketbookService.GetTicketbookByNumber(idLottery, numberTicketbook);
 
                 if (ticketbook == null)
                 {

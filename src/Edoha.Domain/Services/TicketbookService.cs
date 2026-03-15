@@ -92,6 +92,12 @@ namespace Edoha.Domain.Services
             return ticketbooks;
         }
 
+        public async Task<Ticketbook?> GetTicketbookByNumber(Guid idLottery, int numberTicketbook)
+        {
+            await _lotteryRepository.IdExists(idLottery);
+            return await _ticketbookRepository.SelectTicketbookByNumber(idLottery, numberTicketbook);
+        }
+
         public async Task ChangeTicketbookStatus(int idStatusTicketbook, Guid idTicketbook, Guid idLottery)
         {
             await _lotteryRepository.IdExists(idLottery);
