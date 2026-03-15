@@ -11,7 +11,6 @@ namespace Edoha.Domain.Models.DTOs.Lottery
 {
     public class CreateLotteryDTO : DTO
     {
-        [Required]
         public Guid IdInstitution { get; set; }
 
         [Required]

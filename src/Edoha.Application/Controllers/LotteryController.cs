@@ -5,7 +5,7 @@ using Edoha.Domain.Interfaces.Domain.Services;
 namespace Edoha.Controllers
 {
     [ApiController]
-    [Route("lottery")]
+    [Route("institution/{idInstitution}/lottery")]
     public class LotteryController : ControllerBase
     {
         private readonly ILotteryService _lotteryService;
@@ -16,11 +16,11 @@ namespace Edoha.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(Guid idInstitution)
         {
             try
             {
-                var lotteries = await _lotteryService.SelectAllLotteries();
+                var lotteries = await _lotteryService.SelectAllLotteries(idInstitution);
 
                 if (!lotteries.Any())
                 {
@@ -40,11 +40,11 @@ namespace Edoha.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(Guid id)
+        public async Task<IActionResult> GetById(Guid idInstitution, Guid id)
         {
             try
             {
-                var lottery = await _lotteryService.SelectLotteryById(id);
+                var lottery = await _lotteryService.SelectLotteryById(idInstitution, id);
 
                 if (lottery == null)
                 {
@@ -64,16 +64,14 @@ namespace Edoha.Controllers
             }
         }
 
-
-
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateLotteryDTO request)
+        public async Task<IActionResult> Create(Guid idInstitution, [FromBody] CreateLotteryDTO request)
         {
             if(request != null)
             {
                 try
                 {
-                    await _lotteryService.InsertLottery(request);
+                    await _lotteryService.InsertLottery(idInstitution, request);
                     return Ok();
                 }
                 catch (Exception ex)
@@ -93,13 +91,13 @@ namespace Edoha.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] UpdateLotteryDTO request)
+        public async Task<IActionResult> Update(Guid idInstitution, [FromBody] UpdateLotteryDTO request)
         {
             if (request != null)
             {
                 try
                 {
-                    await _lotteryService.UpdateLotteryById(request);
+                    await _lotteryService.UpdateLotteryById(idInstitution, request);
                     return Ok();
                 }
                 catch (Exception ex)
@@ -119,9 +117,9 @@ namespace Edoha.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task DeleteById(Guid id)
+        public async Task DeleteById(Guid idInstitution, Guid id)
         {
-            await _lotteryService.DeleteLotteryById(id);
+            await _lotteryService.DeleteLotteryById(idInstitution, id);
         }
     }
 }
