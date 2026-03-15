@@ -1,6 +1,8 @@
-﻿using Edoha.Domain.Entities;
+﻿using Dapper;
+using Edoha.Domain.Entities;
 using Edoha.Domain.Helpers;
 using Edoha.Infrastructure.Repositories;
+using Edoha.Infraestructure.Constants;
 using System.Data.Common;
 using System.Data;
 using System.Linq;
@@ -17,5 +19,12 @@ namespace Edoha.Infraestructure.Repositories
             
         }
 
+        public async Task<IEnumerable<Institution>> SelectInstitutionsByUser(Guid idUser)
+        {
+            Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
+            CheckConnection();
+
+            return await _connection.QueryAsync<Institution>(StaticQueries.SelectInstitutionsByUser, new { IdUser = idUser });
+        }
     }
 }
