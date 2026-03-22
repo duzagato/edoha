@@ -48,10 +48,13 @@ namespace Edoha.Domain.Services
 
             Guid? idHolder = null;
 
-            if (String.IsNullOrEmpty(ticketbookRequest.TicketbookHolder.Name) &&
-               String.IsNullOrEmpty(ticketbookRequest.TicketbookHolder.Phone))
+            if(ticketbookRequest.TicketbookHolder is not null)
             {
-                idHolder = await _userService.InsertUserInformation(ticketbookRequest.TicketbookHolder?.Name, ticketbookRequest.TicketbookHolder?.Phone);
+                if (String.IsNullOrEmpty(ticketbookRequest.TicketbookHolder.Name) &&
+               String.IsNullOrEmpty(ticketbookRequest.TicketbookHolder.Phone))
+                {
+                    idHolder = await _userService.InsertUserInformation(ticketbookRequest.TicketbookHolder?.Name, ticketbookRequest.TicketbookHolder?.Phone);
+                } 
             }
 
                 CreateTicketbookDTO dto = new CreateTicketbookDTO

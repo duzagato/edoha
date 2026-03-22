@@ -15,6 +15,7 @@ public static class ServiceInjection
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IActionService, ActionService>();
         services.AddScoped<IRequestValidationContext, RequestValidationContext>();
+        services.AddScoped<IInstitutionService, InstitutionService>();
         services.AddScoped<ILotteryService, LotteryService>();
         services.AddScoped<IPageService, PageService>();
         services.AddScoped<IPermissionService, PermissionService>();
