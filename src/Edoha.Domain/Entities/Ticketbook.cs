@@ -22,6 +22,7 @@ namespace Edoha.Domain.Entities
         public int Number { get; set; }
         public DateTime? WithdrawnDate { get; set; }
         public DateTime? DevolutionDate { get; set; }
+        public IList<Ticket>? Tickets { get; set; }
     }
 
     public class Holder
