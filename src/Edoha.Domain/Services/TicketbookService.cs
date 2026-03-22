@@ -17,10 +17,12 @@ namespace Edoha.Domain.Services
         private readonly IStatusTicketbookRepository _statusTicketbookRepository;
         private readonly ILotteryRepository _lotteryRepository;
         private readonly ITicketbookRepository _ticketbookRepository;
+        private readonly ITicketRepository _ticketRepository;
         private readonly IUserService _userService;
 
         public TicketbookService(ITicketbookRepository repository, IStatusTicketbookRepository statusTicketbookRepository, ILotteryRepository lotteryRepository, 
           ITicketbookRepository ticketbookRepository,
+          ITicketRepository ticketRepository,
           ILogger<ITicketbookService> logger,
           IUserService userService,
           IRequestValidationContext requestValidationContex) : base(repository, requestValidationContex) 
@@ -29,6 +31,7 @@ namespace Edoha.Domain.Services
             _statusTicketbookRepository = statusTicketbookRepository;
             _lotteryRepository = lotteryRepository;
             _ticketbookRepository = ticketbookRepository;
+            _ticketRepository = ticketRepository;
             _userService = userService;
         }
 
@@ -84,6 +87,11 @@ namespace Edoha.Domain.Services
             await _lotteryRepository.IdExists(idLottery);
             var ticketbooks = await _ticketbookRepository.SelectReturnedsTicketbooksByLottery(idLottery);
 
+            foreach (var ticketbook in ticketbooks)
+            {
+                ticketbook.Tickets = (await _ticketRepository.SelectAllByTicketbook(ticketbook.Id)).ToList();
+            }
+
             return ticketbooks;
         }
 
@@ -92,13 +100,25 @@ namespace Edoha.Domain.Services
             await _lotteryRepository.IdExists(idLottery);
             var ticketbooks = await _ticketbookRepository.SelectWithdrawnTicketbooksByLottery(idLottery);
 
+            foreach (var ticketbook in ticketbooks)
+            {
+                ticketbook.Tickets = (await _ticketRepository.SelectAllByTicketbook(ticketbook.Id)).ToList();
+            }
+
             return ticketbooks;
         }
 
         public async Task<Ticketbook?> GetTicketbookByNumber(Guid idLottery, int numberTicketbook)
         {
             await _lotteryRepository.IdExists(idLottery);
-            return await _ticketbookRepository.SelectTicketbookByNumber(idLottery, numberTicketbook);
+            var ticketbook = await _ticketbookRepository.SelectTicketbookByNumber(idLottery, numberTicketbook);
+
+            if (ticketbook is not null)
+            {
+                ticketbook.Tickets = (await _ticketRepository.SelectAllByTicketbook(ticketbook.Id)).ToList();
+            }
+
+            return ticketbook;
         }
 
         public async Task ChangeTicketbookStatus(int idStatusTicketbook, Guid idTicketbook, Guid idLottery)
@@ -131,13 +151,22 @@ namespace Edoha.Domain.Services
         public async Task<Ticketbook> SelectTicketbookById(Guid id, Guid idLottery)
         {
             await _lotteryRepository.IdExists(idLottery);
-            return await _repository.SelectById(id);
+            var ticketbook = await _repository.SelectById(id);
+            ticketbook.Tickets = (await _ticketRepository.SelectAllByTicketbook(ticketbook.Id)).ToList();
+            return ticketbook;
         }
 
         public async Task<IEnumerable<Ticketbook>> SelectAllTicketbooks(Guid idLottery)
         {
             await _lotteryRepository.IdExists(idLottery);
-            return await _repository.SelectAll();
+            var ticketbooks = await _repository.SelectAll();
+
+            foreach (var ticketbook in ticketbooks)
+            {
+                ticketbook.Tickets = (await _ticketRepository.SelectAllByTicketbook(ticketbook.Id)).ToList();
+            }
+
+            return ticketbooks;
         }
 
         public async Task UpdateTicketbookById(UpdateTicketbookDTO dto, Guid idLottery)
