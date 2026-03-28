@@ -50,6 +50,12 @@ namespace Edoha.Domain.Services
             return await _lotteryRepository.SelectAllByInstitution(idInstitution);
         }
 
+        public async Task<Lottery?> GetLotteryByName(Guid idInstitution, string nameLottery)
+        {
+            await _institutionRepository.IdExists(idInstitution);
+            return await _lotteryRepository.SelectLotteryByName(idInstitution, nameLottery);
+        }
+
         public async Task UpdateLotteryById(Guid idInstitution, UpdateLotteryDTO dto)
         {
             await _institutionRepository.IdExists(idInstitution);

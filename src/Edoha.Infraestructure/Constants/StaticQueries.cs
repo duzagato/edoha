@@ -58,6 +58,8 @@ namespace Edoha.Infraestructure.Constants
 
         public static string SelectAllLotteriesByInstitution = "SELECT * FROM lottery.lottery WHERE id_institution = @IdInstitution";
 
+        public static string SelectLotteryByName = "SELECT * FROM lottery.lottery WHERE id_institution = @IdInstitution AND name = @Name";
+
         public static string TicketExists = "SELECT EXISTS (SELECT 1 FROM \"lottery\".\"ticket\" WHERE \"id_ticketbook\" = @IdTicketbook AND \"number\" = @Number);";
 
         public static string SelectAllTicketsByTicketbook = "SELECT * FROM \"lottery\".\"ticket\" WHERE \"id_ticketbook\" = @IdTicketbook;";

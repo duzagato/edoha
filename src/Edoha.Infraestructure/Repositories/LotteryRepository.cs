@@ -40,5 +40,15 @@ namespace Edoha.Infraestructure.Repositories
             return await _connection.QueryAsync<Lottery>(query, new { IdInstitution = idInstitution });
         }
 
+        public async Task<Lottery?> SelectLotteryByName(Guid idInstitution, string nameLottery)
+        {
+            Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
+            CheckConnection();
+
+            var query = StaticQueries.SelectLotteryByName;
+
+            return await _connection.QueryFirstOrDefaultAsync<Lottery?>(query, new { IdInstitution = idInstitution, Name = nameLottery });
+        }
+
     }
 }

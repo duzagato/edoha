@@ -11,5 +11,6 @@ namespace Edoha.Domain.Interfaces.Infraestructure.Repositories
     {
         Task<bool> LotteryIsUnique(Guid idInstitution, string name);
         Task<IEnumerable<Lottery>> SelectAllByInstitution(Guid idInstitution);
+        Task<Lottery?> SelectLotteryByName(Guid idInstitution, string nameLottery);
     }
 }
