@@ -203,9 +203,20 @@ namespace Edoha.Infraestructure.Repositories
             DefaultTypeMap.MatchNamesWithUnderscores = true;
             CheckConnection();
 
-            return await _connection.QueryFirstOrDefaultAsync<Ticketbook>(
+            // O Dapper espera: <Tipo1, Tipo2, Tipo3, TipoRetorno>
+            var result = await _connection.QueryAsync<Ticketbook, Holder, Owner, Ticketbook>(
                 StaticQueries.SelectTicketbookByNumber,
-                new { IdLottery = idLottery, Number = numberTicketbook });
+                (ticketbook, holder, owner) =>
+                {
+                    ticketbook.TicketbookHolder = holder;
+                    ticketbook.TicketbookOwner = owner;
+                    return ticketbook;
+                },
+                new { IdLottery = idLottery, Number = numberTicketbook },
+                splitOn: "Id,Id" // Indica que quando encontrar a coluna "Id", começa um novo objeto
+            );
+
+            return result.FirstOrDefault();
         }
     }
 }

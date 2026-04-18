@@ -12,6 +12,7 @@ namespace Edoha.Domain.Interfaces.Infraestructure.Repositories
         Task<T> SelectById(Guid? id);
 
         Task Insert(DTO dto);
+        Task<Guid> InsertAndReturnId(DTO dto);
 
         Task<Guid> InsertOrGetId(DTO dto);
 

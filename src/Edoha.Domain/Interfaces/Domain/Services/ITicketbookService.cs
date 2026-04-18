@@ -7,7 +7,7 @@ namespace Edoha.Domain.Interfaces.Domain.Services
 {
     public interface ITicketbookService : IService<Ticketbook>
     {
-        Task InsertTicketbook(PostTicketbookRequest ticketbookRequest, Guid idLottery);
+        Task<Guid> InsertTicketbook(PostTicketbookRequest ticketbookRequest, Guid idLottery);
 
         Task<IEnumerable<Ticketbook>> SelectReturnedsTicketbooks(Guid idLottery);
 

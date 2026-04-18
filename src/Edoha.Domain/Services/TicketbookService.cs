@@ -35,7 +35,7 @@ namespace Edoha.Domain.Services
             _userService = userService;
         }
 
-        public async Task InsertTicketbook(PostTicketbookRequest ticketbookRequest, Guid idLottery)
+        public async Task<Guid> InsertTicketbook(PostTicketbookRequest ticketbookRequest, Guid idLottery)
         {
             await _lotteryRepository.IdExists(idLottery);
             var idStatusTicketbook = _statusTicketbookRepository.IdExists(ticketbookRequest.IdStatusTicketbook);
@@ -53,8 +53,8 @@ namespace Edoha.Domain.Services
 
             if(ticketbookRequest.TicketbookHolder is not null)
             {
-                if (String.IsNullOrEmpty(ticketbookRequest.TicketbookHolder.Name) &&
-               String.IsNullOrEmpty(ticketbookRequest.TicketbookHolder.Phone))
+                if (!String.IsNullOrEmpty(ticketbookRequest.TicketbookHolder.Name) &&
+               !String.IsNullOrEmpty(ticketbookRequest.TicketbookHolder.Phone))
                 {
                     idHolder = await _userService.InsertUserInformation(ticketbookRequest.TicketbookHolder?.Name, ticketbookRequest.TicketbookHolder?.Phone);
                 } 
@@ -79,7 +79,8 @@ namespace Edoha.Domain.Services
                 dto.DevolutionDate = null;
             }
 
-            await Insert(dto);
+            await _requestValidationContext.ValidateDTO(dto);
+            return await _repository.InsertAndReturnId(dto);
         }
 
         public async Task<IEnumerable<Ticketbook>> SelectReturnedsTicketbooks(Guid idLottery)

@@ -222,8 +222,11 @@ namespace Edoha.Controllers
             {
                 try
                 {
-                    await _ticketbookService.InsertTicketbook(request, idLottery);
-                    return Ok();
+                    Guid id = await _ticketbookService.InsertTicketbook(request, idLottery);
+                    return Created(string.Empty, new
+                    {
+                        IdTicketbook = id
+                    });
                 }
                 catch (Exception ex)
                 {

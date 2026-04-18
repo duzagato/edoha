@@ -40,7 +40,7 @@ namespace Edoha.Domain.Services
                 throw new RequestValidationException(_requestValidationContext.GetErrors());
             }
 
-            var idDonater = await _userService.InsertUserInformation(ticketRequest.TicketDonater.Name, ticketRequest.TicketDonater.Phone);
+            var idDonater = await _userService.InsertUserInformation(ticketRequest.DonaterName, ticketRequest.DonaterPhone);
             DateTime soldDate = ticketRequest.SoldDate ?? DateTime.Now;
 
             CreateTicketDTO dto = new CreateTicketDTO

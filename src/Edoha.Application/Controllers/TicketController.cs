@@ -43,11 +43,15 @@ namespace Edoha.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Guid idTicketbook, [FromBody] CreateTicketRequest request)
+        public async Task<IActionResult> Create(Guid idTicketbook, [FromBody] List<CreateTicketRequest> request)
         {
-            if (request != null)
+            if (request != null && request.Count > 0)
             {
-                await _ticketService.InsertTicket(idTicketbook, request);
+                foreach(var ticket in request)
+                {
+                    await _ticketService.InsertTicket(idTicketbook, ticket);
+                }
+
                 return Created();
             }
             else

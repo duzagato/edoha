@@ -5,21 +5,14 @@ namespace Edoha.Domain.Models.Requests.Ticket
 {
     public class CreateTicketRequest
     {
-        public Donater TicketDonater { get; set; }
+        public string DonaterName { get; set; }
+
+        public string DonaterPhone { get; set; }
 
         [Required]
         [Min(1)]
         public int Number { get; set; }
 
         public DateTime? SoldDate { get; set; }
-    }
-
-    public class Donater
-    {
-        [Required]
-        public string Name { get; set; }
-
-        [Required]
-        public string Phone { get; set; }
     }
 }

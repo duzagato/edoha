@@ -80,6 +80,24 @@ namespace Edoha.Infrastructure.Repositories
             await _connection.ExecuteAsync(query, dto);
         }
 
+        public async Task<Guid> InsertAndReturnId(DTO dto)
+        {
+            CheckConnection();
+
+            var props = dto.GetProperties(_idColumnPascalCase);
+            var columns = string.Join(", ", props.Select(p => $@"""{StringHelper.PascalToSnakeCase(p.Name)}"""));
+            var values = string.Join(", ", props.Select(p => $"@{p.Name}"));
+
+            var query = $@"
+            INSERT INTO ""{_schema}"".""{_tableName}"" ({columns})
+            VALUES ({values})
+            RETURNING ""{StringHelper.PascalToSnakeCase(_idColumnPascalCase)}""";
+
+            var id = await _connection.QuerySingleAsync<Guid>(query, dto);
+
+            return id;
+        }
+
         public async Task<Guid> InsertOrGetId(DTO dto)
         {
             CheckConnection();
