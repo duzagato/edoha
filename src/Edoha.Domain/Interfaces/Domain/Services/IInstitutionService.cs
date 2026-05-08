@@ -7,7 +7,7 @@ namespace Edoha.Domain.Interfaces.Domain.Services
     {
         public Task InsertInstitution(CreateInstitutionDTO dto);
 
-        public Task<Institution> SelectInstitutionById(Guid id);
+        public Task<Institution?> SelectInstitutionBySlug(string slug);
 
         public Task<IEnumerable<Institution>> SelectAllInstitutions();
 

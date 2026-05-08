@@ -15,12 +15,12 @@ namespace Edoha.Infraestructure.Repositories
         public ILogger<TicketbookRepository> _logger;
         public TicketbookRepository(IDbConnection connection, ILogger<TicketbookRepository> logger) : base(connection)
         {
+            Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
             _logger = logger;
         }
 
         public async Task<IEnumerable<Ticketbook>> SelectReturnedsTicketbooksByLottery(Guid idLottery)
         {
-            Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
             CheckConnection();
 
             _logger.LogInformation("Recebendo talões devolvidos");
@@ -196,6 +196,25 @@ namespace Edoha.Infraestructure.Repositories
                 _logger.LogError(ex, "Ocorreu um erro ao tentar receber configurações do talão");
                 throw;
             }
+        }
+
+        public async Task<IEnumerable<Ticketbook>> SelectAll(Guid idLottery)
+        {
+            CheckConnection();
+
+            var result = await _connection.QueryAsync<Ticketbook, Holder, Owner, Ticketbook>(
+                StaticQueries.SelectAllTicketbooks,
+                (ticketbook, holder, owner) =>
+                {
+                    ticketbook.TicketbookHolder = (holder?.Id != null) ? holder : null;
+                    ticketbook.TicketbookOwner = owner;
+                    return ticketbook;
+                },
+                new { IdLottery = idLottery },
+                splitOn: "id,id"
+            );
+
+            return result;
         }
 
         public async Task<Ticketbook?> SelectTicketbookByNumber(Guid idLottery, int numberTicketbook)

@@ -22,9 +22,9 @@ namespace Edoha.Domain.Services
             await Insert(dto);
         }
 
-        public async Task<Institution> SelectInstitutionById(Guid id)
+        public async Task<Institution?> SelectInstitutionBySlug(string slug)
         {
-            return await _repository.SelectById(id);
+            return await _institutionRepository.SelectInstitutionBySlug(slug);
         }
 
         public async Task<IEnumerable<Institution>> SelectAllInstitutions()

@@ -69,5 +69,27 @@ namespace Edoha.Infraestructure.Constants
         public static string SelectTicketbookByNumber = "SELECT t.*, h.id AS Id, h.name AS Name, h.phone AS Phone, o.id AS Id, o.name AS Name, o.phone AS Phone FROM lottery.ticketbook t LEFT JOIN edoha.user h ON t.id_holder = h.id INNER JOIN edoha.user o ON t.id_owner = o.id WHERE t.id_lottery = @IdLottery AND t.number = @Number";
 
         public static string SelectInstitutionsByUser = "SELECT i.* FROM edoha.institution AS i INNER JOIN edoha.user_institution AS ui ON i.id = ui.id_institution WHERE ui.id_user = @IdUser";
+
+        // Use aliases claros para evitar confusão, embora o splitOn se baseie na ordem
+        public static string SelectAllTicketbooks = @"
+        SELECT 
+            t.*, 
+            h.id, h.name, h.phone, -- Início do Holder
+            o.id, o.name, o.phone  -- Início do Owner
+        FROM lottery.ticketbook t 
+        LEFT JOIN edoha.user h ON t.id_holder = h.id 
+        INNER JOIN edoha.user o ON t.id_owner = o.id 
+        WHERE t.id_lottery = @IdLottery";
+
+        public static string SelectUsersAndInstitutions = @"
+        SELECT 
+            u.*, 
+            i.*
+        FROM edoha.user u 
+        INNER JOIN edoha.user_institution ui ON ui.id_user = u.id 
+        INNER JOIN edoha.institution i ON i.id = ui.id_institution 
+        WHERE Nickname = @Nickname";
+
+        public static string SelectInstitutionBySlug = @"SELECT * FROM edoha.institution WHERE slug_name = @Slug";
     }
 }

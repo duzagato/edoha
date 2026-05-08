@@ -11,5 +11,15 @@ namespace Edoha.Domain.Entities
     {
         [Required]
         public string Name { get; set; }
+
+        [Required]
+        public string SlugName { get; set; }
+        
+        [Required]
+        public string ShortName { get; set; }
+        
+        public string? Description { get; set; }
+
+        public string? LogoDirectory { get; set; }
     }
 }

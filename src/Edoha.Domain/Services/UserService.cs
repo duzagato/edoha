@@ -115,27 +115,23 @@ namespace Edoha.Domain.Services
 
         public async Task<User> ValidateUserCredentials(string nickname, string password)
         {
-            User? user = await SelectUserCredentialsByNickname(nickname);
+            var user = await _userRepository.SelectUserCredentialsByNickname(nickname);
 
-            if(user is not null)
-            {
-                bool isValidPassword = _crypto.ValidatePBKDF2(password, user.Password!);
-
-                if(isValidPassword)
-                {
-                    return user;
-                }
-                else
-                {
-                    SetInvalidCredentialsMessage();
-                    throw new RequestValidationException(_requestValidationContext.GetErrors());
-                }
-            }
-            else
+            if (user is null)
             {
                 SetInvalidCredentialsMessage();
                 throw new RequestValidationException(_requestValidationContext.GetErrors());
             }
+
+            bool isValidPassword = _crypto.ValidatePBKDF2(password, user.Password!);
+
+            if (!isValidPassword)
+            {
+                SetInvalidCredentialsMessage();
+                throw new RequestValidationException(_requestValidationContext.GetErrors());
+            }
+
+            return user;
         }
 
         private bool IsUsernameSended(string? username)

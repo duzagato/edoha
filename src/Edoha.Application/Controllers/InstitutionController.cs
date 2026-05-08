@@ -40,12 +40,12 @@ namespace Edoha.Controllers
             }
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(Guid id)
+        [HttpGet("{slug}")]
+        public async Task<IActionResult> GetBySlug(string slug)
         {
             try
             {
-                var institution = await _institutionService.SelectInstitutionById(id);
+                var institution = await _institutionService.SelectInstitutionBySlug(slug);
 
                 if (institution == null)
                 {

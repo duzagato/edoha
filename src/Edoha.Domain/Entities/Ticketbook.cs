@@ -9,10 +9,12 @@ namespace Edoha.Domain.Entities
     {
         [Required]
         public Guid IdLottery { get; set; }
-        public Holder? TicketbookHolder { get; set; }
 
         [Required]
         public Owner TicketbookOwner { get; set; }
+
+        public Holder? TicketbookHolder { get; set; }
+
 
         [Required]
         public int IdStatusTicketbook { get; set; }

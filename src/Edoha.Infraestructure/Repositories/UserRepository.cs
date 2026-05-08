@@ -12,20 +12,43 @@ namespace Edoha.Infraestructure.Repositories
     public class UserRepository : BaseRepository<User>, IUserRepository
     {
         public UserRepository(IDbConnection connection) : base(connection) 
-        { 
-            
+        {
+            Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
         }
 
         public async Task<User?> SelectUserCredentialsByNickname(string nickname)
         {
-            Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
             CheckConnection();
 
-            string query = StaticQueries.SelectUserCredentialsByNickname;
+            string query = StaticQueries.SelectUsersAndInstitutions;
 
-            var user = await _connection.QueryFirstOrDefaultAsync<User>(query, new { Nickname = nickname });
+            // Usamos um dicionário para garantir que teremos apenas UM objeto User,
+            // mesmo que a query retorne múltiplas linhas (uma para cada instituição).
+            var userDictionary = new Dictionary<Guid, User>();
 
-            return user ?? null;
+            var result = await _connection.QueryAsync<User, Institution, User>(
+                query,
+                (user, institution) =>
+                {
+                    if (!userDictionary.TryGetValue(user.Id, out var userEntry))
+                    {
+                        userEntry = user;
+                        userEntry.Institutions = new List<Institution>();
+                        userDictionary.Add(userEntry.Id, userEntry);
+                    }
+
+                    if (institution != null)
+                    {
+                        userEntry.Institutions.Add(institution);
+                    }
+
+                    return userEntry;
+                },
+                new { Nickname = nickname },
+                splitOn: "id"
+            );
+
+            return userDictionary.Values.FirstOrDefault();
         }
 
         public async Task<IEnumerable<UserInformationResponse>> SelectUserInformation(bool withTicketbooks)

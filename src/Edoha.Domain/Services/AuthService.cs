@@ -48,10 +48,16 @@ namespace Edoha.Domain.Services
             var token = GenerateToken(user);
             await InsertLoginInformation(user!);
 
+            if(user.Institutions is null)
+            {
+                throw new CannotUnloadAppDomainException("Usuário não possui acesso a nenhuma instituição");
+            }
+
             var response = new AuthResponse
             {
                 IdUser = user.Id,
-                AccessToken = token
+                AccessToken = token,
+                Institutions = user.Institutions!
             };
             
 

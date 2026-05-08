@@ -29,10 +29,8 @@ namespace Edoha.Application.Controllers
 
                 return Ok(response);
             }
-            else
-            {
-                return BadRequest("Dados incompletos ou não enviados"); // ← BadRequest() também disponível
-            }
+            
+            return BadRequest("Dados incompletos ou não enviados");
         }
     }
 }

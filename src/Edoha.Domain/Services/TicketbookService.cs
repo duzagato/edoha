@@ -160,12 +160,7 @@ namespace Edoha.Domain.Services
         public async Task<IEnumerable<Ticketbook>> SelectAllTicketbooks(Guid idLottery)
         {
             await _lotteryRepository.IdExists(idLottery);
-            var ticketbooks = await _repository.SelectAll();
-
-            foreach (var ticketbook in ticketbooks)
-            {
-                ticketbook.Tickets = (await _ticketRepository.SelectAllByTicketbook(ticketbook.Id)).ToList();
-            }
+            var ticketbooks = await _ticketbookRepository.SelectAll(idLottery);
 
             return ticketbooks;
         }
