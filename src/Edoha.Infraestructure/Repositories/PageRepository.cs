@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Edoha.Domain.Entities;
+using Edoha.Domain.Interfaces.Infraestructure.Factories;
 using Edoha.Domain.Interfaces.Infraestructure.Repositories;
 using Edoha.Infraestructure.Constants;
 using Edoha.Infrastructure.Repositories;
@@ -9,7 +10,7 @@ namespace Edoha.Infraestructure.Repositories
 {
     public class PageRepository : BaseRepository<Page>, IPageRepository
     {
-        public PageRepository(IDbConnection connection) : base(connection)
+        public PageRepository(IDbConnectionFactory connectionFactory) : base(connectionFactory)
         {
 
         }

@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Edoha.Domain.Entities;
 using Edoha.Domain.Helpers;
+using Edoha.Domain.Interfaces.Infraestructure.Factories;
 using Edoha.Infrastructure.Repositories;
 using Edoha.Infraestructure.Constants;
 using System.Data.Common;
@@ -14,7 +15,7 @@ namespace Edoha.Infraestructure.Repositories
 {
     public class InstitutionRepository : BaseRepository<Institution>, IInstitutionRepository
     {
-        public InstitutionRepository(IDbConnection connection) : base(connection) 
+        public InstitutionRepository(IDbConnectionFactory connectionFactory) : base(connectionFactory) 
         {
             Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
         }

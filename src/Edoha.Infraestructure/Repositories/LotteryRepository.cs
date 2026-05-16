@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Edoha.Domain.Entities;
+using Edoha.Domain.Interfaces.Infraestructure.Factories;
 using Edoha.Domain.Interfaces.Infraestructure.Repositories;
 using Edoha.Infraestructure.Constants;
 using Edoha.Infrastructure.Repositories;
@@ -9,7 +10,7 @@ namespace Edoha.Infraestructure.Repositories
 {
     public class LotteryRepository : BaseRepository<Lottery>, ILotteryRepository
     {
-        public LotteryRepository(IDbConnection connection) : base(connection) 
+        public LotteryRepository(IDbConnectionFactory connectionFactory) : base(connectionFactory) 
         {}
 
         public async Task<bool> LotteryIsUnique(Guid idInstitution, string name)

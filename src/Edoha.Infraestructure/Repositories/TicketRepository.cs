@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Edoha.Domain.Entities;
+using Edoha.Domain.Interfaces.Infraestructure.Factories;
 using Edoha.Domain.Interfaces.Infraestructure.Repositories;
 using Edoha.Infraestructure.Constants;
 using Edoha.Infrastructure.Repositories;
@@ -12,7 +13,7 @@ namespace Edoha.Infraestructure.Repositories
     {
         private readonly ILogger<ITicketRepository> _logger;
         public TicketRepository(ILogger<ITicketRepository> logger, 
-            IDbConnection connection) : base(connection) 
+            IDbConnectionFactory connectionFactory) : base(connectionFactory) 
         {
             _logger = logger;
         }

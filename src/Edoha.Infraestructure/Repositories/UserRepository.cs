@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Edoha.Domain.Entities;
+using Edoha.Domain.Interfaces.Infraestructure.Factories;
 using Edoha.Domain.Interfaces.Infraestructure.Repositories;
 using Edoha.Domain.Models.DTOs.UserPermission;
 using Edoha.Domain.Models.Responses.User;
@@ -11,7 +12,7 @@ namespace Edoha.Infraestructure.Repositories
 {
     public class UserRepository : BaseRepository<User>, IUserRepository
     {
-        public UserRepository(IDbConnection connection) : base(connection) 
+        public UserRepository(IDbConnectionFactory connectionFactory) : base(connectionFactory) 
         {
             Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
         }

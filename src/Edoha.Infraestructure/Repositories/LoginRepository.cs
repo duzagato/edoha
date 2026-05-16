@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Edoha.Domain.Entities;
 using Edoha.Domain.Helpers;
+using Edoha.Domain.Interfaces.Infraestructure.Factories;
 using Edoha.Domain.Interfaces.Infraestructure.Repositories;
 using Edoha.Domain.Models.DTOs;
 using Edoha.Domain.Models.Login;
@@ -16,6 +17,6 @@ namespace Edoha.Infraestructure.Repositories
 {
     public class LoginRepository : BaseRepository<Login>, ILoginRepository
     {
-        public LoginRepository(IDbConnection connection) : base(connection) { }
+        public LoginRepository(IDbConnectionFactory connectionFactory) : base(connectionFactory) { }
     }
 }

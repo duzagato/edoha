@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Edoha.Domain.Interfaces.Infraestructure.Factories;
 using Edoha.Domain.Interfaces.Infraestructure.Repositories;
 using Edoha.Infraestructure.Constants;
 using Edoha.Infrastructure.Repositories;
@@ -9,7 +10,7 @@ namespace Edoha.Infraestructure.Repositories
 {
     public class ActionRepository : BaseRepository<Action>, IActionRepository
     {
-        public ActionRepository()
+        public ActionRepository(IDbConnectionFactory connectionFactory) : base(connectionFactory)
         {
 
         }

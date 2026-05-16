@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Edoha.Domain.Entities;
+using Edoha.Domain.Interfaces.Infraestructure.Factories;
 using Edoha.Domain.Interfaces.Infraestructure.Repositories;
 using Edoha.Infraestructure.Constants;
 using Edoha.Domain.Constants.Enums;
@@ -13,7 +14,7 @@ namespace Edoha.Infraestructure.Repositories
     public class TicketbookRepository : BaseRepository<Ticketbook>, ITicketbookRepository
     {
         public ILogger<TicketbookRepository> _logger;
-        public TicketbookRepository(IDbConnection connection, ILogger<TicketbookRepository> logger) : base(connection)
+        public TicketbookRepository(IDbConnectionFactory connectionFactory, ILogger<TicketbookRepository> logger) : base(connectionFactory)
         {
             Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
             _logger = logger;

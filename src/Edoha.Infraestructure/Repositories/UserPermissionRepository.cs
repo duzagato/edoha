@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Edoha.Domain.Entities;
+using Edoha.Domain.Interfaces.Infraestructure.Factories;
 using Edoha.Domain.Interfaces.Infraestructure.Repositories;
 using Edoha.Domain.Models.DTOs.UserPermission;
 using Edoha.Infraestructure.Constants;
@@ -10,8 +11,8 @@ namespace Edoha.Infraestructure.Repositories
 {
     public class UserPermissionRepository : BaseRepository<UserPermission>, IUserPermissionRepository
     {
-        public UserPermissionRepository(IDbConnection connection )
-        : base(connection) { }
+        public UserPermissionRepository(IDbConnectionFactory connectionFactory )
+        : base(connectionFactory) { }
 
         public async Task<IEnumerable<UserPermissionExpand>> GetUserPermissionExpandByIdUser(Guid idUser)
         {
