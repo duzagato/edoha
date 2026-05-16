@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Edoha.Domain.Helpers;
+using Edoha.Domain.Interfaces.Infraestructure.Factories;
 using Edoha.Domain.Interfaces.Infraestructure.Repositories;
 using Edoha.Domain.Models.DTOs;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -10,6 +11,7 @@ namespace Edoha.Infrastructure.Repositories
 {
     public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
     {
+        private readonly IDbConnectionFactory _connectionFactory;
         protected readonly IDbConnection _connection;
         protected readonly string _tableName;
         protected readonly string _schema;
@@ -17,9 +19,10 @@ namespace Edoha.Infrastructure.Repositories
         protected readonly string _idColumnSnakeCase;
         protected readonly IEnumerable<PropertyInfo> _properties;
 
-        protected BaseRepository(IDbConnection connection)
+        protected BaseRepository(IDbConnectionFactory connectionFactory)
         {
-            _connection = connection;
+            _connectionFactory = connectionFactory;
+            _connection = _connectionFactory.CreateConnection();
 
             var tableName = GetTableName<T>();
             _schema = GetSchema<T>();

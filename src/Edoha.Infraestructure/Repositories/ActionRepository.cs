@@ -9,7 +9,7 @@ namespace Edoha.Infraestructure.Repositories
 {
     public class ActionRepository : BaseRepository<Action>, IActionRepository
     {
-        public ActionRepository(IDbConnection connection) : base(connection)
+        public ActionRepository()
         {
 
         }

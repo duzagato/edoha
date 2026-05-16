@@ -1,15 +1,20 @@
 ﻿using Edoha.Application.DependencyInjection;
+using Edoha.Domain.Interfaces.Infraestructure.Factories;
+using Edoha.Domain.Interfaces.Infraestructure.Services;
+using Edoha.Infraestructure.Factories;
 using Npgsql;
 using System.Data;
+using System.Runtime.CompilerServices;
 
 namespace Edoha.Application;
 
 public static class ServoceCollection
 {
-    public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddFactories(this IServiceCollection services)
     {
-        return services.AddSingleton<IDbConnection>(sp =>
-            new NpgsqlConnection(configuration.GetConnectionString("Default")));
+        services.AddScoped<IDbConnectionFactory, DbConnectionFactory>();
+
+        return services;
     }
 
     public static IServiceCollection AddRepositories(this IServiceCollection services)

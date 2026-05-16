@@ -24,7 +24,7 @@ Log.Logger = loggerConfig.CreateLogger();
 builder.Host.UseSerilog();
 
 builder.Services.AddJwt(builder.Configuration);
-builder.Services.AddDatabase(builder.Configuration);
+builder.Services.AddFactories();
 builder.Services.AddRepositories();
 builder.Services.AddUtils();
 builder.Services.AddDomainServices();
