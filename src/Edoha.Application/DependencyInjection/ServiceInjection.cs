@@ -1,4 +1,5 @@
-﻿using Edoha.Domain.Interfaces.Domain.Services;
+﻿using Amazon.SecretsManager;
+using Edoha.Domain.Interfaces.Domain.Services;
 using Edoha.Domain.Interfaces.Infraestructure.Context;
 using Edoha.Domain.Interfaces.Infraestructure.Services;
 using Edoha.Domain.Services;
@@ -26,6 +27,9 @@ public static class ServiceInjection
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IUserPermissionService, UserPermissionService>();
         services.AddScoped<IUserTypeService, UserTypeService>();
+
+        services.AddSingleton<IAmazonSecretsManager>(_ => new AmazonSecretsManagerClient());
+        services.AddScoped<ISecretsManagerService, SecretsManagerService>();
 
         return services;
     }
