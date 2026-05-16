@@ -101,13 +101,13 @@ Nenhum endpoint exige autenticação atualmente (não há `[Authorize]` em nenhu
 - `3. merge-release.yml` — após merge em release/*, mergeia develop nela e abre PR para main. **Contém marcadores de conflito Git não resolvidos (`<<<<<<< HEAD ... >>>>>>>`)** — bug crítico.
 - `4. merge-main.yml` — checa conflitos pós-merge em main.
 
-Não existe workflow de **build/test/CodeQL/lint** nem de **deploy** (CI de qualidade e CD para AWS são ausentes).
+Não existe workflow de **build/test/CodeQL/lint** nem de **deploy** (CI de qualidade ausente; CD para AWS Lambda ainda não configurado).
 
 ## 9. Dores e débitos técnicos sumarizados
 
 Esta lista é apenas índice; cada item tem detalhamento próprio em sua task `.md`.
 
-1. **Sem deploy AWS configurado** (sem Dockerfile, sem CI/CD para ECR/ECS, segredos hardcoded, conexão `Singleton`, configurações ambiente-locked) → **task 01**.
+1. **Sem deploy AWS configurado** (sem adaptador Lambda, sem CI/CD para ECR + Lambda, segredos hardcoded, conexão `Singleton`, configurações ambiente-locked) → **task 01**.
 2. **JWT existe mas não autentica** — nenhum `[Authorize]` em controllers; `JwtConfig` tem chave hardcoded em código além de `appsettings.json` (duplicada); refresh token gerado mas nunca usado → **task 02**.
 3. **Camadas embaralhadas** — Application Services inexistente; regra em Service de domínio; controllers tomam decisões HTTP+orquestração; `IRequestValidationContext` é Domain mas vive em Infra → **task 03**.
 4. **Models desorganizados** — `DTO`s misturados com `InputModels`/`Requests`/`Responses`; `AuthResponse` dentro de `Requests/`; GETs retornam ora `Entity`, ora DTO (`UserInformationResponse`) → **task 04**.
@@ -128,7 +128,7 @@ Esta lista é apenas índice; cada item tem detalhamento próprio em sua task `.
 
 | # | Arquivo | Complexidade | Depende de |
 |---|---|---|---|
-| 01 | `01-preparar-deploy-aws-ecs-fargate.md` | Média | — |
+| 01 | `01-preparar-deploy-aws-lambda.md` | Média | — |
 | 02 | `02-refatorar-autenticacao-jwt.md` | Alta | — |
 | 03 | `03-organizacao-solid-ddd.md` | Alta | — |
 | 04 | `04-padronizar-modelos-request-response-entity.md` | Média | 03 (parcialmente) |

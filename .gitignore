@@ -39,8 +39,11 @@ TestResults/
 .env
 .env.*
 appsettings.Development.json
-# Nota: Muitas vezes o appsettings.Development.json é mantido no git para 
+# Nota: Muitas vezes o appsettings.Development.json é mantido no git para
 # servir de template, mas segredos reais devem usar User Secrets ou Variáveis de Ambiente.
+
+## [ AWS / SAM ]
+samconfig.toml
 
 ## [ OS specific files ]
 .DS_Store

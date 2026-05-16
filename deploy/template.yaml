@@ -1,0 +1,64 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Edoha API — AWS Lambda Container Image + API Gateway HTTP API
+
+Globals:
+  Function:
+    MemorySize: 512
+    Timeout: 30
+    Environment:
+      Variables:
+        ASPNETCORE_ENVIRONMENT: Production
+        Jwt__Issuer: EdohaIssuer
+        Jwt__Audience: EdohaAudience
+        Jwt__ExpiresInMinutes: "60"
+
+Resources:
+  EdohaApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      Description: API Gateway HTTP API — Edoha
+
+  EdohaFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: edoha-api
+      PackageType: Image
+      ImageUri: <conta>.dkr.ecr.<regiao>.amazonaws.com/edoha-api:<tag>
+      Role: !Sub arn:aws:iam::${AWS::AccountId}:role/<nome-da-role-lambda>
+      Environment:
+        Variables:
+          ConnectionStrings__Default: "{{resolve:secretsmanager:<arn-do-secret-connection-string>}}"
+          Jwt__Key: "{{resolve:secretsmanager:<arn-do-secret-jwt-key>}}"
+      Events:
+        ApiRoot:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref EdohaApi
+            Path: /
+            Method: ANY
+        ApiProxy:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref EdohaApi
+            Path: /{proxy+}
+            Method: ANY
+      # Se o banco PostgreSQL estiver em VPC privada, descomentar:
+      # VpcConfig:
+      #   SubnetIds:
+      #     - <subnet-id-1>
+      #     - <subnet-id-2>
+      #   SecurityGroupIds:
+      #     - <security-group-id>
+    Metadata:
+      DockerTag: latest
+      DockerContext: ../
+      Dockerfile: Dockerfile
+
+Outputs:
+  ApiEndpoint:
+    Description: URL do API Gateway HTTP API
+    Value: !Sub https://${EdohaApi}.execute-api.${AWS::Region}.amazonaws.com
+  FunctionArn:
+    Description: ARN da função Lambda
+    Value: !GetAtt EdohaFunction.Arn

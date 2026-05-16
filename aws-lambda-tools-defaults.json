@@ -1,0 +1,9 @@
+{
+  "profile": "",
+  "region": "<regiao>",
+  "function-name": "edoha-api",
+  "function-memory-size": 512,
+  "function-timeout": 30,
+  "package-type": "image",
+  "image-tag": "<conta>.dkr.ecr.<regiao>.amazonaws.com/edoha-api:latest"
+}

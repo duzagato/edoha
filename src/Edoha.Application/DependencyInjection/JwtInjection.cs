@@ -1,4 +1,5 @@
 ﻿using Edoha.Infrastructure.Handlers;
+using Edoha.Infraestructure.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -12,6 +13,8 @@ namespace Edoha.Application.DependencyInjection
     {
         public static IServiceCollection AddJwt(this IServiceCollection services, IConfiguration configuration)
         {
+            services.Configure<JwtSettings>(configuration.GetSection("Jwt"));
+
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("PermissionPolicy", policy =>

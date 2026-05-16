@@ -1,0 +1,27 @@
+# Visual Studio internos — não contribuem para entendimento do código
+src/.vs/
+
+# Build outputs
+src/**/bin/
+src/**/obj/
+
+# User-specific VS files
+**/*.user
+**/*.suo
+**/*.userosscache
+**/*.sln.docstates
+
+# Logs e caches
+**/*.log
+**/logs/
+
+# Arquivos de banco compilado/cache
+**/*.db
+**/*.db-shm
+**/*.db-wal
+
+# Git internals
+.git/
+
+# SQL schema (referência, não lido rotineiramente)
+edoha.sql

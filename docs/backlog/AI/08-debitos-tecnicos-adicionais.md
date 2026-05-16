@@ -206,7 +206,7 @@ Coberto na task 03 (item 3.7). Reforçando: bug grave de produção sob carga.
 
 `TicketbookService.InsertTicketbook`: `WithdrawnDate = DateTime.Now`, `DevolutionDate = DateTime.Now`.
 
-Em ECS Fargate o container está em UTC. `DateTime.Now` muda dependendo da timezone do host. **Trocar para `DateTime.UtcNow`** em todo o código (`grep -n "DateTime.Now" src/`).
+No Lambda a função sempre executa em UTC. `DateTime.Now` pode divergir dependendo da timezone do host de desenvolvimento. **Trocar para `DateTime.UtcNow`** em todo o código (`grep -n "DateTime.Now" src/`).
 
 ---
 

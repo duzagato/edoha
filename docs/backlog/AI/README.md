@@ -8,7 +8,7 @@ Cada arquivo descreve uma tarefa independente (com dependências sinalizadas no 
 | # | Arquivo | Tema | Complex. | Depende de |
 |---|---|---|---|---|
 | 00 | [00-contexto-geral.md](./00-contexto-geral.md) | Contexto do projeto (leitura obrigatória) | — | — |
-| 01 | [01-preparar-deploy-aws-ecs-fargate.md](./01-preparar-deploy-aws-ecs-fargate.md) | Dockerfile, healthcheck, CI ECR, task definition | 🟡 | — |
+| 01 | [01-preparar-deploy-aws-lambda.md](./01-preparar-deploy-aws-lambda.md) | Container Image Lambda, API Gateway, CI ECR + Lambda | 🟡 | — |
 | 02 | [02-refatorar-autenticacao-jwt.md](./02-refatorar-autenticacao-jwt.md) | `[Authorize]`, refresh, logout, hash do refresh | 🔴 | — |
 | 03 | [03-organizacao-solid-ddd.md](./03-organizacao-solid-ddd.md) | Camadas, BaseController, remover try/catch | 🔴 | — |
 | 04 | [04-padronizar-modelos-request-response-entity.md](./04-padronizar-modelos-request-response-entity.md) | Eliminar DTOs; Requests/Entities/Responses | 🟡 | 03 |

@@ -1,50 +1,58 @@
+using Amazon.Lambda.AspNetCoreServer.Hosting;
 using Edoha.Application;
 using Edoha.Application.Middlewares;
 using Serilog;
-using Serilog.AspNetCore;
 using Serilog.Enrichers.CorrelationId;
+using Serilog.Formatting.Compact;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddHttpContextAccessor();
 
-// Configurando Serilog como logger principal
-Log.Logger = new LoggerConfiguration()
+var loggerConfig = new LoggerConfiguration()
     .Enrich.FromLogContext()
     .Enrich.WithCorrelationId()
-    .WriteTo.Console(outputTemplate:
-        "[{Timestamp:HH:mm:ss} {Level}] {Message:lj}{NewLine}{Exception} {CorrelationId}")
-    .MinimumLevel.Information() // ?? Corrigido: não existe `.LoggerMinimumLevelConfiguration` nem `.information()`
-    .CreateLogger();
+    .MinimumLevel.Information();
 
+if (builder.Environment.IsProduction())
+    loggerConfig.WriteTo.Console(new RenderedCompactJsonFormatter());
+else
+    loggerConfig.WriteTo.Console(outputTemplate:
+        "[{Timestamp:HH:mm:ss} {Level}] {Message:lj}{NewLine}{Exception} {CorrelationId}");
+
+Log.Logger = loggerConfig.CreateLogger();
 builder.Host.UseSerilog();
 
 builder.Services.AddJwt(builder.Configuration);
-
-// Serviços
 builder.Services.AddDatabase(builder.Configuration);
 builder.Services.AddRepositories();
 builder.Services.AddUtils();
 builder.Services.AddDomainServices();
 
+builder.Services.AddHealthChecks();
+
 builder.Services.AddControllers()
     .ConfigureApiBehaviorOptions(options =>
     {
-        options.SuppressModelStateInvalidFilter = true; // Impede que o ASP.NET retorne 400 automaticamente
+        options.SuppressModelStateInvalidFilter = true;
     });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var allowedOrigins = builder.Configuration
+    .GetSection("Cors:AllowedOrigins")
+    .Get<string[]>() ?? [];
+
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAngular",
-        policy =>
-        {
-            policy.WithOrigins("http://localhost:4200")
-                  .AllowAnyHeader()
-                  .AllowAnyMethod();
-        });
+    options.AddPolicy("AllowAngular", policy =>
+    {
+        if (allowedOrigins.Length > 0)
+            policy.WithOrigins(allowedOrigins).AllowAnyHeader().AllowAnyMethod();
+    });
 });
+
+builder.Services.AddAWSLambdaHosting(LambdaEventSource.HttpApi);
 
 var app = builder.Build();
 
@@ -56,13 +64,14 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseHttpsRedirection();
 }
 
-app.UseHttpsRedirection();
 app.UseRouting();
 app.UseCors("AllowAngular");
 app.UseAuthentication();
 app.UseAuthorization();
+app.MapHealthChecks("/health");
 app.MapControllers();
 
 app.Run();

@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(New-Item -ItemType Directory -Force \"C:/Users/Eduardo Zagato Junio/source/repos/edoha/docs/backlog/AI\")",
+      "Bash(Out-Null)",
+      "Bash(New-Item -ItemType Directory -Force \"C:/Users/Eduardo Zagato Junio/source/repos/edoha/docs/backlog/Human\")",
+      "Bash(New-Item -ItemType Directory -Force \"C:/Users/Eduardo Zagato Junio/source/repos/edoha/docs/changes\")",
+      "Bash(Write-Host \"Dirs OK\")",
+      "PowerShell(New-Item *)",
+      "Bash(Remove-Item *)",
+      "PowerShell(dotnet add *)",
+      "PowerShell(dotnet build *)"
+    ]
+  }
+}
