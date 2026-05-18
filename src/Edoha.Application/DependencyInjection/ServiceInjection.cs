@@ -1,4 +1,5 @@
-﻿using Amazon.SecretsManager;
+﻿using Amazon;
+using Amazon.SecretsManager;
 using Edoha.Domain.Interfaces.Domain.Services;
 using Edoha.Domain.Interfaces.Infraestructure.Context;
 using Edoha.Domain.Interfaces.Infraestructure.Services;
@@ -10,7 +11,7 @@ namespace Edoha.Application;
 
 public static class ServiceInjection
 {
-    public static IServiceCollection Register(IServiceCollection services)
+    public static IServiceCollection Register(IServiceCollection services, IConfiguration config)
     {
         services.AddScoped<ITokenGenerationService, TokenGenerationService>();
         services.AddScoped<IAuthService, AuthService>();
@@ -28,7 +29,10 @@ public static class ServiceInjection
         services.AddScoped<IUserPermissionService, UserPermissionService>();
         services.AddScoped<IUserTypeService, UserTypeService>();
 
-        services.AddSingleton<IAmazonSecretsManager>(_ => new AmazonSecretsManagerClient());
+        var region = config["AWS:Region"];
+
+        services.AddSingleton<IAmazonSecretsManager>(_ =>
+            new AmazonSecretsManagerClient(RegionEndpoint.GetBySystemName(region)));
         services.AddScoped<ISecretsManagerService, SecretsManagerService>();
 
         return services;

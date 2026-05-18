@@ -27,7 +27,7 @@ builder.Host.UseSerilog();
 builder.Services.AddFactories();
 builder.Services.AddRepositories();
 builder.Services.AddUtils();
-builder.Services.AddDomainServices();
+builder.Services.AddDomainServices(builder.Configuration);
 
 builder.Services.AddHealthChecks();
 

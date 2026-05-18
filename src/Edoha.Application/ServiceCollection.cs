@@ -22,9 +22,9 @@ public static class ServoceCollection
         return RepositoryInjection.Register(services);
     }
 
-    public static IServiceCollection AddDomainServices(this IServiceCollection services)
+    public static IServiceCollection AddDomainServices(this IServiceCollection services, IConfiguration config)
     {
-        return ServiceInjection.Register(services);
+        return ServiceInjection.Register(services, config);
     }
 
     public static IServiceCollection AddUtils(this IServiceCollection services)
