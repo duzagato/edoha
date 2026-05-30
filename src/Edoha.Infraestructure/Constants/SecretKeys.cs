@@ -6,7 +6,9 @@ namespace Edoha.Infraestructure.Constants
     /// </summary>
     public static class SecretKeys
     {
-        public const string DatabaseConnection = "ConnectionString";
-        public const string JwtKey = "edoha/jwt/key";
+        public const string PrivateKeys = "PrivateKeys";
+        public const string DatabaseConnection = "connectionString";
+        public const string JwtKey = "jwtKey";
+        public const string MemoryCachePrefix = "Screts:";
     }
 }

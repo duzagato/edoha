@@ -81,6 +81,8 @@ namespace Edoha.Infraestructure.Constants
         INNER JOIN edoha.user o ON t.id_owner = o.id 
         WHERE t.id_lottery = @IdLottery";
 
+        public static string SelectUserCredentials = "SELECT * FROM edoha.user WHERE nickname = @Nickname";
+
         public static string SelectUsersAndInstitutions = @"
         SELECT 
             u.*, 

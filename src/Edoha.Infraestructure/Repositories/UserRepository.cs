@@ -21,6 +21,22 @@ namespace Edoha.Infraestructure.Repositories
         {
             CheckConnection();
 
+            string query = StaticQueries.SelectUserCredentials;
+
+            // Usamos um dicionário para garantir que teremos apenas UM objeto User,
+            // mesmo que a query retorne múltiplas linhas (uma para cada instituição).
+            var user = await _connection.QueryFirstOrDefaultAsync<User?>(query, new 
+                {
+                    Nickname = nickname
+                });
+
+            return user;
+        }
+
+        private async Task<User?> SelectUserCredentialsByNicknameWithInstitutions(string nickname)
+        {
+            CheckConnection();
+
             string query = StaticQueries.SelectUsersAndInstitutions;
 
             // Usamos um dicionário para garantir que teremos apenas UM objeto User,

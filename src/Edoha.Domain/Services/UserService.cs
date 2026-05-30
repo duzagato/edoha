@@ -8,23 +8,27 @@ using Edoha.Domain.Interfaces.Infraestructure.Util;
 using Edoha.Domain.Models.DTOs.User;
 using Edoha.Domain.Models.InputModels.User;
 using Edoha.Domain.Models.Responses.User;
+using Microsoft.Extensions.Logging;
 
 namespace Edoha.Domain.Services
 {
     public class UserService : Service<User>, IUserService
     {
         private readonly ICrypto _crypto;
+        private readonly ILogger<IUserService> _logger;
         private readonly IUserRepository _userRepository;
         private readonly IUserTypeRepository _userTypeRepository;
 
         public UserService(IUserRepository repository, 
             ICrypto crypto,
+            ILogger<IUserService> logger,
             IUserRepository userRepository,
             IUserTypeRepository userTypeRepository, 
             IRequestValidationContext requestValidationContext) 
             : base(repository, requestValidationContext) 
         { 
             _crypto = crypto;
+            _logger = logger;
             _userRepository = userRepository;
             _userTypeRepository = userTypeRepository;
         }
@@ -115,10 +119,14 @@ namespace Edoha.Domain.Services
 
         public async Task<User> ValidateUserCredentials(string nickname, string password)
         {
+            _logger.LogInformation("Validando credenciais do usuário");
+            _logger.LogInformation("Procurando usuário usando o nickname: {Nickname}", nickname);
+
             var user = await _userRepository.SelectUserCredentialsByNickname(nickname);
 
             if (user is null)
             {
+                _logger.LogError("Usuário recebido foi nulo");
                 SetInvalidCredentialsMessage();
                 throw new RequestValidationException(_requestValidationContext.GetErrors());
             }
@@ -127,9 +135,12 @@ namespace Edoha.Domain.Services
 
             if (!isValidPassword)
             {
+                _logger.LogError("Senha inválida");
                 SetInvalidCredentialsMessage();
                 throw new RequestValidationException(_requestValidationContext.GetErrors());
             }
+
+            _logger.LogInformation("Usuário válido");
 
             return user;
         }

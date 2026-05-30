@@ -1,0 +1,1650 @@
+openapi: 3.0.3
+info:
+  title: Edoha API
+  description: API REST para gestão de rifas/loterias. Multi-tenant por instituição.
+  version: 1.0.0
+
+servers:
+  - url: https://{baseUrl}
+    variables:
+      baseUrl:
+        default: localhost
+
+tags:
+  - name: Auth
+  - name: Action
+  - name: Institution
+  - name: Lottery
+  - name: Page
+  - name: Permission
+  - name: StatusTicketbook
+  - name: TableConfiguration
+  - name: Ticket
+  - name: Ticketbook
+  - name: User
+  - name: UserInstitution
+  - name: UserPermission
+  - name: UserType
+
+paths:
+
+  # ─── Auth ───────────────────────────────────────────────────────────────────
+
+  /auth:
+    post:
+      tags: [Auth]
+      summary: Autenticar usuário
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CredentialsDTO'
+      responses:
+        '200':
+          description: Autenticação bem-sucedida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+
+  # ─── Action ─────────────────────────────────────────────────────────────────
+
+  /action:
+    get:
+      tags: [Action]
+      summary: Listar actions
+      responses:
+        '200':
+          description: Lista de actions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Action'
+        '204':
+          description: Nenhuma action encontrada
+    post:
+      tags: [Action]
+      summary: Criar action
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateActionDTO'
+      responses:
+        '200':
+          description: Action criada com sucesso
+        '400':
+          $ref: '#/components/responses/ValidationError'
+    put:
+      tags: [Action]
+      summary: Atualizar action
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateActionDTO'
+      responses:
+        '200':
+          description: Action atualizada com sucesso
+        '400':
+          $ref: '#/components/responses/ValidationError'
+
+  /action/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags: [Action]
+      summary: Buscar action por ID
+      responses:
+        '200':
+          description: Action encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Action'
+        '404':
+          description: Action não encontrada
+    delete:
+      tags: [Action]
+      summary: Excluir action
+      responses:
+        '200':
+          description: Action excluída com sucesso
+
+  # ─── Institution ─────────────────────────────────────────────────────────────
+
+  /institution:
+    get:
+      tags: [Institution]
+      summary: Listar instituições
+      responses:
+        '200':
+          description: Lista de instituições
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Institution'
+        '204':
+          description: Nenhuma instituição encontrada
+    post:
+      tags: [Institution]
+      summary: Criar instituição
+      responses:
+        '200':
+          description: Instituição criada com sucesso
+    put:
+      tags: [Institution]
+      summary: Atualizar instituição
+      responses:
+        '200':
+          description: Instituição atualizada com sucesso
+
+  /institution/{slug}:
+    parameters:
+      - name: slug
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Slug da instituição
+    get:
+      tags: [Institution]
+      summary: Buscar instituição por slug
+      responses:
+        '200':
+          description: Instituição encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Institution'
+        '204':
+          description: Instituição não encontrada
+
+  /institution/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    delete:
+      tags: [Institution]
+      summary: Excluir instituição
+      responses:
+        '200':
+          description: Instituição excluída com sucesso
+
+  /institution/institution_by_user/{idUser}:
+    parameters:
+      - name: idUser
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: ID do usuário
+    get:
+      tags: [Institution]
+      summary: Listar instituições de um usuário
+      responses:
+        '200':
+          description: Lista de instituições do usuário
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Institution'
+        '204':
+          description: Nenhuma instituição encontrada
+
+  # ─── Lottery ─────────────────────────────────────────────────────────────────
+
+  /institution/{idInstitution}/lottery:
+    parameters:
+      - name: idInstitution
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: ID da instituição
+    get:
+      tags: [Lottery]
+      summary: Listar rifas de uma instituição
+      responses:
+        '200':
+          description: Lista de rifas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Lottery'
+        '204':
+          description: Nenhuma rifa encontrada
+    post:
+      tags: [Lottery]
+      summary: Criar rifa
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateLotteryDTO'
+      responses:
+        '200':
+          description: Rifa criada com sucesso
+        '400':
+          $ref: '#/components/responses/ValidationError'
+    put:
+      tags: [Lottery]
+      summary: Atualizar rifa
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateLotteryDTO'
+      responses:
+        '200':
+          description: Rifa atualizada com sucesso
+        '400':
+          $ref: '#/components/responses/ValidationError'
+
+  /institution/{idInstitution}/lottery/{id}:
+    parameters:
+      - name: idInstitution
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags: [Lottery]
+      summary: Buscar rifa por ID
+      responses:
+        '200':
+          description: Rifa encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lottery'
+        '204':
+          description: Rifa não encontrada
+    delete:
+      tags: [Lottery]
+      summary: Excluir rifa
+      responses:
+        '200':
+          description: Rifa excluída com sucesso
+
+  # ─── Page ────────────────────────────────────────────────────────────────────
+
+  /api/page:
+    get:
+      tags: [Page]
+      summary: Listar pages
+      responses:
+        '200':
+          description: Lista de pages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Page'
+        '204':
+          description: Nenhuma page encontrada
+    post:
+      tags: [Page]
+      summary: Criar page
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePage'
+      responses:
+        '200':
+          description: Page criada com sucesso
+        '400':
+          $ref: '#/components/responses/ValidationError'
+    put:
+      tags: [Page]
+      summary: Atualizar page
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePage'
+      responses:
+        '200':
+          description: Page atualizada com sucesso
+        '400':
+          $ref: '#/components/responses/ValidationError'
+
+  /api/page/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags: [Page]
+      summary: Buscar page por ID
+      responses:
+        '200':
+          description: Page encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page'
+        '404':
+          description: Page não encontrada
+    delete:
+      tags: [Page]
+      summary: Excluir page
+      responses:
+        '200':
+          description: Page excluída com sucesso
+
+  # ─── Permission ──────────────────────────────────────────────────────────────
+
+  /permission:
+    get:
+      tags: [Permission]
+      summary: Listar permissões
+      responses:
+        '200':
+          description: Lista de permissões
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Permission'
+        '204':
+          description: Nenhuma permissão encontrada
+    post:
+      tags: [Permission]
+      summary: Criar permissão
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePermissionDTO'
+      responses:
+        '200':
+          description: Permissão criada com sucesso
+        '400':
+          $ref: '#/components/responses/ValidationError'
+    put:
+      tags: [Permission]
+      summary: Atualizar permissão
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePermissionDTO'
+      responses:
+        '200':
+          description: Permissão atualizada com sucesso
+        '400':
+          $ref: '#/components/responses/ValidationError'
+
+  /permission/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags: [Permission]
+      summary: Buscar permissão por ID
+      responses:
+        '200':
+          description: Permissão encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Permission'
+        '404':
+          description: Permissão não encontrada
+    delete:
+      tags: [Permission]
+      summary: Excluir permissão
+      responses:
+        '200':
+          description: Permissão excluída com sucesso
+
+  # ─── StatusTicketbook ────────────────────────────────────────────────────────
+
+  /statusticketbook:
+    get:
+      tags: [StatusTicketbook]
+      summary: Listar status de talões
+      responses:
+        '200':
+          description: Lista de status
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StatusTicketbook'
+        '204':
+          description: Nenhum status encontrado
+    post:
+      tags: [StatusTicketbook]
+      summary: Criar status de talão
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateStatusTicketbookDTO'
+      responses:
+        '200':
+          description: Status criado com sucesso
+        '400':
+          $ref: '#/components/responses/ValidationError'
+    put:
+      tags: [StatusTicketbook]
+      summary: Atualizar status de talão
+      responses:
+        '200':
+          description: Status atualizado com sucesso
+
+  /statusticketbook/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags: [StatusTicketbook]
+      summary: Buscar status de talão por ID
+      responses:
+        '200':
+          description: Status encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusTicketbook'
+        '204':
+          description: Status não encontrado
+    delete:
+      tags: [StatusTicketbook]
+      summary: Excluir status de talão
+      responses:
+        '200':
+          description: Status excluído com sucesso
+
+  # ─── TableConfiguration ──────────────────────────────────────────────────────
+
+  /tableconfiguration/{schema}/{tableName}:
+    parameters:
+      - name: schema
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Nome do schema do banco (ex: edoha, lottery)
+      - name: tableName
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Nome da tabela
+    get:
+      tags: [TableConfiguration]
+      summary: Buscar configuração de tabela
+      responses:
+        '200':
+          description: Configuração encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TableConfiguration'
+        '204':
+          description: Configuração não encontrada
+
+  # ─── Ticket ──────────────────────────────────────────────────────────────────
+
+  /ticketbook/{idTicketbook}/ticket:
+    parameters:
+      - name: idTicketbook
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: ID do talão
+    get:
+      tags: [Ticket]
+      summary: Listar bilhetes de um talão
+      responses:
+        '200':
+          description: Lista de bilhetes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ticket'
+        '204':
+          description: Nenhum bilhete encontrado
+    post:
+      tags: [Ticket]
+      summary: Criar bilhetes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CreateTicketRequest'
+      responses:
+        '201':
+          description: Bilhetes criados com sucesso
+        '400':
+          $ref: '#/components/responses/ValidationError'
+    put:
+      tags: [Ticket]
+      summary: Atualizar bilhete
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTicketDTO'
+      responses:
+        '200':
+          description: Bilhete atualizado com sucesso
+        '400':
+          $ref: '#/components/responses/ValidationError'
+
+  /ticketbook/{idTicketbook}/ticket/{id}:
+    parameters:
+      - name: idTicketbook
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags: [Ticket]
+      summary: Buscar bilhete por ID
+      responses:
+        '200':
+          description: Bilhete encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ticket'
+        '204':
+          description: Bilhete não encontrado
+    delete:
+      tags: [Ticket]
+      summary: Excluir bilhete
+      responses:
+        '200':
+          description: Bilhete excluído com sucesso
+
+  # ─── Ticketbook ──────────────────────────────────────────────────────────────
+
+  /lottery/{idLottery}/ticketbook:
+    parameters:
+      - name: idLottery
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: ID da rifa
+    get:
+      tags: [Ticketbook]
+      summary: Listar talões de uma rifa
+      responses:
+        '200':
+          description: Lista de talões
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ticketbook'
+        '204':
+          description: Nenhum talão encontrado
+    post:
+      tags: [Ticketbook]
+      summary: Criar talão
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostTicketbookRequest'
+      responses:
+        '201':
+          description: Talão criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostTicketbookResponse'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+    put:
+      tags: [Ticketbook]
+      summary: Atualizar talão
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTicketbookDTO'
+      responses:
+        '200':
+          description: Talão atualizado com sucesso
+        '400':
+          $ref: '#/components/responses/ValidationError'
+
+  /lottery/{idLottery}/ticketbook/returneds:
+    parameters:
+      - name: idLottery
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    get:
+      tags: [Ticketbook]
+      summary: Listar talões devolvidos
+      responses:
+        '200':
+          description: Lista de talões devolvidos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ticketbook'
+        '204':
+          description: Nenhum talão devolvido
+
+  /lottery/{idLottery}/ticketbook/withdrawns:
+    parameters:
+      - name: idLottery
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    get:
+      tags: [Ticketbook]
+      summary: Listar talões retirados
+      responses:
+        '200':
+          description: Lista de talões retirados
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ticketbook'
+        '204':
+          description: Nenhum talão retirado
+
+  /lottery/{idLottery}/ticketbook/ticketbook_by_number/{numberTicketbook}:
+    parameters:
+      - name: idLottery
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: numberTicketbook
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Número do talão
+    get:
+      tags: [Ticketbook]
+      summary: Buscar talão por número
+      responses:
+        '200':
+          description: Talão encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ticketbook'
+        '204':
+          description: Talão não encontrado
+
+  /lottery/{idLottery}/ticketbook/{id}:
+    parameters:
+      - name: idLottery
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags: [Ticketbook]
+      summary: Buscar talão por ID
+      responses:
+        '200':
+          description: Talão encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ticketbook'
+        '204':
+          description: Talão não encontrado
+    delete:
+      tags: [Ticketbook]
+      summary: Excluir talão
+      responses:
+        '200':
+          description: Talão excluído com sucesso
+
+  /lottery/{idLottery}/ticketbook/{idTicketbook}/status/{idStatusTicketbook}:
+    parameters:
+      - name: idLottery
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: idTicketbook
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: idStatusTicketbook
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: ID do status (1=Retirado, 2=Devolvido)
+    patch:
+      tags: [Ticketbook]
+      summary: Atualizar status do talão
+      responses:
+        '204':
+          description: Status atualizado com sucesso
+
+  /lottery/{idLottery}/ticketbook/{idTicketbook}/status/returned:
+    parameters:
+      - name: idLottery
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: idTicketbook
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    patch:
+      tags: [Ticketbook]
+      summary: Marcar talão como devolvido
+      responses:
+        '204':
+          description: Talão marcado como devolvido
+
+  /lottery/{idLottery}/ticketbook/{idTicketbook}/status/withdraw:
+    parameters:
+      - name: idLottery
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: idTicketbook
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    patch:
+      tags: [Ticketbook]
+      summary: Marcar talão como retirado
+      responses:
+        '204':
+          description: Talão marcado como retirado
+
+  # ─── User ────────────────────────────────────────────────────────────────────
+
+  /user:
+    get:
+      tags: [User]
+      summary: Listar usuários
+      responses:
+        '200':
+          description: Lista de usuários
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '204':
+          description: Nenhum usuário encontrado
+    post:
+      tags: [User]
+      summary: Criar usuário
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserInputModel'
+      responses:
+        '200':
+          description: Usuário criado com sucesso
+        '400':
+          $ref: '#/components/responses/ValidationError'
+    put:
+      tags: [User]
+      summary: Atualizar usuário
+      responses:
+        '200':
+          description: Usuário atualizado com sucesso
+
+  /user/user_information:
+    get:
+      tags: [User]
+      summary: Listar informações de usuários
+      parameters:
+        - name: withTicketbooks
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+          description: Incluir dados de talões do usuário
+      responses:
+        '200':
+          description: Lista de informações de usuários
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserInformationResponse'
+
+  /user/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags: [User]
+      summary: Buscar usuário por ID
+      responses:
+        '200':
+          description: Usuário encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '204':
+          description: Usuário não encontrado
+    delete:
+      tags: [User]
+      summary: Excluir usuário
+      responses:
+        '200':
+          description: Usuário excluído com sucesso
+
+  # ─── UserInstitution ─────────────────────────────────────────────────────────
+
+  /userinstitution:
+    get:
+      tags: [UserInstitution]
+      summary: Listar vínculos usuário-instituição
+      responses:
+        '200':
+          description: Lista de vínculos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserInstitution'
+        '204':
+          description: Nenhum vínculo encontrado
+    post:
+      tags: [UserInstitution]
+      summary: Criar vínculo usuário-instituição
+      responses:
+        '200':
+          description: Vínculo criado com sucesso
+    put:
+      tags: [UserInstitution]
+      summary: Atualizar vínculo usuário-instituição
+      responses:
+        '200':
+          description: Vínculo atualizado com sucesso
+
+  /userinstitution/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags: [UserInstitution]
+      summary: Buscar vínculo por ID
+      responses:
+        '200':
+          description: Vínculo encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserInstitution'
+        '204':
+          description: Vínculo não encontrado
+    delete:
+      tags: [UserInstitution]
+      summary: Excluir vínculo usuário-instituição
+      responses:
+        '200':
+          description: Vínculo excluído com sucesso
+
+  # ─── UserPermission ──────────────────────────────────────────────────────────
+
+  /userpermission:
+    post:
+      tags: [UserPermission]
+      summary: Criar permissão de usuário
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserPermissionDTO'
+      responses:
+        '200':
+          description: Permissão de usuário criada com sucesso
+        '400':
+          $ref: '#/components/responses/ValidationError'
+
+  /userpermission/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags: [UserPermission]
+      summary: Listar permissões de um usuário agrupadas por página
+      responses:
+        '200':
+          description: Permissões agrupadas por página
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserPermissionPage'
+        '404':
+          description: Usuário não encontrado
+    delete:
+      tags: [UserPermission]
+      summary: Excluir permissão de usuário
+      responses:
+        '200':
+          description: Permissão excluída com sucesso
+
+  # ─── UserType ────────────────────────────────────────────────────────────────
+
+  /usertype:
+    get:
+      tags: [UserType]
+      summary: Listar tipos de usuário
+      responses:
+        '200':
+          description: Lista de tipos de usuário
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserType'
+        '204':
+          description: Nenhum tipo encontrado
+    post:
+      tags: [UserType]
+      summary: Criar tipo de usuário
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserTypeDTO'
+      responses:
+        '200':
+          description: Tipo de usuário criado com sucesso
+        '400':
+          $ref: '#/components/responses/ValidationError'
+    put:
+      tags: [UserType]
+      summary: Atualizar tipo de usuário
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserTypeDTO'
+      responses:
+        '200':
+          description: Tipo de usuário atualizado com sucesso
+        '400':
+          $ref: '#/components/responses/ValidationError'
+
+  /usertype/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags: [UserType]
+      summary: Buscar tipo de usuário por ID
+      responses:
+        '200':
+          description: Tipo de usuário encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserType'
+        '204':
+          description: Tipo de usuário não encontrado
+    delete:
+      tags: [UserType]
+      summary: Excluir tipo de usuário
+      responses:
+        '200':
+          description: Tipo de usuário excluído com sucesso
+
+# ─── Components ──────────────────────────────────────────────────────────────
+
+components:
+
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: Identificador único (UUID)
+
+  responses:
+    ValidationError:
+      description: Erro de validação
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ValidationErrorResponse'
+
+  schemas:
+
+    # ── Auth ──────────────────────────────────────────────────────────────────
+
+    CredentialsDTO:
+      type: object
+      required: [nickname, password]
+      properties:
+        nickname:
+          type: string
+          example: john.doe
+        password:
+          type: string
+          format: password
+          example: "secret123"
+
+    AuthResponse:
+      type: object
+      properties:
+        idUser:
+          type: string
+          format: uuid
+        accessToken:
+          type: string
+        institutions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Institution'
+
+    # ── Action ────────────────────────────────────────────────────────────────
+
+    Action:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        withoutOwner:
+          type: boolean
+        otherOwner:
+          type: boolean
+
+    CreateActionDTO:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        withoutOwner:
+          type: boolean
+          nullable: true
+        otherOwner:
+          type: boolean
+          nullable: true
+
+    UpdateActionDTO:
+      type: object
+      required: [id]
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        withoutOwner:
+          type: boolean
+          nullable: true
+        otherOwner:
+          type: boolean
+          nullable: true
+
+    # ── Institution ───────────────────────────────────────────────────────────
+
+    Institution:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        slug:
+          type: string
+
+    # ── Lottery ───────────────────────────────────────────────────────────────
+
+    Lottery:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        idInstitution:
+          type: string
+          format: uuid
+        name:
+          type: string
+        numTicketsTicketbook:
+          type: integer
+        numTicketbooks:
+          type: integer
+        priceTicket:
+          type: number
+          format: double
+        doubleChance:
+          type: boolean
+
+    CreateLotteryDTO:
+      type: object
+      required: [name, numTicketsTicketbook, numTicketbooks, priceTicket, doubleChance]
+      properties:
+        idInstitution:
+          type: string
+          format: uuid
+        name:
+          type: string
+        numTicketsTicketbook:
+          type: integer
+          minimum: 1
+        numTicketbooks:
+          type: integer
+          minimum: 1
+        priceTicket:
+          type: number
+          minimum: 1
+        doubleChance:
+          type: boolean
+
+    UpdateLotteryDTO:
+      type: object
+      required: [id, name, numTicketsTicketbook, numTicketbooks, priceTicket, doubleChance]
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        numTicketsTicketbook:
+          type: integer
+          minimum: 1
+        numTicketbooks:
+          type: integer
+          minimum: 1
+        priceTicket:
+          type: number
+          minimum: 1
+        doubleChance:
+          type: boolean
+
+    # ── Page ──────────────────────────────────────────────────────────────────
+
+    Page:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+
+    CreatePage:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+
+    UpdatePage:
+      type: object
+      required: [id]
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+
+    # ── Permission ────────────────────────────────────────────────────────────
+
+    Permission:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        idInstitution:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+
+    CreatePermissionDTO:
+      type: object
+      required: [idInstitution, name]
+      properties:
+        idInstitution:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+
+    UpdatePermissionDTO:
+      type: object
+      required: [id]
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+
+    # ── StatusTicketbook ──────────────────────────────────────────────────────
+
+    StatusTicketbook:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: "1 = Retirado, 2 = Devolvido"
+        name:
+          type: string
+
+    CreateStatusTicketbookDTO:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+
+    # ── TableConfiguration ────────────────────────────────────────────────────
+
+    TableConfiguration:
+      type: object
+      properties:
+        schema:
+          type: string
+          description: "Schema do banco (ex: edoha, lottery)"
+        tableName:
+          type: string
+
+    # ── Ticket ────────────────────────────────────────────────────────────────
+
+    Ticket:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        idTicketbook:
+          type: string
+          format: uuid
+        idDonater:
+          type: string
+          format: uuid
+          nullable: true
+        number:
+          type: integer
+        soldDate:
+          type: string
+          format: date-time
+          nullable: true
+
+    CreateTicketRequest:
+      type: object
+      required: [number]
+      properties:
+        donaterName:
+          type: string
+          nullable: true
+        donaterPhone:
+          type: string
+          nullable: true
+        number:
+          type: integer
+          minimum: 1
+        soldDate:
+          type: string
+          format: date-time
+          nullable: true
+
+    UpdateTicketDTO:
+      type: object
+      required: [id]
+      properties:
+        id:
+          type: string
+          format: uuid
+        idDonater:
+          type: string
+          format: uuid
+          nullable: true
+        soldDate:
+          type: string
+          format: date-time
+          nullable: true
+
+    # ── Ticketbook ────────────────────────────────────────────────────────────
+
+    Ticketbook:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        idLottery:
+          type: string
+          format: uuid
+        idOwner:
+          type: string
+          format: uuid
+          nullable: true
+        idHolder:
+          type: string
+          format: uuid
+          nullable: true
+        idStatusTicketbook:
+          type: integer
+        number:
+          type: integer
+        withdrawnDate:
+          type: string
+          format: date-time
+          nullable: true
+        devolutionDate:
+          type: string
+          format: date-time
+          nullable: true
+
+    PostTicketbookRequest:
+      type: object
+      required: [ticketbookOwner, idStatusTicketbook, number]
+      properties:
+        ticketbookOwner:
+          $ref: '#/components/schemas/Person'
+        ticketbookHolder:
+          allOf:
+            - $ref: '#/components/schemas/Person'
+          nullable: true
+        idStatusTicketbook:
+          type: integer
+          description: "1 = Retirado, 2 = Devolvido"
+        number:
+          type: integer
+          minimum: 1
+        withdrawnDate:
+          type: string
+          format: date-time
+          nullable: true
+        devolutionDate:
+          type: string
+          format: date-time
+          nullable: true
+
+    PostTicketbookResponse:
+      type: object
+      properties:
+        idTicketbook:
+          type: string
+          format: uuid
+
+    UpdateTicketbookDTO:
+      type: object
+      required: [id]
+      properties:
+        id:
+          type: string
+          format: uuid
+        idOwner:
+          type: string
+          format: uuid
+          nullable: true
+        idHolder:
+          type: string
+          format: uuid
+          nullable: true
+        idStatusTicketbook:
+          type: integer
+          minimum: 1
+        withdrawnDate:
+          type: string
+          format: date-time
+          nullable: true
+        devolutionDate:
+          type: string
+          format: date-time
+          nullable: true
+
+    Person:
+      type: object
+      properties:
+        name:
+          type: string
+        phone:
+          type: string
+
+    # ── User ──────────────────────────────────────────────────────────────────
+
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        phone:
+          type: string
+          nullable: true
+        nickname:
+          type: string
+          nullable: true
+
+    CreateUserInputModel:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+        phone:
+          type: string
+          nullable: true
+        nickname:
+          type: string
+          nullable: true
+        unhashedPassword:
+          type: string
+          format: password
+          nullable: true
+
+    UserInformationResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        phone:
+          type: string
+
+    # ── UserInstitution ───────────────────────────────────────────────────────
+
+    UserInstitution:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        idUser:
+          type: string
+          format: uuid
+        idInstitution:
+          type: string
+          format: uuid
+
+    # ── UserPermission ────────────────────────────────────────────────────────
+
+    CreateUserPermissionDTO:
+      type: object
+      required: [idUser, idPage, idPermission, idAction]
+      properties:
+        idUser:
+          type: string
+          format: uuid
+        idPage:
+          type: string
+          format: uuid
+        idPermission:
+          type: string
+          format: uuid
+        idAction:
+          type: string
+          format: uuid
+
+    UserPermissionPage:
+      type: object
+      properties:
+        pageName:
+          type: string
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Action'
+
+    # ── UserType ──────────────────────────────────────────────────────────────
+
+    UserType:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        nameUserType:
+          type: string
+
+    CreateUserTypeDTO:
+      type: object
+      required: [nameUserType]
+      properties:
+        nameUserType:
+          type: string
+
+    UpdateUserTypeDTO:
+      type: object
+      required: [id, nameUserType]
+      properties:
+        id:
+          type: string
+          format: uuid
+        nameUserType:
+          type: string
+
+    # ── Errors ────────────────────────────────────────────────────────────────
+
+    ValidationErrorResponse:
+      type: object
+      properties:
+        is_valid:
+          type: boolean
+          example: false
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          example:
+            nickname: ["O campo nickname é obrigatório"]

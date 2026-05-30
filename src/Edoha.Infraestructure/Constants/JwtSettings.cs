@@ -1,10 +1,9 @@
 namespace Edoha.Infraestructure.Constants
 {
-    public class JwtSettings
+    public static class JwtSettings
     {
-        public string Key { get; set; } = string.Empty;
-        public string Issuer { get; set; } = string.Empty;
-        public string Audience { get; set; } = string.Empty;
-        public int ExpiresInMinutes { get; set; } = 60;
+        public const string Issuer = "EdohaIssuer";
+        public const string Audience = "EdohaAudience";
+        public const int ExpiresInMinutes = 60;
     }
 }

@@ -1,0 +1,8 @@
+aws ecr get-login-password --region sa-east-1 | docker login --username AWS --password-stdin 547925827708.dkr.ecr.sa-east-1.amazonaws.com
+
+docker build --no-cache --provenance=false -t lambda-edoha-api .
+
+docker tag lambda-edoha-api:latest 547925827708.dkr.ecr.sa-east-1.amazonaws.com/lambda-edoha-api:latest
+
+docker push 547925827708.dkr.ecr.sa-east-1.amazonaws.com/lambda-edoha-api:latest
+

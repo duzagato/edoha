@@ -1,6 +1,7 @@
 using Edoha.Domain.Entities;
 using Edoha.Domain.Interfaces.Infraestructure.Services;
 using Edoha.Infraestructure.Constants;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -12,11 +13,16 @@ namespace Edoha.Infraestructure.Services
 {
     public class TokenGenerationService : ITokenGenerationService
     {
-        private readonly JwtSettings _jwt;
+        private readonly ILogger<ITokenGenerationService> _logger;
+        private readonly ISecretsManagerService _secretsManagerService;
 
-        public TokenGenerationService(IOptions<JwtSettings> jwtSettings)
+        public TokenGenerationService(
+            ISecretsManagerService secretsManagerService,
+            ILogger<ITokenGenerationService> logger
+        )
         {
-            _jwt = jwtSettings.Value;
+            _logger = logger;
+            _secretsManagerService = secretsManagerService;
         }
 
         public string GenerateToken(User user)
@@ -27,14 +33,14 @@ namespace Edoha.Infraestructure.Services
                 new Claim(ClaimTypes.Name, user.Nickname!)
             };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwt.Key));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_secretsManagerService.GetJwtKeyAsync().Result));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
-                issuer: _jwt.Issuer,
-                audience: _jwt.Audience,
+                issuer: JwtSettings.Issuer,
+                audience: JwtSettings.Audience,
                 claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(_jwt.ExpiresInMinutes),
+                expires: DateTime.UtcNow.AddMinutes(JwtSettings.ExpiresInMinutes),
                 signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
