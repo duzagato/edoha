@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using Amazon.Runtime.Internal.Transform;
+using Dapper;
 using Edoha.Domain.Entities;
 using Edoha.Domain.Interfaces.Infraestructure.Factories;
 using Edoha.Domain.Interfaces.Infraestructure.Repositories;
@@ -21,54 +22,33 @@ namespace Edoha.Infraestructure.Repositories
         {
             CheckConnection();
 
-            string query = StaticQueries.SelectUserCredentials;
-
-            // Usamos um dicionário para garantir que teremos apenas UM objeto User,
-            // mesmo que a query retorne múltiplas linhas (uma para cada instituição).
-            var user = await _connection.QueryFirstOrDefaultAsync<User?>(query, new 
-                {
-                    Nickname = nickname
-                });
-
-            return user;
-        }
-
-        private async Task<User?> SelectUserCredentialsByNicknameWithInstitutions(string nickname)
-        {
-            CheckConnection();
-
+            User? user = null;
             string query = StaticQueries.SelectUsersAndInstitutions;
 
-            // Usamos um dicionário para garantir que teremos apenas UM objeto User,
-            // mesmo que a query retorne múltiplas linhas (uma para cada instituição).
-            var userDictionary = new Dictionary<Guid, User>();
-
-            var result = await _connection.QueryAsync<User, Institution, User>(
+            await _connection.QueryAsync<User, Institution, User>(
                 query,
-                (user, institution) =>
+                (currentUser, institution) =>
                 {
-                    if (!userDictionary.TryGetValue(user.Id, out var userEntry))
+                    if(user is null)
                     {
-                        userEntry = user;
-                        userEntry.Institutions = new List<Institution>();
-                        userDictionary.Add(userEntry.Id, userEntry);
+                        user = currentUser!;
                     }
 
-                    if (institution != null)
+                    if (institution is not null)
                     {
-                        userEntry.Institutions.Add(institution);
+                        user.Institutions.Add(institution);
                     }
 
-                    return userEntry;
+                    return user;
                 },
                 new { Nickname = nickname },
                 splitOn: "id"
             );
 
-            return userDictionary.Values.FirstOrDefault();
+            return user;
         }
 
-        public async Task<IEnumerable<UserInformationResponse>> SelectUserInformation(bool withTicketbooks)
+        public async Task<IEnumerable<UserInformationResponse?>> SelectUserInformation(bool withTicketbooks)
         {
             Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
             CheckConnection();

@@ -1,30 +1,71 @@
 openapi: 3.0.3
 info:
   title: Edoha API
-  description: API REST para gestão de rifas/loterias. Multi-tenant por instituição.
+  description: |
+    API REST para gestão de rifas/loterias. Multi-tenant por instituição.
+
+    ## Autenticação
+    Todas as rotas (exceto `POST /auth`) exigem Bearer JWT no header:
+    ```
+    Authorization: Bearer <accessToken>
+    ```
+    O token é obtido em `POST /auth` e expira em 60 minutos.
+
+    ## Autorização
+    Além do JWT, cada endpoint verifica a permissão do usuário via `PermissionPolicy`.
+    A permissão é definida por Page (controller) + Action (método HTTP).
+
+    ## Hierarquia de recursos
+    ```
+    Institution
+      └── Lottery
+            └── Ticketbook
+                  └── Ticket
+    ```
+
+    ## Erros de validação
+    Retornados como HTTP 400 com corpo `{ is_valid: false, errors: { campo: ["msg"] } }`.
   version: 1.0.0
 
 servers:
-  - url: https://{baseUrl}
+  - url: http://{host}
     variables:
-      baseUrl:
-        default: localhost
+      host:
+        default: localhost:5000
+        description: Host da API
 
 tags:
   - name: Auth
+    description: Autenticação — único endpoint público
   - name: Action
+    description: Ações (HTTP verbs) usadas no sistema de permissões
   - name: Institution
+    description: Instituições (tenants) que gerenciam rifas
   - name: Lottery
+    description: Rifas vinculadas a uma instituição
   - name: Page
+    description: Páginas (controllers) usadas no sistema de permissões
   - name: Permission
+    description: Perfis de permissão vinculados a instituições
   - name: StatusTicketbook
+    description: Status possíveis de um talão (ex: Retirado, Devolvido)
   - name: TableConfiguration
+    description: Metadados de colunas de tabelas do banco
   - name: Ticket
+    description: Bilhetes individuais de um talão
   - name: Ticketbook
+    description: Talões de uma rifa (cada talão tem N bilhetes)
   - name: User
+    description: Usuários do sistema
   - name: UserInstitution
+    description: Vínculo entre usuários e instituições
   - name: UserPermission
+    description: Permissões atribuídas a usuários
   - name: UserType
+    description: Tipos de usuário
+
+security:
+  - BearerAuth: []
 
 paths:
 
@@ -34,12 +75,17 @@ paths:
     post:
       tags: [Auth]
       summary: Autenticar usuário
+      description: Recebe nickname + senha em texto puro. Retorna JWT e instituições vinculadas.
+      security: []
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CredentialsDTO'
+            example:
+              nickname: john.doe
+              password: secret123
       responses:
         '200':
           description: Autenticação bem-sucedida
@@ -49,6 +95,8 @@ paths:
                 $ref: '#/components/schemas/AuthResponse'
         '400':
           $ref: '#/components/responses/ValidationError'
+        '401':
+          description: Credenciais inválidas
 
   # ─── Action ─────────────────────────────────────────────────────────────────
 
@@ -67,6 +115,8 @@ paths:
                   $ref: '#/components/schemas/Action'
         '204':
           description: Nenhuma action encontrada
+        '401':
+          $ref: '#/components/responses/Unauthorized'
     post:
       tags: [Action]
       summary: Criar action
@@ -81,6 +131,8 @@ paths:
           description: Action criada com sucesso
         '400':
           $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
     put:
       tags: [Action]
       summary: Atualizar action
@@ -95,6 +147,8 @@ paths:
           description: Action atualizada com sucesso
         '400':
           $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
   /action/{id}:
     parameters:
@@ -111,12 +165,16 @@ paths:
                 $ref: '#/components/schemas/Action'
         '404':
           description: Action não encontrada
+        '401':
+          $ref: '#/components/responses/Unauthorized'
     delete:
       tags: [Action]
       summary: Excluir action
       responses:
         '200':
           description: Action excluída com sucesso
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
   # ─── Institution ─────────────────────────────────────────────────────────────
 
@@ -135,18 +193,40 @@ paths:
                   $ref: '#/components/schemas/Institution'
         '204':
           description: Nenhuma instituição encontrada
+        '401':
+          $ref: '#/components/responses/Unauthorized'
     post:
       tags: [Institution]
       summary: Criar instituição
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateInstitutionDTO'
       responses:
         '200':
           description: Instituição criada com sucesso
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
     put:
       tags: [Institution]
       summary: Atualizar instituição
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateInstitutionDTO'
       responses:
         '200':
           description: Instituição atualizada com sucesso
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
   /institution/{slug}:
     parameters:
@@ -155,7 +235,7 @@ paths:
         required: true
         schema:
           type: string
-        description: Slug da instituição
+        description: Slug da instituição (ex: minha-instituicao)
     get:
       tags: [Institution]
       summary: Buscar instituição por slug
@@ -168,6 +248,8 @@ paths:
                 $ref: '#/components/schemas/Institution'
         '204':
           description: Instituição não encontrada
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
   /institution/{id}:
     parameters:
@@ -178,6 +260,8 @@ paths:
       responses:
         '200':
           description: Instituição excluída com sucesso
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
   /institution/institution_by_user/{idUser}:
     parameters:
@@ -202,6 +286,8 @@ paths:
                   $ref: '#/components/schemas/Institution'
         '204':
           description: Nenhuma instituição encontrada
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
   # ─── Lottery ─────────────────────────────────────────────────────────────────
 
@@ -228,9 +314,12 @@ paths:
                   $ref: '#/components/schemas/Lottery'
         '204':
           description: Nenhuma rifa encontrada
+        '401':
+          $ref: '#/components/responses/Unauthorized'
     post:
       tags: [Lottery]
       summary: Criar rifa
+      description: O campo `idInstitution` no body é ignorado — usa-se o `idInstitution` da rota.
       requestBody:
         required: true
         content:
@@ -242,6 +331,8 @@ paths:
           description: Rifa criada com sucesso
         '400':
           $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
     put:
       tags: [Lottery]
       summary: Atualizar rifa
@@ -256,6 +347,8 @@ paths:
           description: Rifa atualizada com sucesso
         '400':
           $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
   /institution/{idInstitution}/lottery/{id}:
     parameters:
@@ -278,12 +371,16 @@ paths:
                 $ref: '#/components/schemas/Lottery'
         '204':
           description: Rifa não encontrada
+        '401':
+          $ref: '#/components/responses/Unauthorized'
     delete:
       tags: [Lottery]
       summary: Excluir rifa
       responses:
         '200':
           description: Rifa excluída com sucesso
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
   # ─── Page ────────────────────────────────────────────────────────────────────
 
@@ -302,6 +399,8 @@ paths:
                   $ref: '#/components/schemas/Page'
         '204':
           description: Nenhuma page encontrada
+        '401':
+          $ref: '#/components/responses/Unauthorized'
     post:
       tags: [Page]
       summary: Criar page
@@ -316,6 +415,8 @@ paths:
           description: Page criada com sucesso
         '400':
           $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
     put:
       tags: [Page]
       summary: Atualizar page
@@ -330,6 +431,8 @@ paths:
           description: Page atualizada com sucesso
         '400':
           $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
   /api/page/{id}:
     parameters:
@@ -346,12 +449,16 @@ paths:
                 $ref: '#/components/schemas/Page'
         '404':
           description: Page não encontrada
+        '401':
+          $ref: '#/components/responses/Unauthorized'
     delete:
       tags: [Page]
       summary: Excluir page
       responses:
         '200':
           description: Page excluída com sucesso
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
   # ─── Permission ──────────────────────────────────────────────────────────────
 
@@ -370,6 +477,8 @@ paths:
                   $ref: '#/components/schemas/Permission'
         '204':
           description: Nenhuma permissão encontrada
+        '401':
+          $ref: '#/components/responses/Unauthorized'
     post:
       tags: [Permission]
       summary: Criar permissão
@@ -384,6 +493,8 @@ paths:
           description: Permissão criada com sucesso
         '400':
           $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
     put:
       tags: [Permission]
       summary: Atualizar permissão
@@ -398,6 +509,8 @@ paths:
           description: Permissão atualizada com sucesso
         '400':
           $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
   /permission/{id}:
     parameters:
@@ -414,12 +527,16 @@ paths:
                 $ref: '#/components/schemas/Permission'
         '404':
           description: Permissão não encontrada
+        '401':
+          $ref: '#/components/responses/Unauthorized'
     delete:
       tags: [Permission]
       summary: Excluir permissão
       responses:
         '200':
           description: Permissão excluída com sucesso
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
   # ─── StatusTicketbook ────────────────────────────────────────────────────────
 
@@ -438,6 +555,8 @@ paths:
                   $ref: '#/components/schemas/StatusTicketbook'
         '204':
           description: Nenhum status encontrado
+        '401':
+          $ref: '#/components/responses/Unauthorized'
     post:
       tags: [StatusTicketbook]
       summary: Criar status de talão
@@ -452,12 +571,22 @@ paths:
           description: Status criado com sucesso
         '400':
           $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
     put:
       tags: [StatusTicketbook]
       summary: Atualizar status de talão
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateStatusTicketbookDTO'
       responses:
         '200':
           description: Status atualizado com sucesso
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
   /statusticketbook/{id}:
     parameters:
@@ -474,12 +603,16 @@ paths:
                 $ref: '#/components/schemas/StatusTicketbook'
         '204':
           description: Status não encontrado
+        '401':
+          $ref: '#/components/responses/Unauthorized'
     delete:
       tags: [StatusTicketbook]
       summary: Excluir status de talão
       responses:
         '200':
           description: Status excluído com sucesso
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
   # ─── TableConfiguration ──────────────────────────────────────────────────────
 
@@ -490,7 +623,7 @@ paths:
         required: true
         schema:
           type: string
-        description: Nome do schema do banco (ex: edoha, lottery)
+        description: "Nome do schema do banco (ex: edoha, lottery)"
       - name: tableName
         in: path
         required: true
@@ -499,16 +632,21 @@ paths:
         description: Nome da tabela
     get:
       tags: [TableConfiguration]
-      summary: Buscar configuração de tabela
+      summary: Buscar configuração de colunas de uma tabela
+      description: Retorna metadados das colunas da tabela (information_schema).
       responses:
         '200':
-          description: Configuração encontrada
+          description: Lista de colunas da tabela
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TableConfiguration'
+                type: array
+                items:
+                  $ref: '#/components/schemas/TableConfiguration'
         '204':
-          description: Configuração não encontrada
+          description: Tabela não encontrada
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
   # ─── Ticket ──────────────────────────────────────────────────────────────────
 
@@ -535,9 +673,12 @@ paths:
                   $ref: '#/components/schemas/Ticket'
         '204':
           description: Nenhum bilhete encontrado
+        '401':
+          $ref: '#/components/responses/Unauthorized'
     post:
       tags: [Ticket]
-      summary: Criar bilhetes
+      summary: Criar bilhetes em lote
+      description: Cria múltiplos bilhetes para o talão. O `idTicketbook` vem da rota.
       requestBody:
         required: true
         content:
@@ -551,6 +692,8 @@ paths:
           description: Bilhetes criados com sucesso
         '400':
           $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
     put:
       tags: [Ticket]
       summary: Atualizar bilhete
@@ -565,6 +708,8 @@ paths:
           description: Bilhete atualizado com sucesso
         '400':
           $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
   /ticketbook/{idTicketbook}/ticket/{id}:
     parameters:
@@ -587,12 +732,16 @@ paths:
                 $ref: '#/components/schemas/Ticket'
         '204':
           description: Bilhete não encontrado
+        '401':
+          $ref: '#/components/responses/Unauthorized'
     delete:
       tags: [Ticket]
       summary: Excluir bilhete
       responses:
         '200':
           description: Bilhete excluído com sucesso
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
   # ─── Ticketbook ──────────────────────────────────────────────────────────────
 
@@ -607,7 +756,7 @@ paths:
         description: ID da rifa
     get:
       tags: [Ticketbook]
-      summary: Listar talões de uma rifa
+      summary: Listar todos os talões de uma rifa
       responses:
         '200':
           description: Lista de talões
@@ -619,15 +768,30 @@ paths:
                   $ref: '#/components/schemas/Ticketbook'
         '204':
           description: Nenhum talão encontrado
+        '401':
+          $ref: '#/components/responses/Unauthorized'
     post:
       tags: [Ticketbook]
       summary: Criar talão
+      description: |
+        Owner e Holder são identificados pelo nome e telefone. Se não existir usuário com
+        esse telefone, um novo é criado automaticamente.
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/PostTicketbookRequest'
+            example:
+              ticketbookOwner:
+                name: João Silva
+                phone: "11999999999"
+              ticketbookHolder:
+                name: Maria Souza
+                phone: "11988888888"
+              idStatusTicketbook: 1
+              number: 42
+              withdrawnDate: "2026-06-01T00:00:00Z"
       responses:
         '201':
           description: Talão criado com sucesso
@@ -637,6 +801,8 @@ paths:
                 $ref: '#/components/schemas/PostTicketbookResponse'
         '400':
           $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
     put:
       tags: [Ticketbook]
       summary: Atualizar talão
@@ -651,6 +817,8 @@ paths:
           description: Talão atualizado com sucesso
         '400':
           $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
   /lottery/{idLottery}/ticketbook/returneds:
     parameters:
@@ -662,7 +830,7 @@ paths:
           format: uuid
     get:
       tags: [Ticketbook]
-      summary: Listar talões devolvidos
+      summary: Listar talões devolvidos (status = 2)
       responses:
         '200':
           description: Lista de talões devolvidos
@@ -674,6 +842,8 @@ paths:
                   $ref: '#/components/schemas/Ticketbook'
         '204':
           description: Nenhum talão devolvido
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
   /lottery/{idLottery}/ticketbook/withdrawns:
     parameters:
@@ -685,7 +855,7 @@ paths:
           format: uuid
     get:
       tags: [Ticketbook]
-      summary: Listar talões retirados
+      summary: Listar talões retirados (status = 1)
       responses:
         '200':
           description: Lista de talões retirados
@@ -697,6 +867,8 @@ paths:
                   $ref: '#/components/schemas/Ticketbook'
         '204':
           description: Nenhum talão retirado
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
   /lottery/{idLottery}/ticketbook/ticketbook_by_number/{numberTicketbook}:
     parameters:
@@ -724,6 +896,8 @@ paths:
                 $ref: '#/components/schemas/Ticketbook'
         '204':
           description: Talão não encontrado
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
   /lottery/{idLottery}/ticketbook/{id}:
     parameters:
@@ -746,12 +920,16 @@ paths:
                 $ref: '#/components/schemas/Ticketbook'
         '204':
           description: Talão não encontrado
+        '401':
+          $ref: '#/components/responses/Unauthorized'
     delete:
       tags: [Ticketbook]
       summary: Excluir talão
       responses:
         '200':
           description: Talão excluído com sucesso
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
   /lottery/{idLottery}/ticketbook/{idTicketbook}/status/{idStatusTicketbook}:
     parameters:
@@ -772,13 +950,15 @@ paths:
         required: true
         schema:
           type: integer
-        description: ID do status (1=Retirado, 2=Devolvido)
+        description: "ID do novo status (1=Retirado, 2=Devolvido)"
     patch:
       tags: [Ticketbook]
-      summary: Atualizar status do talão
+      summary: Atualizar status do talão para qualquer valor
       responses:
         '204':
           description: Status atualizado com sucesso
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
   /lottery/{idLottery}/ticketbook/{idTicketbook}/status/returned:
     parameters:
@@ -796,10 +976,13 @@ paths:
           format: uuid
     patch:
       tags: [Ticketbook]
-      summary: Marcar talão como devolvido
+      summary: Marcar talão como devolvido (status = 2)
+      description: Atalho semântico — equivale a PATCH status/2.
       responses:
         '204':
           description: Talão marcado como devolvido
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
   /lottery/{idLottery}/ticketbook/{idTicketbook}/status/withdraw:
     parameters:
@@ -817,10 +1000,13 @@ paths:
           format: uuid
     patch:
       tags: [Ticketbook]
-      summary: Marcar talão como retirado
+      summary: Marcar talão como retirado (status = 1)
+      description: Atalho semântico — equivale a PATCH status/1.
       responses:
         '204':
           description: Talão marcado como retirado
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
   # ─── User ────────────────────────────────────────────────────────────────────
 
@@ -839,6 +1025,8 @@ paths:
                   $ref: '#/components/schemas/User'
         '204':
           description: Nenhum usuário encontrado
+        '401':
+          $ref: '#/components/responses/Unauthorized'
     post:
       tags: [User]
       summary: Criar usuário
@@ -853,17 +1041,30 @@ paths:
           description: Usuário criado com sucesso
         '400':
           $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
     put:
       tags: [User]
       summary: Atualizar usuário
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserDTO'
       responses:
         '200':
           description: Usuário atualizado com sucesso
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
   /user/user_information:
     get:
       tags: [User]
-      summary: Listar informações de usuários
+      summary: Listar informações resumidas de usuários
+      description: |
+        Retorna lista de usuários com informações básicas. Quando `withTicketbooks=true`,
+        inclui dados dos talões vinculados.
       parameters:
         - name: withTicketbooks
           in: query
@@ -871,7 +1072,7 @@ paths:
           schema:
             type: boolean
             default: false
-          description: Incluir dados de talões do usuário
+          description: Incluir talões vinculados ao usuário
       responses:
         '200':
           description: Lista de informações de usuários
@@ -881,6 +1082,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/UserInformationResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
   /user/{id}:
     parameters:
@@ -897,12 +1100,16 @@ paths:
                 $ref: '#/components/schemas/User'
         '204':
           description: Usuário não encontrado
+        '401':
+          $ref: '#/components/responses/Unauthorized'
     delete:
       tags: [User]
       summary: Excluir usuário
       responses:
         '200':
           description: Usuário excluído com sucesso
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
   # ─── UserInstitution ─────────────────────────────────────────────────────────
 
@@ -921,18 +1128,36 @@ paths:
                   $ref: '#/components/schemas/UserInstitution'
         '204':
           description: Nenhum vínculo encontrado
+        '401':
+          $ref: '#/components/responses/Unauthorized'
     post:
       tags: [UserInstitution]
       summary: Criar vínculo usuário-instituição
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserInstitutionDTO'
       responses:
         '200':
           description: Vínculo criado com sucesso
+        '401':
+          $ref: '#/components/responses/Unauthorized'
     put:
       tags: [UserInstitution]
       summary: Atualizar vínculo usuário-instituição
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserInstitutionDTO'
       responses:
         '200':
           description: Vínculo atualizado com sucesso
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
   /userinstitution/{id}:
     parameters:
@@ -949,19 +1174,23 @@ paths:
                 $ref: '#/components/schemas/UserInstitution'
         '204':
           description: Vínculo não encontrado
+        '401':
+          $ref: '#/components/responses/Unauthorized'
     delete:
       tags: [UserInstitution]
       summary: Excluir vínculo usuário-instituição
       responses:
         '200':
           description: Vínculo excluído com sucesso
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
   # ─── UserPermission ──────────────────────────────────────────────────────────
 
   /userpermission:
     post:
       tags: [UserPermission]
-      summary: Criar permissão de usuário
+      summary: Atribuir permissão a usuário
       requestBody:
         required: true
         content:
@@ -970,19 +1199,23 @@ paths:
               $ref: '#/components/schemas/CreateUserPermissionDTO'
       responses:
         '200':
-          description: Permissão de usuário criada com sucesso
+          description: Permissão atribuída com sucesso
         '400':
           $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
   /userpermission/{id}:
     parameters:
       - $ref: '#/components/parameters/Id'
+      - description: ID do usuário
     get:
       tags: [UserPermission]
       summary: Listar permissões de um usuário agrupadas por página
+      description: O `{id}` é o ID do **usuário** (não da permissão).
       responses:
         '200':
-          description: Permissões agrupadas por página
+          description: Permissões agrupadas por página/controller
           content:
             application/json:
               schema:
@@ -991,12 +1224,17 @@ paths:
                   $ref: '#/components/schemas/UserPermissionPage'
         '404':
           description: Usuário não encontrado
+        '401':
+          $ref: '#/components/responses/Unauthorized'
     delete:
       tags: [UserPermission]
-      summary: Excluir permissão de usuário
+      summary: Remover permissão de usuário
+      description: O `{id}` é o ID da entrada de permissão a remover.
       responses:
         '200':
-          description: Permissão excluída com sucesso
+          description: Permissão removida com sucesso
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
   # ─── UserType ────────────────────────────────────────────────────────────────
 
@@ -1015,6 +1253,8 @@ paths:
                   $ref: '#/components/schemas/UserType'
         '204':
           description: Nenhum tipo encontrado
+        '401':
+          $ref: '#/components/responses/Unauthorized'
     post:
       tags: [UserType]
       summary: Criar tipo de usuário
@@ -1029,6 +1269,8 @@ paths:
           description: Tipo de usuário criado com sucesso
         '400':
           $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
     put:
       tags: [UserType]
       summary: Atualizar tipo de usuário
@@ -1043,6 +1285,8 @@ paths:
           description: Tipo de usuário atualizado com sucesso
         '400':
           $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
   /usertype/{id}:
     parameters:
@@ -1059,16 +1303,29 @@ paths:
                 $ref: '#/components/schemas/UserType'
         '204':
           description: Tipo de usuário não encontrado
+        '401':
+          $ref: '#/components/responses/Unauthorized'
     delete:
       tags: [UserType]
       summary: Excluir tipo de usuário
       responses:
         '200':
           description: Tipo de usuário excluído com sucesso
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
 # ─── Components ──────────────────────────────────────────────────────────────
 
 components:
+
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: |
+        JWT obtido em `POST /auth`. Enviar como `Authorization: Bearer <token>`.
+        Claims: NameIdentifier=userId, Name=nickname. Expira em 60 minutos.
 
   parameters:
     Id:
@@ -1078,15 +1335,29 @@ components:
       schema:
         type: string
         format: uuid
-      description: Identificador único (UUID)
+      description: Identificador único (UUID v4)
 
   responses:
     ValidationError:
-      description: Erro de validação
+      description: Dados de entrada inválidos
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ValidationErrorResponse'
+          example:
+            is_valid: false
+            errors:
+              nickname: ["O campo nickname é obrigatório"]
+    Unauthorized:
+      description: Token JWT ausente, expirado ou inválido
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Token inválido ou expirado
 
   schemas:
 
@@ -1110,10 +1381,13 @@ components:
         idUser:
           type: string
           format: uuid
+          description: ID do usuário autenticado
         accessToken:
           type: string
+          description: JWT Bearer token (expira em 60 min)
         institutions:
           type: array
+          description: Instituições às quais o usuário pertence
           items:
             $ref: '#/components/schemas/Institution'
 
@@ -1125,6 +1399,9 @@ components:
         id:
           type: string
           format: uuid
+        createdAt:
+          type: string
+          format: date-time
         name:
           type: string
         description:
@@ -1132,8 +1409,10 @@ components:
           nullable: true
         withoutOwner:
           type: boolean
+          description: Ação pode ser executada sem dono de talão
         otherOwner:
           type: boolean
+          description: Ação pode ser executada por outro dono
 
     CreateActionDTO:
       type: object
@@ -1179,10 +1458,64 @@ components:
         id:
           type: string
           format: uuid
+        createdAt:
+          type: string
+          format: date-time
         name:
           type: string
-        slug:
+        slugName:
           type: string
+          description: Identificador URL-friendly (ex: minha-instituicao)
+        shortName:
+          type: string
+          description: Nome abreviado da instituição
+        description:
+          type: string
+          nullable: true
+        logoDirectory:
+          type: string
+          nullable: true
+          description: Caminho ou URL do logo
+
+    CreateInstitutionDTO:
+      type: object
+      required: [name, slugName, shortName]
+      properties:
+        name:
+          type: string
+        slugName:
+          type: string
+        shortName:
+          type: string
+        description:
+          type: string
+          nullable: true
+        logoDirectory:
+          type: string
+          nullable: true
+
+    UpdateInstitutionDTO:
+      type: object
+      required: [id]
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          nullable: true
+        slugName:
+          type: string
+          nullable: true
+        shortName:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        logoDirectory:
+          type: string
+          nullable: true
 
     # ── Lottery ───────────────────────────────────────────────────────────────
 
@@ -1192,6 +1525,9 @@ components:
         id:
           type: string
           format: uuid
+        createdAt:
+          type: string
+          format: date-time
         idInstitution:
           type: string
           format: uuid
@@ -1199,13 +1535,17 @@ components:
           type: string
         numTicketsTicketbook:
           type: integer
+          description: Número de bilhetes por talão
         numTicketbooks:
           type: integer
+          description: Número total de talões
         priceTicket:
           type: number
           format: double
+          description: Preço por bilhete
         doubleChance:
           type: boolean
+          description: Se cada bilhete concorre duas vezes
 
     CreateLotteryDTO:
       type: object
@@ -1214,6 +1554,7 @@ components:
         idInstitution:
           type: string
           format: uuid
+          description: Ignorado — usa-se o idInstitution da rota
         name:
           type: string
         numTicketsTicketbook:
@@ -1257,8 +1598,12 @@ components:
         id:
           type: string
           format: uuid
+        createdAt:
+          type: string
+          format: date-time
         name:
           type: string
+          description: Corresponde ao nome do controller
         description:
           type: string
           nullable: true
@@ -1295,6 +1640,9 @@ components:
         id:
           type: string
           format: uuid
+        createdAt:
+          type: string
+          format: date-time
         idInstitution:
           type: string
           format: uuid
@@ -1338,7 +1686,7 @@ components:
       properties:
         id:
           type: integer
-          description: "1 = Retirado, 2 = Devolvido"
+          description: "Valores padrão: 1 = Retirado, 2 = Devolvido"
         name:
           type: string
 
@@ -1349,25 +1697,48 @@ components:
         name:
           type: string
 
+    UpdateStatusTicketbookDTO:
+      type: object
+      required: [id]
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          nullable: true
+
     # ── TableConfiguration ────────────────────────────────────────────────────
 
     TableConfiguration:
       type: object
+      description: Metadados de uma coluna (information_schema.columns)
       properties:
-        schema:
+        tableSchema:
           type: string
           description: "Schema do banco (ex: edoha, lottery)"
         tableName:
           type: string
+        columnName:
+          type: string
+        ordinalPosition:
+          type: integer
+          description: Posição da coluna na tabela
+        columnDefault:
+          type: string
+          nullable: true
+        isNullable:
+          type: string
+          description: "YES ou NO"
+        dataType:
+          type: string
+          description: "Tipo SQL (ex: uuid, text, integer, boolean)"
 
     # ── Ticket ────────────────────────────────────────────────────────────────
 
     Ticket:
       type: object
       properties:
-        id:
-          type: string
-          format: uuid
         idTicketbook:
           type: string
           format: uuid
@@ -1375,8 +1746,10 @@ components:
           type: string
           format: uuid
           nullable: true
+          description: ID do usuário que comprou o bilhete
         number:
           type: integer
+          description: Número do bilhete dentro do talão
         soldDate:
           type: string
           format: date-time
@@ -1389,6 +1762,7 @@ components:
         donaterName:
           type: string
           nullable: true
+          description: Nome do comprador (lookup por telefone ou criação)
         donaterPhone:
           type: string
           nullable: true
@@ -1424,21 +1798,24 @@ components:
         id:
           type: string
           format: uuid
+        createdAt:
+          type: string
+          format: date-time
         idLottery:
           type: string
           format: uuid
-        idOwner:
-          type: string
-          format: uuid
-          nullable: true
-        idHolder:
-          type: string
-          format: uuid
+        ticketbookOwner:
+          $ref: '#/components/schemas/PersonWithId'
+        ticketbookHolder:
+          allOf:
+            - $ref: '#/components/schemas/PersonWithId'
           nullable: true
         idStatusTicketbook:
           type: integer
+          description: "1 = Retirado, 2 = Devolvido"
         number:
           type: integer
+          description: Número sequencial do talão na rifa
         withdrawnDate:
           type: string
           format: date-time
@@ -1447,6 +1824,11 @@ components:
           type: string
           format: date-time
           nullable: true
+        tickets:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/Ticket'
 
     PostTicketbookRequest:
       type: object
@@ -1491,10 +1873,12 @@ components:
           type: string
           format: uuid
           nullable: true
+          description: ID do usuário que assume como dono
         idHolder:
           type: string
           format: uuid
           nullable: true
+          description: ID do usuário que fica como portador
         idStatusTicketbook:
           type: integer
           minimum: 1
@@ -1509,7 +1893,21 @@ components:
 
     Person:
       type: object
+      description: Pessoa identificada por nome e telefone (usada na criação de talão)
       properties:
+        name:
+          type: string
+        phone:
+          type: string
+
+    PersonWithId:
+      type: object
+      description: Pessoa com ID de usuário (retornada nas leituras de talão)
+      properties:
+        id:
+          type: string
+          format: uuid
+          nullable: true
         name:
           type: string
         phone:
@@ -1523,6 +1921,9 @@ components:
         id:
           type: string
           format: uuid
+        createdAt:
+          type: string
+          format: date-time
         name:
           type: string
         phone:
@@ -1531,6 +1932,11 @@ components:
         nickname:
           type: string
           nullable: true
+        institutions:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/Institution'
 
     CreateUserInputModel:
       type: object
@@ -1547,6 +1953,24 @@ components:
         unhashedPassword:
           type: string
           format: password
+          nullable: true
+          description: Senha em texto puro — será hasheada com bcrypt
+
+    UpdateUserDTO:
+      type: object
+      required: [id]
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          nullable: true
+        phone:
+          type: string
+          nullable: true
+        nickname:
+          type: string
           nullable: true
 
     UserInformationResponse:
@@ -1565,9 +1989,35 @@ components:
     UserInstitution:
       type: object
       properties:
-        id:
+        idUser:
           type: string
           format: uuid
+        idInstitution:
+          type: string
+          format: uuid
+        createAt:
+          type: string
+          format: date-time
+        createBy:
+          type: string
+          format: uuid
+          nullable: true
+
+    CreateUserInstitutionDTO:
+      type: object
+      required: [idUser, idInstitution]
+      properties:
+        idUser:
+          type: string
+          format: uuid
+        idInstitution:
+          type: string
+          format: uuid
+
+    UpdateUserInstitutionDTO:
+      type: object
+      required: [idUser, idInstitution]
+      properties:
         idUser:
           type: string
           format: uuid
@@ -1587,18 +2037,23 @@ components:
         idPage:
           type: string
           format: uuid
+          description: ID do Page (controller)
         idPermission:
           type: string
           format: uuid
+          description: ID do perfil de Permission
         idAction:
           type: string
           format: uuid
+          description: ID da Action (verbo HTTP)
 
     UserPermissionPage:
       type: object
+      description: Permissões de um usuário agrupadas por página (controller)
       properties:
         pageName:
           type: string
+          description: Nome do controller/página
         actions:
           type: array
           items:
@@ -1612,6 +2067,9 @@ components:
         id:
           type: string
           format: uuid
+        createdAt:
+          type: string
+          format: date-time
         nameUserType:
           type: string
 
@@ -1648,3 +2106,4 @@ components:
               type: string
           example:
             nickname: ["O campo nickname é obrigatório"]
+            password: ["O campo password é obrigatório"]

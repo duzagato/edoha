@@ -9,7 +9,11 @@
       "PowerShell(New-Item *)",
       "Bash(Remove-Item *)",
       "PowerShell(dotnet add *)",
-      "PowerShell(dotnet build *)"
+      "PowerShell(dotnet build *)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\Eduardo Zagato Junio\\\\source\\\\repos\\\\edoha\" -Directory)",
+      "Bash(Select-Object -ExpandProperty Name)",
+      "Bash(dir \"C:\\\\Users\\\\Eduardo Zagato Junio\\\\source\\\\repos\\\\edoha\" -Recurse -Directory)",
+      "Bash(dotnet build *)"
     ]
   }
 }

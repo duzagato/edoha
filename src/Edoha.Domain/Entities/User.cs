@@ -12,6 +12,6 @@ namespace Edoha.Domain.Entities
         public string? Phone { get; set; }
         public string? Nickname { get; set; }
         public byte[]? Password { get; set; }
-        public List<Institution>? Institutions { get; set; }
+        public List<Institution> Institutions { get; set; } = new();
     }
 }
