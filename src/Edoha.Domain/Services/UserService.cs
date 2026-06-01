@@ -80,7 +80,7 @@ namespace Edoha.Domain.Services
             }
             else
             {
-                _logger.LogError("Nome e Telefone são obrigatórios mas foram fornecidos vazios ou nulos");
+                _logger.LogError("Nome e Telefone são obrigatórios mas foram fornecidos vazios ou nulos. name: {Name}, phone: {Phone}", name, phone);
                 throw new ArgumentException("Nome e Telefone são obrigatórios.");
             }
         }

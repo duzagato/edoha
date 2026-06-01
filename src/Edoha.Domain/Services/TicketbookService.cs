@@ -144,7 +144,7 @@ namespace Edoha.Domain.Services
 
             if (ticketbook is not null)
             {
-                _logger.LogInformation("Talão encontrado, carregando tickets associados");
+                _logger.LogInformation("Talão {TicketbookId} encontrado, carregando tickets associados", ticketbook.Id);
                 ticketbook.Tickets = (await _ticketRepository.SelectAllByTicketbook(ticketbook.Id)).ToList();
                 _logger.LogInformation("Método GetTicketbookByNumber finalizado. Retornando talão {TicketbookId} com {TicketCount} tickets", ticketbook.Id, ticketbook.Tickets.Count);
             }
@@ -206,7 +206,7 @@ namespace Edoha.Domain.Services
             await _lotteryRepository.IdExists(idLottery);
             var ticketbook = await _repository.SelectById(id);
             
-            _logger.LogInformation("Talão encontrado, carregando tickets associados");
+            _logger.LogInformation("Talão {TicketbookId} encontrado, carregando tickets associados", ticketbook.Id);
             ticketbook.Tickets = (await _ticketRepository.SelectAllByTicketbook(ticketbook.Id)).ToList();
             
             _logger.LogInformation("Método SelectTicketbookById finalizado. Retornando talão {TicketbookId} com {TicketCount} tickets", ticketbook.Id, ticketbook.Tickets.Count);
