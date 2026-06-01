@@ -61,6 +61,9 @@ namespace Edoha.Domain.Services
 
         public async Task<Guid> InsertUserInformation(string? name, string? phone)
         {
+            _logger.LogInformation("Iniciando método InsertUserInformation");
+            _logger.LogInformation("Parâmetros recebidos - name: {Name}, phone: {Phone}", name, phone);
+            
             if (!String.IsNullOrEmpty(name) &&
                !String.IsNullOrEmpty(phone))
             {
@@ -70,10 +73,14 @@ namespace Edoha.Domain.Services
                     Phone = phone
                 };
 
-                return await _repository.InsertOrGetId(userInformation);
+                var userId = await _repository.InsertOrGetId(userInformation);
+                
+                _logger.LogInformation("Método InsertUserInformation finalizado. Retornando Id: {UserId}", userId);
+                return userId;
             }
             else
             {
+                _logger.LogError("Nome e Telefone são obrigatórios mas foram fornecidos vazios ou nulos");
                 throw new ArgumentException("Nome e Telefone são obrigatórios.");
             }
         }
