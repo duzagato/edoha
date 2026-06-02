@@ -78,12 +78,19 @@ namespace Edoha.Infrastructure.Repositories
 
         public async Task<IEnumerable<T>> SelectAll()
         {
+            _logger?.LogInformation("Iniciando método SelectAll (BaseRepository)");
+            _logger?.LogInformation("Tabela: {TableName}", _tableName);
+            
             Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
             CheckConnection();
 
             var query = $@"SELECT * FROM ""{_schema}"".""{_tableName}""";
 
-            return await _connection.QueryAsync<T>(query);
+            _logger?.LogInformation("Executando query para selecionar todas as entidades da tabela {TableName}", _tableName);
+            var entities = await _connection.QueryAsync<T>(query);
+            
+            _logger?.LogInformation("Método SelectAll finalizado. Retornando {Count} entidades da tabela {TableName}", entities.Count(), _tableName);
+            return entities;
         }
 
         public async Task Insert(DTO dto)
