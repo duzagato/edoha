@@ -22,7 +22,7 @@ namespace Edoha.Domain.Services
             IUserService userService,
             ILogger<TicketService> logger, 
             IRequestValidationContext requestValidationContext) 
-            : base(repository, requestValidationContext)
+            : base(repository, requestValidationContext, logger)
         {
             _ticketbookRepository = ticketbookRepository;
             _ticketRepository = repository;

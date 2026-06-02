@@ -14,7 +14,7 @@ namespace Edoha.Infraestructure.Repositories
     public class TicketbookRepository : BaseRepository<Ticketbook>, ITicketbookRepository
     {
         public ILogger<TicketbookRepository> _logger;
-        public TicketbookRepository(IDbConnectionFactory connectionFactory, ILogger<TicketbookRepository> logger) : base(connectionFactory)
+        public TicketbookRepository(IDbConnectionFactory connectionFactory, ILogger<TicketbookRepository> logger) : base(connectionFactory, logger)
         {
             Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
             _logger = logger;

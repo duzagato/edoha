@@ -13,7 +13,7 @@ namespace Edoha.Infraestructure.Repositories
     {
         private readonly ILogger<ITicketRepository> _logger;
         public TicketRepository(ILogger<ITicketRepository> logger, 
-            IDbConnectionFactory connectionFactory) : base(connectionFactory) 
+            IDbConnectionFactory connectionFactory) : base(connectionFactory, logger) 
         {
             _logger = logger;
         }

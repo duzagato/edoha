@@ -3,6 +3,7 @@ using Edoha.Domain.Helpers;
 using Edoha.Domain.Interfaces.Infraestructure.Factories;
 using Edoha.Domain.Interfaces.Infraestructure.Repositories;
 using Edoha.Domain.Models.DTOs;
+using Microsoft.Extensions.Logging;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Reflection;
@@ -18,11 +19,13 @@ namespace Edoha.Infrastructure.Repositories
         protected readonly string _idColumnPascalCase;
         protected readonly string _idColumnSnakeCase;
         protected readonly IEnumerable<PropertyInfo> _properties;
+        protected readonly ILogger? _logger;
 
-        protected BaseRepository(IDbConnectionFactory connectionFactory)
+        protected BaseRepository(IDbConnectionFactory connectionFactory, ILogger? logger = null)
         {
             _connectionFactory = connectionFactory;
             _connection = _connectionFactory.CreateConnection();
+            _logger = logger;
 
             var tableName = GetTableName<T>();
             _schema = GetSchema<T>();
@@ -42,18 +45,33 @@ namespace Edoha.Infrastructure.Repositories
 
         public async Task<T> SelectById(Guid? id)
         {
+            _logger?.LogInformation("Iniciando método SelectById (BaseRepository)");
+            _logger?.LogInformation("Parâmetros recebidos - id: {Id}, tabela: {TableName}", id, _tableName);
+
             Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
             CheckConnection();
 
             if (id == null || id == Guid.Empty)
+            {
+                _logger?.LogError("ID inválido recebido: {Id}", id);
                 throw new ArgumentException("O ID enviado está inválido");
-
+            }
 
             var query = $@"
                 SELECT * FROM ""{_schema}"".""{_tableName}""
                 WHERE ""{_idColumnSnakeCase}"" = @Id";
 
+            _logger?.LogInformation("Executando query para selecionar entidade por id");
             var entity = await _connection.QueryFirstOrDefaultAsync<T>(query, new { Id = id });
+
+            if (entity == null)
+            {
+                _logger?.LogWarning("Entidade não encontrada para id {Id} na tabela {TableName}", id, _tableName);
+            }
+            else
+            {
+                _logger?.LogInformation("Entidade encontrada para id {Id}. Retornando resultado", id);
+            }
 
             return entity ?? throw new KeyNotFoundException("Entidade não encontrada");
         }
@@ -70,6 +88,9 @@ namespace Edoha.Infrastructure.Repositories
 
         public async Task Insert(DTO dto)
         {
+            _logger?.LogInformation("Iniciando método Insert (BaseRepository)");
+            _logger?.LogInformation("Parâmetros recebidos - dto: {@Dto}, tabela: {TableName}", dto, _tableName);
+
             CheckConnection();
 
             var props = dto.GetProperties(_idColumnPascalCase);
@@ -80,7 +101,10 @@ namespace Edoha.Infrastructure.Repositories
                 INSERT INTO ""{_schema}"".""{_tableName}"" ({columns})
                 VALUES ({values})";
 
+            _logger?.LogInformation("Executando query de inserção na tabela {TableName}", _tableName);
             await _connection.ExecuteAsync(query, dto);
+
+            _logger?.LogInformation("Entidade inserida com sucesso na tabela {TableName}", _tableName);
         }
 
         public async Task<Guid> InsertAndReturnId(DTO dto)
@@ -103,6 +127,9 @@ namespace Edoha.Infrastructure.Repositories
 
         public async Task<Guid> InsertOrGetId(DTO dto)
         {
+            _logger?.LogInformation("Iniciando método InsertOrGetId (BaseRepository)");
+            _logger?.LogInformation("Parâmetros recebidos - dto: {@Dto}, tabela: {TableName}", dto, _tableName);
+
             CheckConnection();
 
             var props = dto.GetProperties(_idColumnPascalCase);
@@ -130,11 +157,18 @@ namespace Edoha.Infrastructure.Repositories
         WHERE {whereConditions}
         LIMIT 1;";
 
-            return await _connection.ExecuteScalarAsync<Guid>(query, dto);
+            _logger?.LogInformation("Executando query de inserção ou recuperação de id na tabela {TableName}", _tableName);
+            var id = await _connection.ExecuteScalarAsync<Guid>(query, dto);
+
+            _logger?.LogInformation("InsertOrGetId finalizado. Id retornado: {Id}", id);
+            return id;
         }
 
         public async Task Update(DTO dto)
         {
+            _logger?.LogInformation("Iniciando método Update (BaseRepository)");
+            _logger?.LogInformation("Parâmetros recebidos - dto: {@Dto}, tabela: {TableName}", dto, _tableName);
+
             CheckConnection();
 
             var props = dto.GetProperties(_idColumnPascalCase);
@@ -147,18 +181,27 @@ namespace Edoha.Infrastructure.Repositories
                 SET {setClause}
                 WHERE ""{_idColumnSnakeCase}"" = @{_idColumnPascalCase}";
 
+            _logger?.LogInformation("Executando query de atualização na tabela {TableName}", _tableName);
             await _connection.ExecuteAsync(query, dto);
+
+            _logger?.LogInformation("Entidade atualizada com sucesso na tabela {TableName}", _tableName);
         }
 
         public async Task DeleteById(Guid id)
         {
+            _logger?.LogInformation("Iniciando método DeleteById (BaseRepository)");
+            _logger?.LogInformation("Parâmetros recebidos - id: {Id}, tabela: {TableName}", id, _tableName);
+
             CheckConnection();
 
             var query = $@"
                 DELETE FROM ""{_schema}"".""{_tableName}""
                 WHERE ""{_idColumnSnakeCase}"" = @Id";
 
+            _logger?.LogInformation("Executando query de deleção na tabela {TableName}", _tableName);
             await _connection.ExecuteAsync(query, new { Id = id });
+
+            _logger?.LogInformation("Entidade com id {Id} deletada com sucesso da tabela {TableName}", id, _tableName);
         }
 
         public async Task<int> SelectCountById(Guid id)
@@ -174,18 +217,36 @@ namespace Edoha.Infrastructure.Repositories
 
         public async Task IdExists(Guid? id)
         {
-            if (id == null || id == Guid.Empty)
-                throw new ArgumentException("O ID enviado está inválido");
+            _logger?.LogInformation("Iniciando método IdExists (BaseRepository) com Guid");
+            _logger?.LogInformation("Parâmetros recebidos - id: {Id}, tabela: {TableName}", id, _tableName);
 
+            if (id == null || id == Guid.Empty)
+            {
+                _logger?.LogError("ID inválido recebido: {Id}", id);
+                throw new ArgumentException("O ID enviado está inválido");
+            }
+
+            _logger?.LogInformation("Verificando existência da entidade com id {Id}", id);
             var entity = await SelectById(id.Value);
             if (entity == null)
+            {
+                _logger?.LogError("Entidade com id {Id} não encontrada na tabela {TableName}", id, _tableName);
                 throw new KeyNotFoundException("Entidade não encontrada");
+            }
+
+            _logger?.LogInformation("Entidade com id {Id} existe na tabela {TableName}", id, _tableName);
         }
 
         public async Task IdExists(int? id)
         {
+            _logger?.LogInformation("Iniciando método IdExists (BaseRepository) com int");
+            _logger?.LogInformation("Parâmetros recebidos - id: {Id}, tabela: {TableName}", id, _tableName);
+
             if (id == null || id == 0)
+            {
+                _logger?.LogError("ID inválido recebido: {Id}", id);
                 throw new ArgumentException("O ID enviado está inválido");
+            }
 
             CheckConnection();
 
@@ -193,10 +254,16 @@ namespace Edoha.Infrastructure.Repositories
                 SELECT COUNT(*) FROM ""{_schema}"".""{_tableName}""
                 WHERE ""{_idColumnSnakeCase}"" = @Id";
 
+            _logger?.LogInformation("Verificando existência da entidade com id {Id}", id);
             var count = await _connection.ExecuteScalarAsync<int>(query, new { Id = id });
             
             if (count == 0)
+            {
+                _logger?.LogError("Entidade com id {Id} não encontrada na tabela {TableName}", id, _tableName);
                 throw new KeyNotFoundException("Entidade não encontrada");
+            }
+
+            _logger?.LogInformation("Entidade com id {Id} existe na tabela {TableName}", id, _tableName);
         }
 
         public async Task<bool> IsUnique(string column, string value)
