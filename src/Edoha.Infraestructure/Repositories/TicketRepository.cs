@@ -11,11 +11,9 @@ namespace Edoha.Infraestructure.Repositories
 {
     public class TicketRepository : BaseRepository<Ticket>, ITicketRepository
     {
-        private readonly ILogger<ITicketRepository> _logger;
         public TicketRepository(ILogger<ITicketRepository> logger, 
             IDbConnectionFactory connectionFactory) : base(connectionFactory, logger) 
         {
-            _logger = logger;
         }
 
         public async Task<bool> TicketExists(Guid idTicketbook, int number)
