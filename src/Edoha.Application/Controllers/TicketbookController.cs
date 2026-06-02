@@ -307,8 +307,6 @@ namespace Edoha.Controllers
                 {
                     await _ticketbookService.UpdateTicketbookById(request, idLottery);
                     
-                    _logger.LogInformation("Talão {IdTicketbook} atualizado com sucesso", request.Id);
-                    
                     return Ok();
                 }
                 catch (Exception ex)
