@@ -25,7 +25,7 @@ namespace Edoha.Domain.Services
             IUserRepository userRepository,
             IUserTypeRepository userTypeRepository, 
             IRequestValidationContext requestValidationContext) 
-            : base(repository, requestValidationContext) 
+            : base(repository, requestValidationContext, logger) 
         { 
             _crypto = crypto;
             _logger = logger;
@@ -35,16 +35,23 @@ namespace Edoha.Domain.Services
 
         public async Task InsertUser(CreateUserInputModel model)
         {
+            _logger.LogInformation("Iniciando método InsertUser (UserService)");
+            _logger.LogInformation("Parâmetros recebidos - model: {@Model}", model);
+            
             byte[]? hashedPassword = null;
             bool usernameSended = IsUsernameSended(model.Nickname);
             bool passwordSended = IsPasswordSended(model.UnhashedPassword);
 
+            _logger.LogInformation("Verificando se username e password foram enviados - usernameSended: {UsernameSended}, passwordSended: {PasswordSended}", usernameSended, passwordSended);
+
             if (usernameSended && passwordSended)
             {
+                _logger.LogInformation("Realizando hash da senha");
                 hashedPassword = HashPassword(model.UnhashedPassword!);
             }
             else
             {
+                _logger.LogWarning("Username ou password não foram enviados. Configurando mensagens de validação");
                 SetValidationMessages(usernameSended, passwordSended);
             }
 
@@ -56,7 +63,10 @@ namespace Edoha.Domain.Services
                 Password = hashedPassword
             };
 
+            _logger.LogInformation("Chamando método Insert com dto criado");
             await Insert(dto);
+            
+            _logger.LogInformation("Método InsertUser finalizado com sucesso");
         }
 
         public async Task<Guid> InsertUserInformation(string? name, string? phone)
@@ -87,41 +97,84 @@ namespace Edoha.Domain.Services
 
         public async Task<IEnumerable<UserInformationResponse?>> GetUserInformation(bool withTicketbooks)
         {
+            _logger.LogInformation("Iniciando método GetUserInformation (UserService)");
+            _logger.LogInformation("Parâmetros recebidos - withTicketbooks: {WithTicketbooks}", withTicketbooks);
+            
+            _logger.LogInformation("Chamando _userRepository.SelectUserInformation");
             var users = await _userRepository.SelectUserInformation(withTicketbooks);
 
+            _logger.LogInformation("Método GetUserInformation finalizado. Retornando {Count} usuários", users.Count());
             return users;
         }
 
         public void InsertUserCredentials()
         {
-
+            _logger.LogInformation("Método InsertUserCredentials (UserService) chamado - método vazio");
         }
 
         public async Task<User?> SelectUserCredentialsByNickname(string nickname)
         {
+            _logger.LogInformation("Iniciando método SelectUserCredentialsByNickname (UserService)");
+            _logger.LogInformation("Parâmetros recebidos - nickname: {Nickname}", nickname);
+            
+            _logger.LogInformation("Chamando _userRepository.SelectUserCredentialsByNickname");
             var user = await _userRepository.SelectUserCredentialsByNickname(nickname);
 
+            if (user == null)
+            {
+                _logger.LogInformation("Usuário com nickname {Nickname} não encontrado. Retornando null", nickname);
+            }
+            else
+            {
+                _logger.LogInformation("Usuário com nickname {Nickname} encontrado. Retornando resultado", nickname);
+            }
+            
             return user;
         }
 
         public async Task<User> SelectUserById(Guid id)
         {
-            return await _repository.SelectById(id);
+            _logger.LogInformation("Iniciando método SelectUserById (UserService)");
+            _logger.LogInformation("Parâmetros recebidos - id: {Id}", id);
+            
+            _logger.LogInformation("Chamando _repository.SelectById");
+            var user = await _repository.SelectById(id);
+            
+            _logger.LogInformation("Método SelectUserById finalizado. Retornando usuário com id {Id}", id);
+            return user;
         }
 
         public async Task<IEnumerable<User>> SelectAllUsers()
         {
-            return await _repository.SelectAll();
+            _logger.LogInformation("Iniciando método SelectAllUsers (UserService)");
+            
+            _logger.LogInformation("Chamando _repository.SelectAll");
+            var users = await _repository.SelectAll();
+            
+            _logger.LogInformation("Método SelectAllUsers finalizado. Retornando {Count} usuários", users.Count());
+            return users;
         }
 
         public async Task UpdateUserById(UpdateUserDTO dto)
         {
+            _logger.LogInformation("Iniciando método UpdateUserById (UserService)");
+            _logger.LogInformation("Parâmetros recebidos - dto: {@Dto}", dto);
+            
+            _logger.LogInformation("Chamando método Update da classe base Service");
             await Update(dto);
+            
+            _logger.LogInformation("Método UpdateUserById finalizado com sucesso");
         }
 
         public async Task DeleteUserById(Guid id)
         {
+            _logger.LogInformation("Iniciando método DeleteUserById (UserService)");
+            _logger.LogInformation("Parâmetros recebidos - id: {Id}", id);
+            
+            _logger.LogInformation("Chamando método DeleteById da classe base Service");
             await DeleteById(id);
+            
+            _logger.LogInformation("Método DeleteUserById finalizado com sucesso para id {Id}", id);
         }
 
         public async Task<User> ValidateUserCredentials(string nickname, string password)
@@ -154,37 +207,55 @@ namespace Edoha.Domain.Services
 
         private bool IsUsernameSended(string? username)
         {
+            _logger.LogInformation("Iniciando método IsUsernameSended (UserService)");
+            _logger.LogInformation("Parâmetros recebidos - username: {Username}", username);
+            
             if (!String.IsNullOrWhiteSpace(username))
             {
+                _logger.LogInformation("Username válido. Retornando true");
                 return true;
             }
             else
             {
+                _logger.LogInformation("Username inválido ou vazio. Retornando false");
                 return false;
             }
         }
 
         private bool IsPasswordSended(string? password)
         {
+            _logger.LogInformation("Iniciando método IsPasswordSended (UserService)");
+            _logger.LogInformation("Parâmetros recebidos - password: {PasswordMasked}", password != null ? "***" : "null");
+            
             if (!String.IsNullOrWhiteSpace(password))
             {
+                _logger.LogInformation("Password válido. Retornando true");
                 return true;
             }
             else
             {
+                _logger.LogInformation("Password inválido ou vazio. Retornando false");
                 return false;
             }
         }
 
         private byte[]? HashPassword(string unhashedPassword)
         {
+            _logger.LogInformation("Iniciando método HashPassword (UserService)");
+            _logger.LogInformation("Comprimento da senha recebida: {Length}", unhashedPassword.Length);
+            
             if (unhashedPassword.Length >= 8 && unhashedPassword.Length <= 30)
             {
+                _logger.LogInformation("Senha válida. Gerando hash PBKDF2");
                 _crypto.SetUnhashedValue(unhashedPassword);
-                return _crypto.GetPBKDF2();
+                var hashedPassword = _crypto.GetPBKDF2();
+                
+                _logger.LogInformation("Hash gerado com sucesso. Retornando senha hasheada");
+                return hashedPassword;
             }
             else
             {
+                _logger.LogWarning("Senha com comprimento inválido: {Length}. Deve estar entre 8 e 30 caracteres", unhashedPassword.Length);
                 _requestValidationContext.AddError("UnhashedPassword", UserAlerts.InvalidPasswordLength);
                 return null;
             }
@@ -192,19 +263,28 @@ namespace Edoha.Domain.Services
 
         private void SetValidationMessages(bool usernameSended, bool passwordSended)
         {
+            _logger.LogInformation("Iniciando método SetValidationMessages (UserService)");
+            _logger.LogInformation("Parâmetros recebidos - usernameSended: {UsernameSended}, passwordSended: {PasswordSended}", usernameSended, passwordSended);
+            
             if (!usernameSended)
             {
+                _logger.LogWarning("Adicionando erro de validação: Username vazio");
                 _requestValidationContext.AddError("Nickname", UserAlerts.EmptyUsername);
             }
 
             if (!passwordSended)
             {
+                _logger.LogWarning("Adicionando erro de validação: Password vazio");
                 _requestValidationContext.AddError("UnhashedPassword", UserAlerts.EmptyPassword);
             }
+            
+            _logger.LogInformation("Método SetValidationMessages finalizado");
         }
 
         private void SetInvalidCredentialsMessage()
         {
+            _logger.LogInformation("Iniciando método SetInvalidCredentialsMessage (UserService)");
+            _logger.LogWarning("Adicionando erro de validação: Credenciais inválidas");
             _requestValidationContext.AddError("Autentication", "Usuário ou Senha inválido!");
         }
     }
